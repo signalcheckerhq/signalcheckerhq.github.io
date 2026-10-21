@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crypto Liquidation Price Calculator for Leverage Trades (Free) | SignalCheckerHQ</title>
+<meta name="description" content="Free crypto liquidation price calculator for isolated-margin long and short positions. See roughly where you&#x27;d be liquidated at any leverage, and whether your stop comes first.">
+<link rel="canonical" href="https://signalcheckerhq.org/liquidation-calculator/">
+<meta property="og:title" content="Crypto Liquidation Price Calculator for Leverage Trades (Free) | SignalCheckerHQ"><meta property="og:description" content="Free crypto liquidation price calculator for isolated-margin long and short positions. See roughly where you&#x27;d be liquidated at any leverage, and whether your stop comes first.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://signalcheckerhq.org/liquidation-calculator/">
+<meta property="og:image" content="https://signalcheckerhq.org/assets/img/rc-1.webp">
+<meta name="theme-color" content="#0b1120">
+<meta name="google-site-verification" content="uh0u66NYvt6K8r_yqwLmn0GAHeASmu_aV-5lmH9_T-0">
+<link rel="icon" href="../assets/img/favicon.png">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Liquidation price calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://signalcheckerhq.org/liquidation-calculator/"}</script></head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../"><img src="../assets/img/icon.png" alt="" width="32" height="32"><span>Signal<b>Checker</b>HQ</span></a>
+  <button type="button" class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('.top');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button>
+  <nav><a href="../signal-checker/">Signal Checker</a><a href="../trade-journal/">Trade Journal</a><a href="../portfolio-tracker/">Portfolio Tracker</a><a href="../risk-calculator/">Risk Calculator</a><a href="../guides/">Guides</a><a href="../tools/" class="free">Free tools</a></nav>
+</div></header>
+<main>
+
+<section class="hero in" style="padding-bottom:0"><div class="tag">Free tool</div><h1>Liquidation price calculator <span>(free)</span></h1><p class="lead">Entry, leverage and direction: see roughly where an isolated-margin position gets liquidated, how far away that is, and whether your stop comes first.</p></section>
+<div class="in grid2 calc">
+  <section class="card" aria-label="Inputs"><h2 class="ch">Your numbers</h2>
+<div class="seg" role="group" aria-label="Direction"><button type="button" id="long" class="on">Long</button><button type="button" id="short">Short</button></div>
+<div class="two">
+  <div><label for="entry">Entry price</label><input id="entry" type="number" inputmode="decimal" value="108000" step="any" min="0"></div>
+  <div><label for="lev">Leverage</label><input id="lev" type="number" inputmode="decimal" value="10" step="any" min="1"></div>
+</div>
+<div class="two">
+  <div><label for="mmr">Maintenance margin (%)</label><input id="mmr" type="number" inputmode="decimal" value="0.5" step="any" min="0"></div>
+  <div><label for="stop">Your stop (optional)</label><input id="stop" type="number" inputmode="decimal" value="104500" step="any" min="0"></div>
+</div>
+</section>
+  <section class="card" aria-live="polite" aria-label="Result"><h2 class="ch">Result</h2>
+<div class="big"><span>Liquidation price (approx.)</span><b id="liq">–</b></div>
+<div class="row"><span>Distance from entry</span><b id="dist">–</b></div>
+<div class="row"><span>Without maintenance margin</span><b id="raw">–</b></div>
+<div class="row"><span>Stop distance from entry</span><b id="sd">–</b></div>
+<div id="msg" class="msg ok">✓ Looks good</div>
+<table class="tbl small" id="levtab"></table>
+</section>
+</div>
+<section class="in box cta"><div><h2>Want this in your own Google Sheet?</h2><p>Size every leveraged trade so a stop-out costs exactly what you planned, with liquidation checks and targets in R: the <b>Position Size &amp; Risk Calculator</b>.</p></div><a class="btn" href="../risk-calculator/">See the Risk Calculator · $7</a></section>
+<article class="in prose">
+<h2>How it's estimated</h2>
+<div class="formula">Long: liquidation ≈ entry × (1 − 1/leverage + maintenance margin)<br>Short: liquidation ≈ entry × (1 + 1/leverage − maintenance margin)</div>
+<p>This is the usual estimate for an <b>isolated-margin</b> position. Exchanges use different maintenance-margin tiers, fees and funding, and cross-margin positions depend on your whole balance, so the real price can differ. Always check the liquidation price your exchange shows.</p>
+<h2>Leverage doesn't change your risk; it changes your margin</h2>
+<p>If you size a trade by its stop, the dollar loss at the stop is the same at 2x or 20x. Leverage only changes how much money you lock up and how close liquidation sits. The danger is when liquidation comes before the stop: then you can lose the whole margin instead of your planned risk. Use the free <a href="../position-size-calculator/">position size calculator</a> to size the trade first.</p>
+
+<p class="small">Everything is calculated in your browser; nothing is sent anywhere. This calculator does math on the numbers you enter. It is not financial advice.</p>
+<p>More free tools: <a href="../dca-calculator/">DCA average price calculator</a> · <a href="../crypto-profit-calculator/">Crypto profit calculator</a> · <a href="../position-size-calculator/">Position size calculator</a></p></article>
+<script>(function(){
+var $=function(id){return document.getElementById(id);};
+var num=function(id){var v=parseFloat(String($(id).value).replace(',','.'));return isFinite(v)?v:NaN;};
+var money=function(v){return (v<0?'−$':'$')+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});};
+var signed=function(v){return (v>0?'+':'')+money(v);};
+var price=function(v){return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:v>=1?2:8});};
+var pct=function(v,d){return (v>0?'+':v<0?'−':'')+Math.abs(v*100).toFixed(d==null?2:d)+'%';};
+var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
+var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
+document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
+
+var dir='Long'; function setDir(d){dir=d;$('long').classList.toggle('on',d==='Long');$('short').classList.toggle('on',d==='Short');calc();}
+$('long').onclick=function(){setDir('Long');}; $('short').onclick=function(){setDir('Short');};
+function liqAt(e,lev,m){return dir==='Long'?e*(1-1/lev+m):e*(1+1/lev-m);}
+function calc(){
+ var e=num('entry'),lev=num('lev'),m=(num('mmr')||0)/100,st=num('stop');
+ if(!(e>0&&lev>=1)){['liq','dist','raw','sd'].forEach(function(i){show(i,'–');});$('levtab').innerHTML='';return msg('Fill in entry and leverage (1 or more).','err');}
+ if(lev===1){show('liq','none at 1x');show('dist','–');show('raw','–');} else {
+  var l=liqAt(e,lev,m); show('liq',price(l)); show('dist',pct(l/e-1)); show('raw',price(liqAt(e,lev,0)));}
+ var rows='<tr><th>Leverage</th><th>Liquidation ≈</th><th>Move</th></tr>';
+ [2,3,5,10,20,50,100].forEach(function(L){var l=liqAt(e,L,m);rows+='<tr><td>'+L+'x</td><td>'+price(l)+'</td><td>'+pct(l/e-1,1)+'</td></tr>';}); $('levtab').innerHTML=rows;
+ if(st>0){show('sd',pct(st/e-1)); if(dir==='Long'&&st>e||dir==='Short'&&st<e) return msg('⚠ The stop is on the wrong side of the entry for a '+dir.toLowerCase()+'.','warn');
+  if(lev>1){var l2=liqAt(e,lev,m); if(dir==='Long'?st<=l2:st>=l2) return msg('⚠ Liquidation comes BEFORE your stop. Lower the leverage or move the stop.','warn');}} else show('sd','–');
+ msg('✓ Looks good','ok');
+}
+calc();
+})();</script>
+
+</main>
+<footer class="foot"><div class="in">
+  <div><a class="logo" href="../"><span>Signal<b>Checker</b>HQ</span></a>
+  <p>Google Sheets tools that show the real numbers of crypto trading. No signals, no hype.</p></div>
+  <div><h4>Tools</h4><a href="../signal-checker/">Crypto Signal Checker</a><a href="../trade-journal/">Crypto Trade Journal + DCA Planner</a><a href="../portfolio-tracker/">Crypto Portfolio Tracker</a><a href="../risk-calculator/">Position Size & Risk Calculator</a><a href="../bundle/">Toolkit bundle</a><a href="../tools/">Free calculators</a><a href="../guides/">Guides</a></div>
+  <div><h4>Shop & follow</h4><a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy shop</a><a href="https://5778611980656.gumroad.com/">Gumroad</a><a href="https://x.com/SignalCheckerHQ">X</a><a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a><a href="https://www.pinterest.com/ilonavoitenco/crypto-trading-tools-templates/">Pinterest</a></div>
+  <div><h4>Info</h4><a href="../legal/">Terms, privacy &amp; refunds</a><a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></div>
+</div><p class="fine in">All tools are for analysis and record-keeping. Nothing on this site is financial advice. Examples use example or historical data; results vary. © 2026 SignalCheckerHQ. SignalCheckerHQ™, Signal Checker™ and the SignalCheckerHQ logo are trademarks of SignalCheckerHQ. All products, images, videos and text are protected by copyright; copying or reselling them is not allowed.</p></footer>
+<script src="https://gumroad.com/js/gumroad.js" defer></script>
+</body></html>
