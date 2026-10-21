@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://signalcheckerhq.github.io/sitemap.xml

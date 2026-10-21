@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crypto Position Size Calculator (Free, with Fees &amp; Leverage) | SignalCheckerHQ</title>
+<meta name="description" content="Free crypto position size calculator. Enter your account balance, risk %, entry and stop loss to get the exact position size, fees included, plus margin, leverage, liquidation price and R multiple.">
+<meta property="og:title" content="Free Crypto Position Size Calculator">
+<meta property="og:description" content="Exact position size for any crypto trade, fees included. Margin, leverage, liquidation and R multiple in one place.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://signalcheckerhq.github.io/">
+<link rel="canonical" href="https://signalcheckerhq.github.io/">
+<meta name="theme-color" content="#0b1120">
+<style>
+:root{--bg:#0b1120;--panel:#111a2e;--line:#1f2a44;--text:#f8fafc;--muted:#94a3b8;--green:#4ade80;--green2:#15803d;--red:#f87171;--amber:#fbbf24;--input:#0f172a}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+a{color:var(--green)}
+.wrap{max-width:1000px;margin:0 auto;padding:28px 16px 60px}
+header .brand{font-weight:700;letter-spacing:.08em;color:var(--muted);font-size:14px}
+header .brand b{color:var(--green)}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:14px 0 10px}
+h1 span{color:var(--green)}
+.sub{color:#cbd5e1;font-size:18px;margin:0 0 26px;max-width:720px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:780px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
+.card h2{font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin:0 0 14px}
+label{display:block;font-size:14px;color:var(--muted);margin:12px 0 5px}
+input,select{width:100%;padding:11px 12px;border-radius:10px;border:1px solid #334155;background:var(--input);color:var(--text);font-size:17px}
+input:focus,select:focus{outline:2px solid var(--green);border-color:transparent}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--input);border:1px solid #334155;border-radius:10px;padding:4px}
+.seg button{border:0;border-radius:7px;padding:9px;font-size:16px;font-weight:600;background:transparent;color:var(--muted);cursor:pointer}
+.seg button.on{background:var(--green);color:#0b1120}
+.row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:16px}
+.row:last-child{border-bottom:0}
+.row span{color:var(--muted)}
+.row b{font-variant-numeric:tabular-nums;text-align:right}
+.big{background:#052e1a;border:1px solid #166534;border-radius:12px;padding:16px;margin-bottom:8px}
+.big span{color:#bbf7d0;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.big b{display:block;font-size:32px;margin-top:4px;font-variant-numeric:tabular-nums}
+.msg{border-radius:10px;padding:10px 12px;margin-top:12px;font-size:15px}
+.ok{background:#052e1a;color:#86efac}.warn{background:#3b2a05;color:#fde68a}.err{background:#3b0a0a;color:#fca5a5}
+.pos{color:var(--green)}.neg{color:var(--red)}
+.cta{margin-top:26px;display:grid;grid-template-columns:2fr 1fr;gap:20px;align-items:center;background:linear-gradient(135deg,#0f2a1d,#111a2e);border:1px solid #166534}
+@media(max-width:780px){.cta{grid-template-columns:1fr}}
+.cta h3{margin:0 0 6px;font-size:22px}
+.cta p{margin:0;color:#cbd5e1}
+.btn{display:inline-block;background:var(--green);color:#0b1120;font-weight:800;text-decoration:none;border-radius:999px;padding:12px 22px;text-align:center;margin:4px 0}
+.btn.alt{background:transparent;color:var(--green);border:1px solid var(--green)}
+article{margin-top:42px;max-width:760px}
+article h2{font-size:26px;margin:34px 0 10px}
+article h3{font-size:19px;margin:22px 0 6px}
+article p,article li{color:#cbd5e1}
+code{background:var(--panel);border:1px solid var(--line);padding:2px 6px;border-radius:6px;font-size:15px}
+.formula{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-family:Consolas,monospace;font-size:15px;color:#e2e8f0;overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px}
+td,th{border-bottom:1px solid var(--line);padding:8px;text-align:left}
+th{color:var(--muted);font-weight:600}
+footer{margin-top:50px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:18px}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How do I calculate position size in crypto?","acceptedAnswer":{"@type":"Answer","text":"Position size = money you are willing to lose ÷ loss per coin if the stop is hit. Money you are willing to lose = account balance × risk %. Loss per coin = |entry − stop| plus trading fees on entry and exit."}},
+{"@type":"Question","name":"Does leverage change my risk?","acceptedAnswer":{"@type":"Answer","text":"No. If you size the position by your stop loss, leverage only changes how much margin you put up and where liquidation is. Your loss at the stop stays the same, as long as liquidation is not reached before your stop."}},
+{"@type":"Question","name":"What is an R multiple?","acceptedAnswer":{"@type":"Answer","text":"1R is the amount you risk on a trade. A take profit that earns twice your risk is +2R; hitting the stop is −1R."}},
+{"@type":"Question","name":"How much should I risk per trade?","acceptedAnswer":{"@type":"Answer","text":"Many traders use 0.5% to 2% of their account per trade so a losing streak doesn't wipe them out. This calculator shows the math; it is not financial advice."}}
+]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand"><b>SignalCheckerHQ</b> · free tools for crypto traders</div>
+  <h1>Crypto Position Size Calculator <span>(free)</span></h1>
+  <p class="sub">Enter your balance, risk %, entry and stop. Get the exact position size, with fees included, so hitting your stop costs exactly what you planned.</p>
+</header>
+
+<div class="grid">
+  <section class="card" aria-label="Your trade">
+    <h2>Your trade</h2>
+    <div class="seg" role="group" aria-label="Direction">
+      <button type="button" id="long" class="on">Long</button>
+      <button type="button" id="short">Short</button>
+    </div>
+    <div class="two">
+      <div><label for="bal">Account balance ($)</label><input id="bal" type="number" inputmode="decimal" value="5000" min="0" step="any"></div>
+      <div><label for="risk">Risk per trade (%)</label><input id="risk" type="number" inputmode="decimal" value="1" min="0" step="any"></div>
+    </div>
+    <div class="two">
+      <div><label for="entry">Entry price</label><input id="entry" type="number" inputmode="decimal" value="108000" min="0" step="any"></div>
+      <div><label for="stop">Stop loss</label><input id="stop" type="number" inputmode="decimal" value="104500" min="0" step="any"></div>
+    </div>
+    <div class="two">
+      <div><label for="tp">Take profit (optional)</label><input id="tp" type="number" inputmode="decimal" value="116000" min="0" step="any"></div>
+      <div><label for="fee">Fee per side (%)</label><input id="fee" type="number" inputmode="decimal" value="0.1" min="0" step="any"></div>
+    </div>
+    <label for="lev">Leverage you will use (1 = spot)</label>
+    <input id="lev" type="number" inputmode="decimal" value="5" min="1" step="any">
+  </section>
+
+  <section class="card" aria-live="polite" aria-label="Result">
+    <h2>Result</h2>
+    <div class="big"><span>Position size</span><b id="size">–</b></div>
+    <div class="row"><span>Max loss if stopped (fees incl.)</span><b id="loss">–</b></div>
+    <div class="row"><span>Position value</span><b id="value">–</b></div>
+    <div class="row"><span>Margin needed</span><b id="margin">–</b></div>
+    <div class="row"><span>Leverage needed to open it</span><b id="needlev">–</b></div>
+    <div class="row"><span>Liquidation price (approx.)</span><b id="liq">–</b></div>
+    <div class="row"><span>Stop distance</span><b id="dist">–</b></div>
+    <div class="row"><span>Break-even price (covers fees)</span><b id="be">–</b></div>
+    <div class="row"><span>Take profit result</span><b id="tpres">–</b></div>
+    <div id="msg" class="msg ok">✓ Looks good</div>
+  </section>
+</div>
+
+<section class="card cta">
+  <div>
+    <h3>Want this in your own Google Sheet?</h3>
+    <p>The full <b>Position Size &amp; Risk Calculator</b> adds 3 take-profits, a losing-streak table and a Trade Planner that tracks your total open risk. All formulas, no scripts, works on your phone.</p>
+  </div>
+  <div style="text-align:center">
+    <a class="btn" href="https://www.etsy.com/listing/4600299959/position-size-calculator-google-sheets">Get it on Etsy · $7</a><br>
+    <a class="btn alt" href="https://5778611980656.gumroad.com/l/risk-calculator">or on Gumroad</a>
+  </div>
+</section>
+
+<article>
+  <h2>How to calculate position size in crypto</h2>
+  <p>Most traders pick a position size by feel: "I'll put $500 in." The problem is that $500 with a tight stop and $500 with a wide stop are completely different risks. Position sizing flips it around. First decide how much you're willing to lose, then let the stop distance tell you how big the position can be.</p>
+  <div class="formula">Risk ($) = account balance × risk %<br>Loss per coin = |entry − stop| + (entry + stop) × fee %<br>Position size (coins) = Risk ($) ÷ Loss per coin</div>
+  <h3>Worked example</h3>
+  <p>$5,000 account, 1% risk, BTC long at $108,000 with a stop at $104,500 and a 0.1% fee per side:</p>
+  <table>
+    <tr><th>Step</th><th>Math</th><th>Result</th></tr>
+    <tr><td>Risk</td><td>5,000 × 1%</td><td>$50.00</td></tr>
+    <tr><td>Loss per coin</td><td>3,500 + 212,500 × 0.1%</td><td>$3,712.50</td></tr>
+    <tr><td>Position size</td><td>50 ÷ 3,712.50</td><td>0.01346801 BTC</td></tr>
+    <tr><td>Position value</td><td>0.01346801 × 108,000</td><td>$1,454.55</td></tr>
+  </table>
+  <p>If the stop is hit you lose $50 including fees, no matter how much leverage you use.</p>
+
+  <h2>Does leverage change your risk?</h2>
+  <p>Not if you size by your stop. Leverage only changes how much margin you lock up (here $290.91 at 5x) and where the exchange would liquidate you (about $86,400). The danger is when liquidation sits <i>before</i> your stop: then you can lose more than planned. The calculator warns you when that happens.</p>
+
+  <h2>What is an R multiple?</h2>
+  <p>1R is what you risk. In the example above, a take profit at $116,000 earns $104.73 after fees, which is +2.09R. Thinking in R makes trades comparable: a strategy that wins 40% of the time can still be profitable if the average win is 2R and the average loss is 1R.</p>
+
+  <h2>How much should you risk per trade?</h2>
+  <p>Many traders keep it between 0.5% and 2%. The reason is losing streaks. At 1% risk, ten losses in a row leave about 90% of the account. At 5% risk, the same streak leaves about 60%, and you then need +67% just to get back to even. This is math, not advice: pick what fits you.</p>
+
+  <h2>FAQ</h2>
+  <h3>Does this work for shorts?</h3>
+  <p>Yes. Switch to Short: the stop must be above entry and the take profit below it.</p>
+  <h3>Is the liquidation price exact?</h3>
+  <p>No. It's an estimate that ignores maintenance margin and funding. Always check the liquidation price your exchange shows.</p>
+  <h3>Is my data stored?</h3>
+  <p>No. Everything is calculated in your browser. Nothing is sent anywhere.</p>
+</article>
+
+<footer>
+  This calculator does math on the numbers you enter. It is not financial advice and does not tell you what or when to trade.
+  More tools from <a href="https://www.etsy.com/shop/SignalCheckerHQ">SignalCheckerHQ on Etsy</a> ·
+  <a href="https://x.com/SignalCheckerHQ">X</a> · <a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a>
+</footer>
+</div>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var dir = 'Long';
+  var money = function (v) { return (v < 0 ? '−$' : '$') + Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+  var price = function (v) { return '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: v >= 1 ? 2 : 8 }); };
+  var num = function (id) { var v = parseFloat($(id).value); return isFinite(v) ? v : NaN; };
+  function setDir(d) { dir = d; $('long').classList.toggle('on', d === 'Long'); $('short').classList.toggle('on', d === 'Short'); calc(); }
+  $('long').onclick = function () { setDir('Long'); };
+  $('short').onclick = function () { setDir('Short'); };
+  ['bal', 'risk', 'entry', 'stop', 'tp', 'fee', 'lev'].forEach(function (id) { $(id).addEventListener('input', calc); });
+
+  function show(id, text, cls) { var el = $(id); el.textContent = text; el.className = cls || ''; }
+  function clear() { ['loss', 'value', 'margin', 'needlev', 'liq', 'dist', 'be', 'tpres'].forEach(function (id) { show(id, '–'); }); $('size').textContent = '–'; }
+  function msg(text, cls) { var m = $('msg'); m.textContent = text; m.className = 'msg ' + cls; }
+
+  function calc() {
+    var bal = num('bal'), risk = num('risk') / 100, e = num('entry'), s = num('stop'), tp = num('tp'), fee = (num('fee') || 0) / 100, lev = Math.max(1, num('lev') || 1);
+    if (!(bal > 0) || !(risk > 0) || !(e > 0) || !(s > 0)) { clear(); return msg('Fill in balance, risk, entry and stop.', 'err'); }
+    if (e === s) { clear(); return msg("The stop can't equal the entry.", 'err'); }
+    if (dir === 'Long' && s > e) { clear(); return msg('Long trade: the stop must be BELOW the entry.', 'err'); }
+    if (dir === 'Short' && s < e) { clear(); return msg('Short trade: the stop must be ABOVE the entry.', 'err'); }
+    var riskUsd = bal * risk, perCoin = Math.abs(e - s) + (e + s) * fee, size = riskUsd / perCoin, value = size * e, margin = value / lev;
+    var liq = lev > 1 ? (dir === 'Long' ? e * (1 - 1 / lev) : e * (1 + 1 / lev)) : null;
+    var be = dir === 'Long' ? e * (1 + fee) / (1 - fee) : e * (1 - fee) / (1 + fee);
+    $('size').textContent = size.toLocaleString('en-US', { maximumFractionDigits: 8 }) + ' coins';
+    show('loss', money(-riskUsd), 'neg');
+    show('value', money(value));
+    show('margin', money(margin));
+    show('needlev', (value / bal).toFixed(2) + 'x');
+    show('liq', liq ? price(liq) : 'none (spot)');
+    show('dist', (Math.abs(e - s) / e * 100).toFixed(2) + '%');
+    show('be', price(be));
+    if (tp > 0) {
+      var profit = size * (dir === 'Long' ? tp - e : e - tp) - size * (e + tp) * fee;
+      show('tpres', (profit >= 0 ? '+' : '') + money(profit).replace('$-', '−$') + ' · ' + (profit >= 0 ? '+' : '') + (profit / riskUsd).toFixed(2) + 'R', profit >= 0 ? 'pos' : 'neg');
+    } else show('tpres', '–');
+    if (margin > bal) return msg('⚠ The position is bigger than your balance. You need at least ' + (Math.ceil(value / bal * 10) / 10).toFixed(1) + 'x leverage.', 'warn');
+    if (liq && (dir === 'Long' ? s <= liq : s >= liq)) return msg('⚠ Liquidation comes BEFORE your stop. Lower the leverage.', 'warn');
+    if (tp > 0 && (dir === 'Long' ? tp <= e : tp >= e)) return msg('⚠ The take profit is on the wrong side of the entry.', 'warn');
+    if (risk > 0.02) return msg('⚠ You are risking more than 2% of your account on this trade.', 'warn');
+    msg('✓ Looks good', 'ok');
+  }
+  calc();
+})();
+</script>
+</body>
+</html>
