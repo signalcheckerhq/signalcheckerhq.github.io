@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://signalcheckerhq.github.io/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://signalcheckerhq.org/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://signalcheckerhq.org/position-size-calculator/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://signalcheckerhq.org/signal-checker/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://signalcheckerhq.org/trade-journal/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://signalcheckerhq.org/portfolio-tracker/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://signalcheckerhq.org/risk-calculator/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://signalcheckerhq.org/bundle/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://signalcheckerhq.org/legal/</loc><lastmod>2026-10-21</lastmod></url>
 </urlset>
