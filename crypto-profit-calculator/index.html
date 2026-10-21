@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crypto Profit Calculator: P&amp;L After Fees, Long or Short, With Leverage (Free) | SignalCheckerHQ</title>
+<meta name="description" content="Free crypto profit calculator. Entry, exit and position size give your profit or loss after fees, return on margin with leverage, and break-even price. Long or short.">
+<link rel="canonical" href="https://signalcheckerhq.org/crypto-profit-calculator/">
+<meta property="og:title" content="Crypto Profit Calculator: P&amp;L After Fees, Long or Short, With Leverage (Free) | SignalCheckerHQ"><meta property="og:description" content="Free crypto profit calculator. Entry, exit and position size give your profit or loss after fees, return on margin with leverage, and break-even price. Long or short.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://signalcheckerhq.org/crypto-profit-calculator/">
+<meta property="og:image" content="https://signalcheckerhq.org/assets/img/rc-1.webp">
+<meta name="theme-color" content="#0b1120">
+<meta name="google-site-verification" content="uh0u66NYvt6K8r_yqwLmn0GAHeASmu_aV-5lmH9_T-0">
+<link rel="icon" href="../assets/img/favicon.png">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Crypto profit calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://signalcheckerhq.org/crypto-profit-calculator/"}</script></head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../"><img src="../assets/img/icon.png" alt="" width="32" height="32"><span>Signal<b>Checker</b>HQ</span></a>
+  <button type="button" class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('.top');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button>
+  <nav><a href="../signal-checker/">Signal Checker</a><a href="../trade-journal/">Trade Journal</a><a href="../portfolio-tracker/">Portfolio Tracker</a><a href="../risk-calculator/">Risk Calculator</a><a href="../guides/">Guides</a><a href="../tools/" class="free">Free tools</a></nav>
+</div></header>
+<main>
+
+<section class="hero in" style="padding-bottom:0"><div class="tag">Free tool</div><h1>Crypto profit calculator <span>(free)</span></h1><p class="lead">Entry, exit and position size: get your profit or loss after fees, your return on the money you put in, and your break-even price. Long or short, spot or leverage.</p></section>
+<div class="in grid2 calc">
+  <section class="card" aria-label="Inputs"><h2 class="ch">Your numbers</h2>
+<div class="seg" role="group" aria-label="Direction"><button type="button" id="long" class="on">Long</button><button type="button" id="short">Short</button></div>
+<div class="two">
+  <div><label for="entry">Entry price</label><input id="entry" type="number" inputmode="decimal" value="3000" step="any" min="0"></div>
+  <div><label for="exit">Exit price</label><input id="exit" type="number" inputmode="decimal" value="3300" step="any" min="0"></div>
+</div>
+<div class="two">
+  <div><label for="size">Position size ($)</label><input id="size" type="number" inputmode="decimal" value="1000" step="any" min="0"></div>
+  <div><label for="lev">Leverage (1 = spot)</label><input id="lev" type="number" inputmode="decimal" value="1" step="any" min="1"></div>
+</div>
+<label for="fee">Fee per side (%)</label><input id="fee" type="number" inputmode="decimal" value="0.1" step="any" min="0">
+</section>
+  <section class="card" aria-live="polite" aria-label="Result"><h2 class="ch">Result</h2>
+<div class="big"><span>Profit / loss after fees</span><b id="pnl">–</b></div>
+<div class="row"><span>Return on your money (margin)</span><b id="roe">–</b></div>
+<div class="row"><span>Price move</span><b id="move">–</b></div>
+<div class="row"><span>Coins</span><b id="coins">–</b></div>
+<div class="row"><span>Margin (your money in the trade)</span><b id="margin">–</b></div>
+<div class="row"><span>Fees paid</span><b id="fees">–</b></div>
+<div class="row"><span>Break-even exit price</span><b id="be">–</b></div>
+<div id="msg" class="msg ok">✓ Looks good</div>
+</section>
+</div>
+<section class="in box cta"><div><h2>Want this in your own Google Sheet?</h2><p>Track every coin's real P&amp;L automatically with live prices: the <b>Crypto Portfolio Tracker</b>. Log trades with win rate and profit factor in the <a href="../trade-journal/">Trade Journal</a>.</p></div><a class="btn" href="../portfolio-tracker/">See the Portfolio Tracker · $12</a></section>
+<article class="in prose">
+<h2>How the calculation works</h2>
+<div class="formula">Coins = position size ÷ entry<br>Profit = coins × (exit − entry) for a long, coins × (entry − exit) for a short<br>Fees = coins × (entry + exit) × fee %<br>Return on margin = profit ÷ (position size ÷ leverage)</div>
+<p>Example: $1,000 long at $3,000, sold at $3,300 with a 0.1% fee per side: gross +$100, fees $2.10, profit <b>+$97.90</b> (+9.79%). With 5x leverage the same trade uses $200 of margin, so the return on your money is +48.95%, and a 20% drop against you would be enough to liquidate it.</p>
+<h2>Break-even price</h2>
+<p>Because you pay fees on the way in and out, the price has to move a little before you're even. With 0.1% per side that's about +0.2% for a long.</p>
+<p>Want the whole portfolio's realized and unrealized P&amp;L instead of one trade? Read <a href="../guides/crypto-portfolio-real-pnl/">How to track your crypto portfolio's real P&amp;L</a>.</p>
+
+<p class="small">Everything is calculated in your browser; nothing is sent anywhere. This calculator does math on the numbers you enter. It is not financial advice.</p>
+<p>More free tools: <a href="../dca-calculator/">DCA average price calculator</a> · <a href="../liquidation-calculator/">Liquidation price calculator</a> · <a href="../position-size-calculator/">Position size calculator</a></p></article>
+<script>(function(){
+var $=function(id){return document.getElementById(id);};
+var num=function(id){var v=parseFloat(String($(id).value).replace(',','.'));return isFinite(v)?v:NaN;};
+var money=function(v){return (v<0?'−$':'$')+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});};
+var signed=function(v){return (v>0?'+':'')+money(v);};
+var price=function(v){return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:v>=1?2:8});};
+var pct=function(v,d){return (v>0?'+':v<0?'−':'')+Math.abs(v*100).toFixed(d==null?2:d)+'%';};
+var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
+var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
+document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
+
+var dir='Long'; function setDir(d){dir=d;$('long').classList.toggle('on',d==='Long');$('short').classList.toggle('on',d==='Short');calc();}
+$('long').onclick=function(){setDir('Long');}; $('short').onclick=function(){setDir('Short');};
+function calc(){
+ var e=num('entry'),x=num('exit'),size=num('size'),lev=Math.max(1,num('lev')||1),fee=(num('fee')||0)/100;
+ if(!(e>0&&x>0&&size>0)){['pnl','roe','move','coins','margin','fees','be'].forEach(function(i){show(i,'–');});return msg('Fill in entry, exit and position size.','err');}
+ var coins=size/e, gross=coins*(dir==='Long'?x-e:e-x), fees=coins*(e+x)*fee, pnl=gross-fees, margin=size/lev;
+ show('pnl',signed(pnl),pnl>=0?'pos':'neg'); show('roe',pct(pnl/margin),pnl>=0?'pos':'neg'); show('move',pct(x/e-1));
+ show('coins',coins.toLocaleString('en-US',{maximumFractionDigits:8})); show('margin',money(margin)); show('fees',money(fees));
+ show('be',price(dir==='Long'?e*(1+fee)/(1-fee):e*(1-fee)/(1+fee)));
+ if(lev>1){var liq=dir==='Long'?e*(1-1/lev):e*(1+1/lev); if(dir==='Long'?x<=liq:x>=liq) return msg('⚠ At this leverage the position would be liquidated (around '+price(liq)+') before reaching this exit.','warn');}
+ msg('✓ Looks good','ok');
+}
+calc();
+})();</script>
+
+</main>
+<footer class="foot"><div class="in">
+  <div><a class="logo" href="../"><span>Signal<b>Checker</b>HQ</span></a>
+  <p>Google Sheets tools that show the real numbers of crypto trading. No signals, no hype.</p></div>
+  <div><h4>Tools</h4><a href="../signal-checker/">Crypto Signal Checker</a><a href="../trade-journal/">Crypto Trade Journal + DCA Planner</a><a href="../portfolio-tracker/">Crypto Portfolio Tracker</a><a href="../risk-calculator/">Position Size & Risk Calculator</a><a href="../bundle/">Toolkit bundle</a><a href="../tools/">Free calculators</a><a href="../guides/">Guides</a></div>
+  <div><h4>Shop & follow</h4><a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy shop</a><a href="https://5778611980656.gumroad.com/">Gumroad</a><a href="https://x.com/SignalCheckerHQ">X</a><a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a><a href="https://www.pinterest.com/ilonavoitenco/crypto-trading-tools-templates/">Pinterest</a></div>
+  <div><h4>Info</h4><a href="../legal/">Terms, privacy &amp; refunds</a><a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></div>
+</div><p class="fine in">All tools are for analysis and record-keeping. Nothing on this site is financial advice. Examples use example or historical data; results vary. © 2026 SignalCheckerHQ. SignalCheckerHQ™, Signal Checker™ and the SignalCheckerHQ logo are trademarks of SignalCheckerHQ. All products, images, videos and text are protected by copyright; copying or reselling them is not allowed.</p></footer>
+<script src="https://gumroad.com/js/gumroad.js" defer></script>
+</body></html>
