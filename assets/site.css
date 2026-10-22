@@ -199,3 +199,6 @@ h1 span,.gtext{background:var(--grad);-webkit-background-clip:text;background-cl
 .calc .three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 #out td{vertical-align:top}
 #out td:last-child{white-space:nowrap;font-variant-numeric:tabular-nums}
+.leadbox{border-color:#0e7490;background:linear-gradient(135deg,#0c2a33,#111a2e)}
+.leadbox .tag{color:var(--blue)}
+.leadbox .btn{white-space:nowrap;flex-shrink:0}
