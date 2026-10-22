@@ -14,11 +14,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap">
 <link rel="stylesheet" href="../assets/site.css?v=3">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Liquidation price calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://signalcheckerhq.org/liquidation-calculator/"}</script></head>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Liquidation price calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://signalcheckerhq.org/liquidation-calculator/"}</script><link rel="alternate" hreflang="en" href="https://signalcheckerhq.org/liquidation-calculator/"><link rel="alternate" hreflang="es" href="https://signalcheckerhq.org/es/liquidation-calculator/"><link rel="alternate" hreflang="ru" href="https://signalcheckerhq.org/ru/liquidation-calculator/"><link rel="alternate" hreflang="x-default" href="https://signalcheckerhq.org/liquidation-calculator/"></head>
 <body>
 <header class="top"><div class="in">
   <a class="logo" href="../"><img src="../assets/img/icon.png" alt="" width="32" height="32"><span>Signal<b>Checker</b>HQ</span></a>
-  
+  <div class="langs"><a href="../liquidation-calculator/" class=on aria-current=page hreflang="en" lang="en">EN</a><a href="../es/liquidation-calculator/" hreflang="es" lang="es">ES</a><a href="../ru/liquidation-calculator/" hreflang="ru" lang="ru">RU</a></div>
   <button type="button" class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('.top');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button>
   <nav><a href="../#tools">Tools</a><a href="../bundle/">Complete Kit</a><a href="../guides/">Guides</a><a href="../how-its-built/">Human + AI</a><a href="../tools/" class="free">Free tools</a></nav>
 </div></header>
@@ -26,7 +26,7 @@
 
 <section class="hero in" style="padding-bottom:0"><div class="tag">Free tool</div><h1>Liquidation price calculator <span>(free)</span></h1><p class="lead">Entry, leverage and direction: see roughly where an isolated-margin position gets liquidated, how far away that is, and whether your stop comes first.</p></section>
 <div class="in grid2 calc">
-  <section class="card" aria-label="Inputs"><h2 class="ch">Your numbers</h2>
+  <section class="card" aria-label="Your numbers"><h2 class="ch">Your numbers</h2>
 <div class="seg" role="group" aria-label="Direction"><button type="button" id="long" class="on">Long</button><button type="button" id="short">Short</button></div>
 <div class="two">
   <div><label for="entry">Entry price</label><input id="entry" type="number" inputmode="decimal" value="108000" step="any" min="0"></div>
@@ -55,7 +55,7 @@
 <p>If you size a trade by its stop, the dollar loss at the stop is the same at 2x or 20x. Leverage only changes how much money you lock up and how close liquidation sits. The danger is when liquidation comes before the stop: then you can lose the whole margin instead of your planned risk. Use the free <a href="../position-size-calculator/">position size calculator</a> to size the trade first.</p>
 
 <p class="small">Everything is calculated in your browser; nothing is sent anywhere. This calculator does math on the numbers you enter. It is not financial advice.</p>
-<p>More free tools: <a href="../dca-calculator/">DCA average price calculator</a> · <a href="../crypto-profit-calculator/">Crypto profit calculator</a> · <a href="../position-size-calculator/">Position size calculator</a></p></article>
+<p>More free tools: <a href="../signal-checker-demo/">Signal Checker demo</a> · <a href="../dca-calculator/">DCA average price calculator</a> · <a href="../crypto-profit-calculator/">Crypto profit calculator</a> · <a href="../position-size-calculator/">Position size calculator</a></p></article>
 <script>(function(){
 var $=function(id){return document.getElementById(id);};
 var num=function(id){var v=parseFloat(String($(id).value).replace(',','.'));return isFinite(v)?v:NaN;};
@@ -93,4 +93,5 @@ calc();
   <div><h4>Info</h4><a href="../legal/">Terms, privacy &amp; refunds</a><a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></div>
 </div><p class="fine in">All tools are for analysis and record-keeping. Nothing on this site is financial advice. Examples use example or historical data; results vary. © 2026 SignalCheckerHQ. SignalCheckerHQ™, Signal Checker™ and the SignalCheckerHQ logo are trademarks of SignalCheckerHQ. All products, images, videos and text are protected by copyright; copying or reselling them is not allowed.</p></footer>
 <script src="https://gumroad.com/js/gumroad.js" defer></script>
+<script data-goatcounter="https://signalcheckerhq.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body></html>
