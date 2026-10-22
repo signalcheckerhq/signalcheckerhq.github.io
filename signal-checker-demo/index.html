@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Crypto Signal Checker Demo: Test 3 Signals Against Real Prices | SignalCheckerHQ</title>
+<meta name="description" content="Paste up to 3 crypto signals (coin, entry, stop, targets, time) and see what really happened against real hourly prices: fills, targets, stop-outs and P&amp;L after fees. Free, in your browser.">
+<link rel="canonical" href="https://signalcheckerhq.org/signal-checker-demo/">
+<meta property="og:title" content="Free Crypto Signal Checker Demo: Test 3 Signals Against Real Prices | SignalCheckerHQ"><meta property="og:description" content="Paste up to 3 crypto signals (coin, entry, stop, targets, time) and see what really happened against real hourly prices: fills, targets, stop-outs and P&amp;L after fees. Free, in your browser.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://signalcheckerhq.org/signal-checker-demo/">
+<meta property="og:image" content="https://signalcheckerhq.org/assets/img/rc-1.webp">
+<meta name="theme-color" content="#0b1120">
+<meta name="google-site-verification" content="uh0u66NYvt6K8r_yqwLmn0GAHeASmu_aV-5lmH9_T-0">
+<meta name="google-site-verification" content="UvHvX4_1aVpsXs5uoaKarwA5mYzig2ahWrXbkXhL_fY">
+<link rel="icon" href="../assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=3">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Signal Checker demo","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://signalcheckerhq.org/signal-checker-demo/"}</script><link rel="alternate" hreflang="en" href="https://signalcheckerhq.org/signal-checker-demo/"><link rel="alternate" hreflang="es" href="https://signalcheckerhq.org/es/signal-checker-demo/"><link rel="alternate" hreflang="ru" href="https://signalcheckerhq.org/ru/signal-checker-demo/"><link rel="alternate" hreflang="x-default" href="https://signalcheckerhq.org/signal-checker-demo/"></head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../"><img src="../assets/img/icon.png" alt="" width="32" height="32"><span>Signal<b>Checker</b>HQ</span></a>
+  <div class="langs"><a href="../signal-checker-demo/" class=on aria-current=page hreflang="en" lang="en">EN</a><a href="../es/signal-checker-demo/" hreflang="es" lang="es">ES</a><a href="../ru/signal-checker-demo/" hreflang="ru" lang="ru">RU</a></div>
+  <button type="button" class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('.top');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button>
+  <nav><a href="../#tools">Tools</a><a href="../bundle/">Complete Kit</a><a href="../guides/">Guides</a><a href="../how-its-built/">Human + AI</a><a href="../tools/" class="free">Free tools</a></nav>
+</div></header>
+<main>
+
+<section class="hero in" style="padding-bottom:0"><div class="tag">Free tool</div><h1>Test a signal group <span>in 30 seconds</span></h1><p class="lead">Enter up to 3 calls from any Telegram, Discord or X group. We check them against real Coinbase hourly prices: did the entry fill, which targets hit, was it stopped out first, and the P&amp;L after fees.</p></section>
+<div class="in grid2 calc">
+  <section class="card" aria-label="Your numbers"><h2 class="ch">Your numbers</h2><div id="sigs"></div>
+<div class="buy" style="margin-top:14px"><button type="button" class="btn" id="run">Check these signals</button><button type="button" class="btn alt" id="ex">Load a real example</button></div>
+<p class="small" id="exnote" hidden>Example built from real BTC prices 10 days ago, not a real group's call.</p></section>
+  <section class="card" aria-live="polite" aria-label="Result"><h2 class="ch">Result</h2><div id="status" class="small"></div>
+<table class="tbl" id="out" hidden><thead><tr><th>Signal</th><th>What happened</th><th>P&L after fees</th></tr></thead><tbody></tbody></table>
+<div id="sum" hidden><div class="row"><span>Signals checked</span><b id="sn">–</b></div><div class="row"><span>Win rate (closed)</span><b id="sw">–</b></div><div class="row"><span>Average P&L per closed signal</span><b id="sa">–</b></div></div>
+<p class="small">Demo rules: the entry must fill first; if the stop and a target are hit in the same hour, the stop counts; the position is split equally between the targets; 0.1% fee per side; up to 30 days after the call. Open trades are marked at the latest price. Not financial advice.</p></section>
+</div>
+<section class="in box cta"><div><h2>Check every call, not just 3</h2><p>The full Signal Checker does this for a whole group's history in Google Sheets: DCA levels, breakeven stops, KuCoin coins, a summary with win rate and profit factor, and results by coin.</p><p class="small"><a href="https://5778611980656.gumroad.com/l/signal-checker-lite">Or try the free Signal Checker Lite (10 signals)</a></p></div><div class="buy" style="margin:0"><a class="btn" href="https://5778611980656.gumroad.com/l/signal-checker" data-gumroad-overlay-checkout="true">Get Signal Checker · $19</a><a class="btn alt" href="../signal-checker/">See the Signal Checker</a></div></section>
+<article class="in prose"><h2>What the demo checks</h2>
+<p>For each call it downloads Coinbase's hourly candles from the hour the call was posted. First it checks whether the price actually reached your entry. Then, hour by hour, whether a target or the stop came first. If both happen inside the same hour, it counts the stop: hourly candles can't tell which came first, and assuming the worst keeps the result honest.</p>
+<h2>Why groups look better than they are</h2>
+<p>"TP1 hit ✅" posts rarely mention that price later fell through the stop, or that the entry never filled at all. Read the full checklist in <a href="../guides/is-my-crypto-signal-group-legit/">How to check if a crypto signal group is legit</a>.</p>
+
+<p>More free tools: <a href="../dca-calculator/">DCA average price calculator</a> · <a href="../crypto-profit-calculator/">Crypto profit calculator</a> · <a href="../liquidation-calculator/">Liquidation price calculator</a> · <a href="../position-size-calculator/">Position size calculator</a></p></article>
+<script>(function(){
+var $=function(id){return document.getElementById(id);};
+var num=function(id){var v=parseFloat(String($(id).value).replace(',','.'));return isFinite(v)?v:NaN;};
+var money=function(v){return (v<0?'−$':'$')+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});};
+var signed=function(v){return (v>0?'+':'')+money(v);};
+var price=function(v){return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:v>=1?2:8});};
+var pct=function(v,d){return (v>0?'+':v<0?'−':'')+Math.abs(v*100).toFixed(d==null?2:d)+'%';};
+var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
+var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
+document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
+
+var L={"sig": "Signal", "coin": "Coin", "side": "Side", "long": "Long", "short_": "Short", "entry": "Entry", "stop": "Stop", "tp": "TP", "posted": "Posted (your time)", "checking": "Checking prices…", "notfilled": "Entry never filled", "open": "Still open", "stopped": "Stopped out", "alltp": "All targets hit", "tphit": "hit", "after": "after", "nodata": "No Coinbase price for this coin (the full version also uses KuCoin)", "bad": "Fill in coin, entry, stop and at least TP1", "wrong": "Stop or targets are on the wrong side of the entry", "future": "The post time is in the future", "toolong": "checked the first 30 days after the call"};
+function calc(){}
+function el(h){var d=document.createElement('div');d.innerHTML=h;return d.firstChild;}
+function card(i){return el('<fieldset class="sigbox"><legend>'+L.sig+' '+(i+1)+'</legend>'+
+ '<div class="two"><div><label>'+L.coin+'</label><input class="coin" placeholder="BTC" autocapitalize="characters"></div>'+
+ '<div><label>'+L.side+'</label><select class="side"><option value="L">'+L.long+'</option><option value="S">'+L.short_+'</option></select></div></div>'+
+ '<div class="two"><div><label>'+L.entry+'</label><input class="entry" type="number" step="any" inputmode="decimal"></div><div><label>'+L.stop+'</label><input class="stop" type="number" step="any" inputmode="decimal"></div></div>'+
+ '<div class="three"><div><label>'+L.tp+'1</label><input class="tp1" type="number" step="any" inputmode="decimal"></div><div><label>'+L.tp+'2</label><input class="tp2" type="number" step="any" inputmode="decimal"></div><div><label>'+L.tp+'3</label><input class="tp3" type="number" step="any" inputmode="decimal"></div></div>'+
+ '<label>'+L.posted+'</label><input class="when" type="datetime-local"></fieldset>');}
+for(var i=0;i<3;i++) $('sigs').appendChild(card(i));
+function pad(n){return (n<10?'0':'')+n;}
+function localISO(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes());}
+function fmtP(v){return v.toLocaleString('en-US',{maximumFractionDigits:v>=100?0:v>=1?2:6});}
+async function candles(coin,start,end){
+ var out=[],t=start;
+ while(t<end){var t2=Math.min(end,t+300*3600e3);
+  var r=await fetch('https://api.exchange.coinbase.com/products/'+coin+'-USD/candles?granularity=3600&start='+new Date(t).toISOString()+'&end='+new Date(t2).toISOString());
+  if(!r.ok) throw new Error('nodata'); var a=await r.json(); out=out.concat(a); t=t2;}
+ var seen={}; out=out.filter(function(c){if(seen[c[0]])return false;seen[c[0]]=1;return true;});
+ out.sort(function(a,b){return a[0]-b[0];}); return out; /* [time, low, high, open, close, volume] */
+}
+function sim(s,cs){
+ var isL=s.side==='L', fee=0.001, fi=-1;
+ for(var i=0;i<cs.length;i++){ if(isL? cs[i][1]<=s.entry : cs[i][2]>=s.entry){fi=i;break;} }
+ if(fi<0) return {txt:L.notfilled, pnl:null, closed:true, filled:false};
+ var tps=s.tps, part=1/tps.length, hit=0, pnl=0, hours=0, done=false, stopped=false;
+ for(var j=fi;j<cs.length && !done;j++){
+  var lo=cs[j][1], hi=cs[j][2]; hours=j-fi;
+  var stopHit=isL? lo<=s.stop : hi>=s.stop;
+  if(stopHit){stopped=true; done=true; break;}
+  while(hit<tps.length && (isL? hi>=tps[hit] : lo<=tps[hit])){ pnl+=part*((isL?tps[hit]-s.entry:s.entry-tps[hit])/s.entry); hit++; }
+  if(hit===tps.length) done=true;
+ }
+ var rest=1-hit*part, last=cs[cs.length-1][4];
+ if(stopped) pnl+=rest*((isL?s.stop-s.entry:s.entry-s.stop)/s.entry);
+ else if(!done) pnl+=rest*((isL?last-s.entry:s.entry-last)/s.entry);
+ pnl-=2*fee;
+ var parts=[]; for(var k=0;k<hit;k++) parts.push(L.tp+(k+1)+' '+L.tphit);
+ var txt = stopped ? (parts.length? parts.join(', ')+', ' : '')+L.stopped+' ('+L.after+' '+hours+'h)' : hit===tps.length ? L.alltp+' ('+L.after+' '+hours+'h)' : (parts.length? parts.join(', ')+', ' : '')+L.open;
+ return {txt:txt, pnl:pnl, closed:stopped||hit===tps.length, filled:true};
+}
+function read(f){var g=function(c){return parseFloat(String(f.querySelector('.'+c).value).replace(',','.'));};
+ var s={coin:f.querySelector('.coin').value.trim().toUpperCase(), side:f.querySelector('.side').value, entry:g('entry'), stop:g('stop'), tps:[g('tp1'),g('tp2'),g('tp3')].filter(function(x){return x>0;}), when:f.querySelector('.when').value};
+ if(!s.coin && !(s.entry>0)) return null; return s;}
+$('run').onclick=async function(){
+ var rows=[], body=$('out').querySelector('tbody'); body.innerHTML=''; $('status').textContent=L.checking; $('out').hidden=false; $('sum').hidden=true;
+ var fs=[].slice.call(document.querySelectorAll('.sigbox')), res=[];
+ for(var i=0;i<fs.length;i++){var s=read(fs[i]); if(!s) continue;
+  var name=(s.coin||'?')+' '+(s.side==='L'?L.long:L.short_)+' @ '+(s.entry>0?fmtP(s.entry):'?'), txt, pnl=null, cls='';
+  if(!s.coin||!(s.entry>0)||!(s.stop>0)||!s.tps.length||!s.when){txt=L.bad;}
+  else if(s.side==='L'? (s.stop>=s.entry||s.tps.some(function(t){return t<=s.entry;})) : (s.stop<=s.entry||s.tps.some(function(t){return t>=s.entry;}))){txt=L.wrong;}
+  else { var st=new Date(s.when).getTime(); st=Math.floor(st/3600e3)*3600e3; var now=Date.now();
+   if(st>now) txt=L.future; else {
+    var end=Math.min(now, st+30*24*3600e3);
+    try{ var cs=await candles(s.coin,st,end); if(!cs.length) throw new Error('nodata'); var r=sim(s,cs); txt=r.txt+(end<now&&!r.closed&&r.filled?' ('+L.toolong+')':''); pnl=r.pnl; if(r.filled) res.push(r);}
+    catch(e){txt=L.nodata;} } }
+  var tr=document.createElement('tr'); tr.innerHTML='<td>'+name+'</td><td>'+txt+'</td><td class="'+(pnl==null?'':pnl>=0?'pos':'neg')+'">'+(pnl==null?'–':pct(pnl))+'</td>'; body.appendChild(tr);
+ }
+ $('status').textContent='';
+ var closed=res.filter(function(r){return r.closed;});
+ $('sum').hidden=false; show('sn',String(body.children.length));
+ if(closed.length){ show('sw',Math.round(100*closed.filter(function(r){return r.pnl>0;}).length/closed.length)+'%'); var a=closed.reduce(function(x,r){return x+r.pnl;},0)/closed.length; show('sa',pct(a),a>=0?'pos':'neg'); }
+ else {show('sw','–');show('sa','–');}
+};
+$('ex').onclick=async function(){
+ var t=Math.floor((Date.now()-10*24*3600e3)/3600e3)*3600e3;
+ try{ var cs=await candles('BTC',t,t+3*3600e3); var p=Math.round(cs[0][4]);
+  var f=document.querySelectorAll('.sigbox')[0]; f.querySelector('.coin').value='BTC'; f.querySelector('.side').value='L';
+  f.querySelector('.entry').value=Math.round(p*0.99); f.querySelector('.stop').value=Math.round(p*0.96);
+  f.querySelector('.tp1').value=Math.round(p*1.01); f.querySelector('.tp2').value=Math.round(p*1.03); f.querySelector('.tp3').value=Math.round(p*1.05);
+  f.querySelector('.when').value=localISO(new Date(t)); $('exnote').hidden=false; $('run').click(); }
+ catch(e){ $('status').textContent=L.nodata; }
+};
+})();</script>
+
+</main>
+<footer class="foot"><div class="in">
+  <div><a class="logo" href="../"><span>Signal<b>Checker</b>HQ</span></a>
+  <p>Google Sheets tools that show the real numbers of crypto trading. Built by a trader working with AI. No signals, no hype.</p><p><a href="../how-its-built/">How it's built: human + AI →</a></p></div>
+  <div><h4>Tools</h4><a href="../signal-checker/">Crypto Signal Checker</a><a href="../trade-journal/">Crypto Trade Journal + DCA Planner</a><a href="../portfolio-tracker/">Crypto Portfolio Tracker</a><a href="../risk-calculator/">Position Size & Risk Calculator</a><a href="../bundle/">Bundles: Complete Kit &amp; Toolkit</a><a href="../tools/">Free calculators</a><a href="../guides/">Guides</a></div>
+  <div><h4>Shop & follow</h4><a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy</a><a href="https://5778611980656.gumroad.com/">Gumroad</a><a href="https://x.com/SignalCheckerHQ">X</a><a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a><a href="https://www.pinterest.com/ilonavoitenco/crypto-trading-tools-templates/">Pinterest</a></div>
+  <div><h4>Info</h4><a href="../legal/">Terms, privacy &amp; refunds</a><a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></div>
+</div><p class="fine in">All tools are for analysis and record-keeping. Nothing on this site is financial advice. Examples use example or historical data; results vary. © 2026 SignalCheckerHQ. SignalCheckerHQ™, Signal Checker™ and the SignalCheckerHQ logo are trademarks of SignalCheckerHQ. All products, images, videos and text are protected by copyright; copying or reselling them is not allowed.</p></footer>
+<script src="https://gumroad.com/js/gumroad.js" defer></script>
+<script data-goatcounter="https://signalcheckerhq.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
