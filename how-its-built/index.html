@@ -13,13 +13,14 @@
 <link rel="icon" href="../assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap">
-<link rel="stylesheet" href="../assets/site.css?v=2">
-</head>
+<link rel="stylesheet" href="../assets/site.css?v=3">
+<link rel="alternate" hreflang="en" href="https://signalcheckerhq.org/how-its-built/"><link rel="alternate" hreflang="es" href="https://signalcheckerhq.org/es/how-its-built/"><link rel="alternate" hreflang="ru" href="https://signalcheckerhq.org/ru/how-its-built/"><link rel="alternate" hreflang="x-default" href="https://signalcheckerhq.org/how-its-built/"></head>
 <body>
 <header class="top"><div class="in">
   <a class="logo" href="../"><img src="../assets/img/icon.png" alt="" width="32" height="32"><span>Signal<b>Checker</b>HQ</span></a>
+  <div class="langs"><a href="../how-its-built/" class=on aria-current=page hreflang="en" lang="en">EN</a><a href="../es/how-its-built/" hreflang="es" lang="es">ES</a><a href="../ru/how-its-built/" hreflang="ru" lang="ru">RU</a></div>
   <button type="button" class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('.top');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button>
-  <nav><a href="../signal-checker/">Signal Checker</a><a href="../trade-journal/">Trade Journal</a><a href="../portfolio-tracker/">Portfolio Tracker</a><a href="../risk-calculator/">Risk Calculator</a><a href="../guides/">Guides</a><a href="../how-its-built/">Human + AI</a><a href="../tools/" class="free">Free tools</a></nav>
+  <nav><a href="../#tools">Tools</a><a href="../bundle/">Complete Kit</a><a href="../guides/">Guides</a><a href="../how-its-built/">Human + AI</a><a href="../tools/" class="free">Free tools</a></nav>
 </div></header>
 <main>
 
@@ -33,24 +34,13 @@
   <div class="box" style="margin:0"><p class="quote">&ldquo;My trading bot sent me 552 profit emails in a year. It never sent one about the losses.&rdquo;</p><p>That's where SignalCheckerHQ started. I added everything up myself, saw the real picture, and decided to build tools that show it. AI is how one person can build them properly. <a href="https://medium.com/@ilonavoitenco/my-trading-bot-sent-me-552-profit-emails-it-never-told-me-about-the-losses-eb9c27a3691a">Read the story</a></p></div>
 </section>
 <section class="in"><h2 class="sec">Who does what</h2><div class="duo">
-  <div class="side h"><div class="who">The human</div><h3>Experience &amp; judgment</h3><ul class="checks">
-    <li>A year of real trading with a 3Commas bot, and the losses its emails never mentioned</li>
-    <li>Knows which numbers traders actually need, and which ones hide the truth</li>
-    <li>Decides what to build, tests every tool on real data and signs off on it</li></ul></div>
+  <div class="side h"><div class="who">The human</div><h3>Experience &amp; judgment</h3><ul class="checks"><li>A year of real trading with a 3Commas bot, and the losses its emails never mentioned</li><li>Knows which numbers traders actually need, and which ones hide the truth</li><li>Decides what to build, tests every tool on real data and signs off on it</li></ul></div>
   <div class="plus" aria-hidden="true">+</div>
-  <div class="side a"><div class="who">The AI</div><h3>Speed &amp; precision</h3><ul class="checks">
-    <li>Writes the formulas, scripts and calculators, and checks the math step by step</li>
-    <li>Tests edge cases a person would miss: shorts, fees, gaps, same-hour stops</li>
-    <li>Ships in days what would take a small team months</li></ul></div>
+  <div class="side a"><div class="who">The AI</div><h3>Speed &amp; precision</h3><ul class="checks"><li>Writes the formulas, scripts and calculators, and checks the math step by step</li><li>Tests edge cases a person would miss: shorts, fees, gaps, same-hour stops</li><li>Ships in days what would take a small team months</li></ul></div>
 </div>
 <div class="result"><div><div><h3>= Tools you can trust</h3><p>Every number shown, losses and fees included. No signals, no hype, no API keys.</p></div><a class="btn" href="../bundle/">Get all 4 · $39</a></div></div></section>
 <section class="in"><h2 class="sec">How a tool gets built</h2><p class="sub">Every SignalCheckerHQ tool goes through the same four steps.</p>
-<div class="steps">
-  <div><h3>A real problem</h3><p>It starts with something that cost real money: a signal group's hidden stop-outs, a forgotten fee, a position sized by feel.</p><span class="who">Human</span></div>
-  <div><h3>Built together</h3><p>The trader describes what the tool must show. AI writes the formulas and scripts, and both go back and forth until it's right.</p><span class="who">Human + AI</span></div>
-  <div><h3>Checked twice</h3><p>AI checks every formula against worked examples. Edge cases get tested: shorts, leverage, fees, a stop and target in the same hour.</p><span class="who">AI</span></div>
-  <div><h3>Tested on real data</h3><p>The trader runs it on real prices and real trades. If a number looks wrong, it goes back to step 2.</p><span class="who">Human</span></div>
-</div></section>
+<div class="steps"><div><h3>A real problem</h3><p>It starts with something that cost real money: a signal group's hidden stop-outs, a forgotten fee, a position sized by feel.</p><span class="who">Human</span></div><div><h3>Built together</h3><p>The trader describes what the tool must show. AI writes the formulas and scripts, and both go back and forth until it's right.</p><span class="who">Human + AI</span></div><div><h3>Checked twice</h3><p>AI checks every formula against worked examples. Edge cases get tested: shorts, leverage, fees, a stop and target in the same hour.</p><span class="who">AI</span></div><div><h3>Tested on real data</h3><p>The trader runs it on real prices and real trades. If a number looks wrong, it goes back to step 2.</p><span class="who">Human</span></div></div></section>
 <section class="in two box">
   <div><h2>What AI does <span class="gtext">not</span> do</h2><ul class="checks"><li>Give trading signals or tell you what to buy</li><li>Make decisions about your money</li><li>See your data: your numbers stay in your own Google Sheet</li></ul></div>
   <div><h2>Why it matters to you</h2><ul class="checks"><li>Tools built by someone who trades, not a template factory</li><li>Math that's been checked, with nothing hidden</li><li>Fast fixes and new tools, because building is quick</li><li>Real support from a real person: <a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></li></ul></div>
@@ -62,7 +52,7 @@
   <div><a class="logo" href="../"><span>Signal<b>Checker</b>HQ</span></a>
   <p>Google Sheets tools that show the real numbers of crypto trading. Built by a trader working with AI. No signals, no hype.</p><p><a href="../how-its-built/">How it's built: human + AI →</a></p></div>
   <div><h4>Tools</h4><a href="../signal-checker/">Crypto Signal Checker</a><a href="../trade-journal/">Crypto Trade Journal + DCA Planner</a><a href="../portfolio-tracker/">Crypto Portfolio Tracker</a><a href="../risk-calculator/">Position Size & Risk Calculator</a><a href="../bundle/">Bundles: Complete Kit &amp; Toolkit</a><a href="../tools/">Free calculators</a><a href="../guides/">Guides</a></div>
-  <div><h4>Shop & follow</h4><a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy shop</a><a href="https://5778611980656.gumroad.com/">Gumroad</a><a href="https://x.com/SignalCheckerHQ">X</a><a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a><a href="https://www.pinterest.com/ilonavoitenco/crypto-trading-tools-templates/">Pinterest</a></div>
+  <div><h4>Shop & follow</h4><a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy</a><a href="https://5778611980656.gumroad.com/">Gumroad</a><a href="https://x.com/SignalCheckerHQ">X</a><a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a><a href="https://www.pinterest.com/ilonavoitenco/crypto-trading-tools-templates/">Pinterest</a></div>
   <div><h4>Info</h4><a href="../legal/">Terms, privacy &amp; refunds</a><a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></div>
 </div><p class="fine in">All tools are for analysis and record-keeping. Nothing on this site is financial advice. Examples use example or historical data; results vary. © 2026 SignalCheckerHQ. SignalCheckerHQ™, Signal Checker™ and the SignalCheckerHQ logo are trademarks of SignalCheckerHQ. All products, images, videos and text are protected by copyright; copying or reselling them is not allowed.</p></footer>
 <script src="https://gumroad.com/js/gumroad.js" defer></script>
