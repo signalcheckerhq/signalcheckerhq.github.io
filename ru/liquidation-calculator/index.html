@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Калькулятор цены ликвидации для сделок с плечом (бесплатно) | SignalCheckerHQ</title>
+<meta name="description" content="Бесплатный калькулятор цены ликвидации для лонгов и шортов с изолированной маржой. Узнайте, где примерно вас ликвидируют при любом плече и сработает ли стоп раньше.">
+<link rel="canonical" href="https://signalcheckerhq.org/ru/liquidation-calculator/">
+<meta property="og:title" content="Калькулятор цены ликвидации для сделок с плечом (бесплатно) | SignalCheckerHQ"><meta property="og:description" content="Бесплатный калькулятор цены ликвидации для лонгов и шортов с изолированной маржой. Узнайте, где примерно вас ликвидируют при любом плече и сработает ли стоп раньше.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://signalcheckerhq.org/ru/liquidation-calculator/">
+<meta property="og:image" content="https://signalcheckerhq.org/assets/img/rc-1.webp">
+<meta name="theme-color" content="#0b1120">
+<meta name="google-site-verification" content="uh0u66NYvt6K8r_yqwLmn0GAHeASmu_aV-5lmH9_T-0">
+<meta name="google-site-verification" content="UvHvX4_1aVpsXs5uoaKarwA5mYzig2ahWrXbkXhL_fY">
+<link rel="icon" href="../../assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../assets/site.css?v=3">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Калькулятор цены ликвидации","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://signalcheckerhq.org/ru/liquidation-calculator/"}</script><link rel="alternate" hreflang="en" href="https://signalcheckerhq.org/liquidation-calculator/"><link rel="alternate" hreflang="es" href="https://signalcheckerhq.org/es/liquidation-calculator/"><link rel="alternate" hreflang="ru" href="https://signalcheckerhq.org/ru/liquidation-calculator/"><link rel="alternate" hreflang="x-default" href="https://signalcheckerhq.org/liquidation-calculator/"></head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../ru/"><img src="../../assets/img/icon.png" alt="" width="32" height="32"><span>Signal<b>Checker</b>HQ</span></a>
+  <div class="langs"><a href="../../liquidation-calculator/" hreflang="en" lang="en">EN</a><a href="../../es/liquidation-calculator/" hreflang="es" lang="es">ES</a><a href="../../ru/liquidation-calculator/" class=on aria-current=page hreflang="ru" lang="ru">RU</a></div>
+  <button type="button" class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('.top');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button>
+  <nav><a href="../../ru/#tools">Инструменты</a><a href="../../ru/bundle/">Complete Kit</a><a href="../../ru/guides/">Гайды</a><a href="../../ru/how-its-built/">Человек + AI</a><a href="../../ru/tools/" class="free">Бесплатно</a></nav>
+</div></header>
+<main>
+
+<section class="hero in" style="padding-bottom:0"><div class="tag">Бесплатный инструмент</div><h1>Калькулятор цены ликвидации <span>(бесплатно)</span></h1><p class="lead">Вход, плечо и направление: где примерно ликвидируют позицию с изолированной маржой, как далеко это от входа и сработает ли стоп раньше.</p></section>
+<div class="in grid2 calc">
+  <section class="card" aria-label="Ваши данные"><h2 class="ch">Ваши данные</h2>
+<div class="seg" role="group" aria-label="Направление"><button type="button" id="long" class="on">Лонг</button><button type="button" id="short">Шорт</button></div>
+<div class="two">
+  <div><label for="entry">Цена входа</label><input id="entry" type="number" inputmode="decimal" value="108000" step="any" min="0"></div>
+  <div><label for="lev">Плечо</label><input id="lev" type="number" inputmode="decimal" value="10" step="any" min="1"></div>
+</div>
+<div class="two">
+  <div><label for="mmr">Поддерживающая маржа (%)</label><input id="mmr" type="number" inputmode="decimal" value="0.5" step="any" min="0"></div>
+  <div><label for="stop">Ваш стоп (необязательно)</label><input id="stop" type="number" inputmode="decimal" value="104500" step="any" min="0"></div>
+</div>
+</section>
+  <section class="card" aria-live="polite" aria-label="Результат"><h2 class="ch">Результат</h2>
+<div class="big"><span>Цена ликвидации (примерно)</span><b id="liq">–</b></div>
+<div class="row"><span>Расстояние от входа</span><b id="dist">–</b></div>
+<div class="row"><span>Без поддерживающей маржи</span><b id="raw">–</b></div>
+<div class="row"><span>Расстояние стопа от входа</span><b id="sd">–</b></div>
+<div id="msg" class="msg ok">✓ Всё в порядке</div>
+<table class="tbl small" id="levtab"></table>
+</section>
+</div>
+<section class="in box cta"><div><h2>Хотите то же самое в своей Google Таблице?</h2><p>Считайте размер каждой сделки с плечом так, чтобы стоп стоил ровно запланированную сумму, с проверкой ликвидации и целями в R: <b>Position Size &amp; Risk Calculator</b>.</p></div><a class="btn" href="../../ru/risk-calculator/">Смотреть Risk Calculator · $7</a></section>
+<article class="in prose">
+<h2>Как оценивается</h2>
+<div class="formula">Лонг: ликвидация ≈ вход × (1 − 1/плечо + поддерживающая маржа)<br>Шорт: ликвидация ≈ вход × (1 + 1/плечо − поддерживающая маржа)</div>
+<p>Это стандартная оценка для позиции с <b>изолированной маржой</b>. Биржи используют разные уровни поддерживающей маржи, комиссии и фандинг, а позиции с кросс-маржой зависят от всего баланса, поэтому реальная цена может отличаться. Всегда сверяйтесь с ценой ликвидации, которую показывает биржа.</p>
+<h2>Плечо не меняет риск — оно меняет маржу</h2>
+<p>Если размер сделки считается от стопа, убыток в долларах при стопе одинаков и при 2x, и при 20x. Плечо меняет только то, сколько денег вы блокируете и насколько близко ликвидация. Опасно, когда ликвидация наступает раньше стопа: тогда можно потерять всю маржу вместо запланированного риска. Сначала посчитайте размер в бесплатном <a href="../position-size-calculator/">калькуляторе размера позиции</a>.</p>
+
+<p class="small">Всё считается в вашем браузере, никакие данные никуда не отправляются. Калькулятор считает по введённым вами числам. Это не финансовая рекомендация.</p>
+<p>Другие бесплатные инструменты: <a href="../../ru/signal-checker-demo/">Демо Signal Checker</a> · <a href="../../ru/dca-calculator/">Калькулятор средней цены DCA</a> · <a href="../../ru/crypto-profit-calculator/">Калькулятор прибыли для крипты</a> · <a href="../../ru/position-size-calculator/">Калькулятор размера позиции</a></p></article>
+<script>(function(){
+var $=function(id){return document.getElementById(id);};
+var num=function(id){var v=parseFloat(String($(id).value).replace(',','.'));return isFinite(v)?v:NaN;};
+var money=function(v){return (v<0?'−$':'$')+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});};
+var signed=function(v){return (v>0?'+':'')+money(v);};
+var price=function(v){return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:v>=1?2:8});};
+var pct=function(v,d){return (v>0?'+':v<0?'−':'')+Math.abs(v*100).toFixed(d==null?2:d)+'%';};
+var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
+var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
+document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
+
+var dir='Long'; function setDir(d){dir=d;$('long').classList.toggle('on',d==='Long');$('short').classList.toggle('on',d==='Short');calc();}
+$('long').onclick=function(){setDir('Long');}; $('short').onclick=function(){setDir('Short');};
+function liqAt(e,lev,m){return dir==='Long'?e*(1-1/lev+m):e*(1+1/lev-m);}
+function calc(){
+ var e=num('entry'),lev=num('lev'),m=(num('mmr')||0)/100,st=num('stop');
+ if(!(e>0&&lev>=1)){['liq','dist','raw','sd'].forEach(function(i){show(i,'–');});$('levtab').innerHTML='';return msg('Заполните вход и плечо (1 или больше).','err');}
+ if(lev===1){show('liq','нет при 1x');show('dist','–');show('raw','–');} else {
+  var l=liqAt(e,lev,m); show('liq',price(l)); show('dist',pct(l/e-1)); show('raw',price(liqAt(e,lev,0)));}
+ var rows='<tr><th>Плечо</th><th>Liquidation ≈</th><th>Move</th></tr>';
+ [2,3,5,10,20,50,100].forEach(function(L){var l=liqAt(e,L,m);rows+='<tr><td>'+L+'x</td><td>'+price(l)+'</td><td>'+pct(l/e-1,1)+'</td></tr>';}); $('levtab').innerHTML=rows;
+ if(st>0){show('sd',pct(st/e-1)); if(dir==='Long'&&st>e||dir==='Short'&&st<e) return msg('⚠ Стоп не с той стороны от входа для '+(dir==='Long'?'лонга':'шорта')+'.','warn');
+  if(lev>1){var l2=liqAt(e,lev,m); if(dir==='Long'?st<=l2:st>=l2) return msg('⚠ Ликвидация наступит РАНЬШЕ стопа. Уменьшите плечо или передвиньте стоп.','warn');}} else show('sd','–');
+ msg('✓ Всё в порядке','ok');
+}
+calc();
+})();</script>
+
+</main>
+<footer class="foot"><div class="in">
+  <div><a class="logo" href="../../ru/"><span>Signal<b>Checker</b>HQ</span></a>
+  <p>Инструменты в Google Таблицах, которые показывают реальные цифры криптотрейдинга. Создано трейдером вместе с AI. Без сигналов и без хайпа.</p><p><a href="../../ru/how-its-built/">Как мы работаем: человек + AI →</a></p></div>
+  <div><h4>Инструменты</h4><a href="../../ru/signal-checker/">Crypto Signal Checker</a><a href="../../ru/trade-journal/">Crypto Trade Journal + DCA Planner</a><a href="../../ru/portfolio-tracker/">Crypto Portfolio Tracker</a><a href="../../ru/risk-calculator/">Position Size & Risk Calculator</a><a href="../../ru/bundle/">Наборы: Complete Kit и Toolkit</a><a href="../../ru/tools/">Бесплатные калькуляторы</a><a href="../../ru/guides/">Гайды</a></div>
+  <div><h4>Магазин и соцсети</h4><a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy</a><a href="https://5778611980656.gumroad.com/">Gumroad</a><a href="https://x.com/SignalCheckerHQ">X</a><a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a><a href="https://www.pinterest.com/ilonavoitenco/crypto-trading-tools-templates/">Pinterest</a></div>
+  <div><h4>Инфо</h4><a href="../../legal/">Условия, конфиденциальность и возвраты (англ.)</a><a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></div>
+</div><p class="fine in">Все инструменты предназначены для анализа и учёта. Ничто на этом сайте не является финансовой рекомендацией. В примерах используются примерные или исторические данные; результаты могут отличаться. © 2026 SignalCheckerHQ. SignalCheckerHQ™, Signal Checker™ и логотип SignalCheckerHQ являются товарными знаками SignalCheckerHQ. Все продукты, изображения, видео и тексты защищены авторским правом; копировать и перепродавать их запрещено.</p></footer>
+<script src="https://gumroad.com/js/gumroad.js" defer></script>
+<script data-goatcounter="https://signalcheckerhq.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
