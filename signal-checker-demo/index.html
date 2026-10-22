@@ -52,7 +52,7 @@ var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
 var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
 document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
 
-var L={"sig": "Signal", "coin": "Coin", "side": "Side", "long": "Long", "short_": "Short", "entry": "Entry", "stop": "Stop", "tp": "TP", "posted": "Posted (your time)", "checking": "Checking prices…", "notfilled": "Entry never filled", "open": "Still open", "stopped": "Stopped out", "alltp": "All targets hit", "tphit": "hit", "after": "after", "nodata": "No Coinbase price for this coin (the full version also uses KuCoin)", "bad": "Fill in coin, entry, stop and at least TP1", "wrong": "Stop or targets are on the wrong side of the entry", "future": "The post time is in the future", "toolong": "checked the first 30 days after the call"};
+var L={"sig": "Signal", "coin": "Coin", "side": "Side", "long": "Long", "short_": "Short", "entry": "Entry", "stop": "Stop", "tp": "TP", "posted": "Posted (your time)", "checking": "Checking prices…", "notfilled": "Entry never filled", "open": "Still open", "stopped": "Stopped out", "alltp": "All targets hit", "tphit": "hit", "after": "after", "hrs": "h", "nodata": "No Coinbase price for this coin (the full version also uses KuCoin)", "bad": "Fill in coin, entry, stop and at least TP1", "wrong": "Stop or targets are on the wrong side of the entry", "future": "The post time is in the future", "toolong": "checked the first 30 days after the call"};
 function calc(){}
 function el(h){var d=document.createElement('div');d.innerHTML=h;return d.firstChild;}
 function card(i){return el('<fieldset class="sigbox"><legend>'+L.sig+' '+(i+1)+'</legend>'+
@@ -90,7 +90,8 @@ function sim(s,cs){
  else if(!done) pnl+=rest*((isL?last-s.entry:s.entry-last)/s.entry);
  pnl-=2*fee;
  var parts=[]; for(var k=0;k<hit;k++) parts.push(L.tp+(k+1)+' '+L.tphit);
- var txt = stopped ? (parts.length? parts.join(', ')+', ' : '')+L.stopped+' ('+L.after+' '+hours+'h)' : hit===tps.length ? L.alltp+' ('+L.after+' '+hours+'h)' : (parts.length? parts.join(', ')+', ' : '')+L.open;
+ var lc=function(x){return x.charAt(0).toLowerCase()+x.slice(1);}, pre=parts.length? parts.join(', ')+', ' : '', hh=' ('+L.after+' '+hours+L.hrs+')';
+ var txt = stopped ? (pre? pre+lc(L.stopped) : L.stopped)+hh : hit===tps.length ? L.alltp+hh : (pre? pre+lc(L.open) : L.open);
  return {txt:txt, pnl:pnl, closed:stopped||hit===tps.length, filled:true};
 }
 function read(f){var g=function(c){return parseFloat(String(f.querySelector('.'+c).value).replace(',','.'));};
