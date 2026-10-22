@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Как посчитать среднюю цену при DCA в крипте | SignalCheckerHQ</title>
+<meta name="description" content="Как правильно считать среднюю цену входа при усреднении (DCA) в крипте, почему среднее цен даёт неверный ответ и сколько стоит стоп, если исполнились все уровни DCA.">
+<link rel="canonical" href="https://signalcheckerhq.org/ru/guides/dca-average-price/">
+<meta property="og:title" content="Как посчитать среднюю цену при DCA в крипте | SignalCheckerHQ"><meta property="og:description" content="Как правильно считать среднюю цену входа при усреднении (DCA) в крипте, почему среднее цен даёт неверный ответ и сколько стоит стоп, если исполнились все уровни DCA.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://signalcheckerhq.org/ru/guides/dca-average-price/">
+<meta property="og:image" content="https://signalcheckerhq.org/assets/img/rc-1.webp">
+<meta name="theme-color" content="#0b1120">
+<meta name="google-site-verification" content="uh0u66NYvt6K8r_yqwLmn0GAHeASmu_aV-5lmH9_T-0">
+<meta name="google-site-verification" content="UvHvX4_1aVpsXs5uoaKarwA5mYzig2ahWrXbkXhL_fY">
+<link rel="icon" href="../../../assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../../assets/site.css?v=3">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Как посчитать среднюю цену при DCA в крипте","description":"Как правильно считать среднюю цену входа при усреднении (DCA) в крипте, почему среднее цен даёт неверный ответ и сколько стоит стоп, если исполнились все уровни DCA.","datePublished":"2026-10-21","inLanguage":"ru","author":{"@type":"Organization","name":"SignalCheckerHQ"},"publisher":{"@type":"Organization","name":"SignalCheckerHQ","logo":{"@type":"ImageObject","url":"https://signalcheckerhq.org/assets/img/icon.png"}},"mainEntityOfPage":"https://signalcheckerhq.org/ru/guides/dca-average-price/"}</script><link rel="alternate" hreflang="en" href="https://signalcheckerhq.org/guides/dca-average-price/"><link rel="alternate" hreflang="es" href="https://signalcheckerhq.org/es/guides/dca-average-price/"><link rel="alternate" hreflang="ru" href="https://signalcheckerhq.org/ru/guides/dca-average-price/"><link rel="alternate" hreflang="x-default" href="https://signalcheckerhq.org/guides/dca-average-price/"></head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../../ru/"><img src="../../../assets/img/icon.png" alt="" width="32" height="32"><span>Signal<b>Checker</b>HQ</span></a>
+  <div class="langs"><a href="../../../guides/dca-average-price/" hreflang="en" lang="en">EN</a><a href="../../../es/guides/dca-average-price/" hreflang="es" lang="es">ES</a><a href="../../../ru/guides/dca-average-price/" class=on aria-current=page hreflang="ru" lang="ru">RU</a></div>
+  <button type="button" class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('.top');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button>
+  <nav><a href="../../../ru/#tools">Инструменты</a><a href="../../../ru/bundle/">Complete Kit</a><a href="../../../ru/guides/">Гайды</a><a href="../../../ru/how-its-built/">Человек + AI</a><a href="../../../ru/tools/" class="free">Бесплатно</a></nav>
+</div></header>
+<main>
+
+<article class="in prose guide">
+<p class="small"><a href="../../../ru/guides/">Гайды</a> · 4 мин чтения · Обновлено 2026-10-21</p>
+<h1>Как посчитать среднюю цену при DCA в крипте</h1>
+
+<p class="lead">Если вы покупаете монету несколько раз по разным ценам, какая у вас реальная цена входа? Большинство усредняет цены. Это неверно всякий раз, когда суммы покупок разные.</p>
+
+<h2>Формула</h2>
+<div class="formula">Средняя цена = всего потрачено денег ÷ всего куплено монет</div>
+<p>Не среднее цен. Каждая покупка весит пропорционально количеству купленных монет.</p>
+
+<h2>Разобранный пример</h2>
+<table class="tbl">
+<tr><th>Покупка</th><th>Потрачено</th><th>Цена</th><th>Монет</th></tr>
+<tr><td>1</td><td>$100</td><td>$100</td><td>1,0000</td></tr>
+<tr><td>2</td><td>$100</td><td>$90</td><td>1,1111</td></tr>
+<tr><td>3</td><td>$200</td><td>$80</td><td>2,5000</td></tr>
+<tr><td><b>Итого</b></td><td><b>$400</b></td><td></td><td><b>4,6111</b></td></tr>
+</table>
+<p>Средняя цена = $400 ÷ 4,6111 = <b>$86,75</b>. Среднее трёх цен даёт $90 — на $3,25 больше, потому что самая крупная покупка была по самой низкой цене.</p>
+<p>От последней покупки по $80 цене нужно вырасти примерно на <b>8,4%</b> (до $86,75), чтобы вся позиция вышла в безубыток, без учёта комиссий.</p>
+
+<h2>Комиссии немного меняют результат</h2>
+<p>Добавьте комиссию каждой покупки к «потраченным деньгам», чтобы получить более честную среднюю. На небольших покупках с высокими комиссиями разница накапливается.</p>
+
+<h2>Планируйте стоп до DCA</h2>
+<p>В планах DCA стоп часто ставят ниже последнего уровня покупки. Если исполнились все уровни и сработал стоп, вы теряете на <i>всей</i> позиции, а не только на первой покупке. До входа посчитайте: все деньги, потраченные при исполнении всех уровней, × расстояние от средней цены до стопа. Это и есть ваш реальный риск. Если стоп стоит <i>выше</i> последнего уровня DCA, последняя покупка никогда не произойдёт, и план не имеет смысла.</p>
+
+<h2>Пусть это делает таблица</h2>
+<p>DCA Planner в <a href="../../trade-journal/">Crypto Trade Journal + DCA Planner</a> показывает каждый уровень покупки, новую среднюю цену и тейк-профит после каждого из них, стоимость стопа при исполнении всех уровней и предупреждает, если стоп стоит раньше последнего уровня DCA. Для портфеля, который вы собираете месяцами, <a href="../../portfolio-tracker/">Portfolio Tracker</a> хранит среднюю цену покупки по каждой монете. Для быстрого расчёта — <a href="../../dca-calculator/">бесплатный DCA-калькулятор</a>.</p>
+
+<p class="small note">Образовательный материал, не финансовая рекомендация. В примерах используются условные числа.</p>
+</article>
+<section class="in box cta"><div><div class="tag">Инструмент в Google Таблицах</div><h2>Crypto Trade Journal + DCA Planner</h2><p>Записывайте каждую сделку с живыми ценами. Винрейт, профит-фактор, кривая капитала и DCA-планировщик.</p></div><a class="btn" href="../../../ru/trade-journal/">Смотреть · $15</a></section>
+<section class="in prose"><h2>Другие гайды</h2><ul><li><a href="../../../ru/guides/is-my-crypto-signal-group-legit/">Как проверить, честная ли криптосигнальная группа (до того, как платить)</a></li><li><a href="../../../ru/guides/win-rate-vs-profit-factor/">Винрейт и профит-фактор: почему 70% прибыльных сделок может давать убыток</a></li><li><a href="../../../ru/guides/crypto-portfolio-real-pnl/">Как считать реальный P&amp;L криптопортфеля (метод средней стоимости)</a></li></ul></section>
+
+</main>
+<footer class="foot"><div class="in">
+  <div><a class="logo" href="../../../ru/"><span>Signal<b>Checker</b>HQ</span></a>
+  <p>Инструменты в Google Таблицах, которые показывают реальные цифры криптотрейдинга. Создано трейдером вместе с AI. Без сигналов и без хайпа.</p><p><a href="../../../ru/how-its-built/">Как мы работаем: человек + AI →</a></p></div>
+  <div><h4>Инструменты</h4><a href="../../../ru/signal-checker/">Crypto Signal Checker</a><a href="../../../ru/trade-journal/">Crypto Trade Journal + DCA Planner</a><a href="../../../ru/portfolio-tracker/">Crypto Portfolio Tracker</a><a href="../../../ru/risk-calculator/">Position Size & Risk Calculator</a><a href="../../../ru/bundle/">Наборы: Complete Kit и Toolkit</a><a href="../../../ru/tools/">Бесплатные калькуляторы</a><a href="../../../ru/guides/">Гайды</a></div>
+  <div><h4>Магазин и соцсети</h4><a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy</a><a href="https://5778611980656.gumroad.com/">Gumroad</a><a href="https://x.com/SignalCheckerHQ">X</a><a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a><a href="https://www.pinterest.com/ilonavoitenco/crypto-trading-tools-templates/">Pinterest</a></div>
+  <div><h4>Инфо</h4><a href="../../../legal/">Условия, конфиденциальность и возвраты (англ.)</a><a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></div>
+</div><p class="fine in">Все инструменты предназначены для анализа и учёта. Ничто на этом сайте не является финансовой рекомендацией. В примерах используются примерные или исторические данные; результаты могут отличаться. © 2026 SignalCheckerHQ. SignalCheckerHQ™, Signal Checker™ и логотип SignalCheckerHQ являются товарными знаками SignalCheckerHQ. Все продукты, изображения, видео и тексты защищены авторским правом; копировать и перепродавать их запрещено.</p></footer>
+<script src="https://gumroad.com/js/gumroad.js" defer></script>
+<script data-goatcounter="https://signalcheckerhq.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
