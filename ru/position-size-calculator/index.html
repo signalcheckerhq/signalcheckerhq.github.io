@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Калькулятор размера позиции для крипты (бесплатно, с комиссиями и плечом) | SignalCheckerHQ</title>
+<meta name="description" content="Бесплатный калькулятор размера позиции для крипты. Введите баланс, риск в %, вход и стоп-лосс — и получите точный размер позиции с учётом комиссий, а также маржу, плечо, цену ликвидации и R-кратное.">
+<meta property="og:title" content="Бесплатный калькулятор размера позиции для крипты">
+<meta property="og:description" content="Точный размер позиции для любой криптосделки с учётом комиссий. Маржа, плечо, ликвидация и R-кратное в одном месте.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://signalcheckerhq.org/ru/position-size-calculator/">
+<link rel="canonical" href="https://signalcheckerhq.org/ru/position-size-calculator/">
+<meta name="google-site-verification" content="uh0u66NYvt6K8r_yqwLmn0GAHeASmu_aV-5lmH9_T-0">
+<meta name="theme-color" content="#0b1120">
+<link rel="icon" href="../../assets/img/favicon.png">
+<style>
+:root{--bg:#0b1120;--panel:#111a2e;--line:#1f2a44;--text:#f8fafc;--muted:#94a3b8;--green:#4ade80;--green2:#15803d;--red:#f87171;--amber:#fbbf24;--input:#0f172a}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+a{color:var(--green)}
+.wrap{max-width:1000px;margin:0 auto;padding:28px 16px 60px}
+header .brand{font-weight:700;letter-spacing:.08em;color:var(--muted);font-size:14px}
+header .brand b{color:var(--green)}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:14px 0 10px}
+h1 span{color:var(--green)}
+.sub{color:#cbd5e1;font-size:18px;margin:0 0 26px;max-width:720px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:780px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
+.card h2{font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin:0 0 14px}
+label{display:block;font-size:14px;color:var(--muted);margin:12px 0 5px}
+input,select{width:100%;padding:11px 12px;border-radius:10px;border:1px solid #334155;background:var(--input);color:var(--text);font-size:17px}
+input:focus,select:focus{outline:2px solid var(--green);border-color:transparent}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--input);border:1px solid #334155;border-radius:10px;padding:4px}
+.seg button{border:0;border-radius:7px;padding:9px;font-size:16px;font-weight:600;background:transparent;color:var(--muted);cursor:pointer}
+.seg button.on{background:var(--green);color:#0b1120}
+.row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:16px}
+.row:last-child{border-bottom:0}
+.row span{color:var(--muted)}
+.row b{font-variant-numeric:tabular-nums;text-align:right}
+.big{background:#052e1a;border:1px solid #166534;border-radius:12px;padding:16px;margin-bottom:8px}
+.big span{color:#bbf7d0;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.big b{display:block;font-size:32px;margin-top:4px;font-variant-numeric:tabular-nums}
+.msg{border-radius:10px;padding:10px 12px;margin-top:12px;font-size:15px}
+.ok{background:#052e1a;color:#86efac}.warn{background:#3b2a05;color:#fde68a}.err{background:#3b0a0a;color:#fca5a5}
+.pos{color:var(--green)}.neg{color:var(--red)}
+.cta{margin-top:26px;display:grid;grid-template-columns:2fr 1fr;gap:20px;align-items:center;background:linear-gradient(135deg,#0f2a1d,#111a2e);border:1px solid #166534}
+@media(max-width:780px){.cta{grid-template-columns:1fr}}
+.cta h3{margin:0 0 6px;font-size:22px}
+.cta p{margin:0;color:#cbd5e1}
+.btn{display:inline-block;background:var(--green);color:#0b1120;font-weight:800;text-decoration:none;border-radius:999px;padding:12px 22px;text-align:center;margin:4px 0}
+.btn.alt{background:transparent;color:var(--green);border:1px solid var(--green)}
+article{margin-top:42px;max-width:760px}
+article h2{font-size:26px;margin:34px 0 10px}
+article h3{font-size:19px;margin:22px 0 6px}
+article p,article li{color:#cbd5e1}
+code{background:var(--panel);border:1px solid var(--line);padding:2px 6px;border-radius:6px;font-size:15px}
+.formula{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-family:Consolas,monospace;font-size:15px;color:#e2e8f0;overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px}
+td,th{border-bottom:1px solid var(--line);padding:8px;text-align:left}
+th{color:var(--muted);font-weight:600}
+footer{margin-top:50px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:18px}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How do I calculate position size in crypto?","acceptedAnswer":{"@type":"Answer","text":"Position size = money you are willing to lose ÷ loss per coin if the stop is hit. Money you are willing to lose = account balance × risk %. Loss per coin = |entry − stop| plus trading fees on entry and exit."}},
+{"@type":"Question","name":"Does leverage change my risk?","acceptedAnswer":{"@type":"Answer","text":"No. If you size the position by your stop loss, leverage only changes how much margin you put up and where liquidation is. Your loss at the stop stays the same, as long as liquidation is not reached before your stop."}},
+{"@type":"Question","name":"What is an R multiple?","acceptedAnswer":{"@type":"Answer","text":"1R is the amount you risk on a trade. A take profit that earns twice your risk is +2R; hitting the stop is −1R."}},
+{"@type":"Question","name":"How much should I risk per trade?","acceptedAnswer":{"@type":"Answer","text":"Many traders use 0.5% to 2% of their account per trade so a losing streak doesn't wipe them out. This calculator shows the math; it is not financial advice."}}
+]}
+</script>
+<link rel="alternate" hreflang="en" href="https://signalcheckerhq.org/position-size-calculator/"><link rel="alternate" hreflang="es" href="https://signalcheckerhq.org/es/position-size-calculator/"><link rel="alternate" hreflang="ru" href="https://signalcheckerhq.org/ru/position-size-calculator/"><link rel="alternate" hreflang="x-default" href="https://signalcheckerhq.org/position-size-calculator/">
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand"><a href="../" style="text-decoration:none;color:inherit"><b>SignalCheckerHQ</b></a> · бесплатные инструменты для криптотрейдеров · <a href="../">все инструменты</a> · <a href="../../position-size-calculator/" lang="en">EN</a> · <a href="../../es/position-size-calculator/" lang="es">ES</a> · <b>RU</b></div>
+  <h1>Калькулятор размера позиции <span>(бесплатно)</span></h1>
+  <p class="sub">Введите баланс, риск в %, вход и стоп. Получите точный размер позиции с учётом комиссий, чтобы стоп стоил ровно столько, сколько вы запланировали.</p>
+</header>
+
+<div class="grid">
+  <section class="card" aria-label="Ваша сделка">
+    <h2>Ваша сделка</h2>
+    <div class="seg" role="group" aria-label="Направление">
+      <button type="button" id="long" class="on">Лонг</button>
+      <button type="button" id="short">Шорт</button>
+    </div>
+    <div class="two">
+      <div><label for="bal">Баланс счёта ($)</label><input id="bal" type="number" inputmode="decimal" value="5000" min="0" step="any"></div>
+      <div><label for="risk">Риск на сделку (%)</label><input id="risk" type="number" inputmode="decimal" value="1" min="0" step="any"></div>
+    </div>
+    <div class="two">
+      <div><label for="entry">Цена входа</label><input id="entry" type="number" inputmode="decimal" value="108000" min="0" step="any"></div>
+      <div><label for="stop">Стоп-лосс</label><input id="stop" type="number" inputmode="decimal" value="104500" min="0" step="any"></div>
+    </div>
+    <div class="two">
+      <div><label for="tp">Тейк-профит (необязательно)</label><input id="tp" type="number" inputmode="decimal" value="116000" min="0" step="any"></div>
+      <div><label for="fee">Комиссия за сторону (%)</label><input id="fee" type="number" inputmode="decimal" value="0.1" min="0" step="any"></div>
+    </div>
+    <label for="lev">Плечо, которое вы используете (1 = спот)</label>
+    <input id="lev" type="number" inputmode="decimal" value="5" min="1" step="any">
+  </section>
+
+  <section class="card" aria-live="polite" aria-label="Результат">
+    <h2>Результат</h2>
+    <div class="big"><span>Размер позиции</span><b id="size">–</b></div>
+    <div class="row"><span>Макс. убыток при стопе (с комиссиями)</span><b id="loss">–</b></div>
+    <div class="row"><span>Стоимость позиции</span><b id="value">–</b></div>
+    <div class="row"><span>Нужная маржа</span><b id="margin">–</b></div>
+    <div class="row"><span>Плечо, нужное для открытия</span><b id="needlev">–</b></div>
+    <div class="row"><span>Цена ликвидации (примерно)</span><b id="liq">–</b></div>
+    <div class="row"><span>Расстояние до стопа</span><b id="dist">–</b></div>
+    <div class="row"><span>Цена безубытка (с комиссиями)</span><b id="be">–</b></div>
+    <div class="row"><span>Результат тейк-профита</span><b id="tpres">–</b></div>
+    <div id="msg" class="msg ok">✓ Всё в порядке</div>
+  </section>
+</div>
+
+<section class="card cta">
+  <div>
+    <h3>Хотите то же самое в своей Google Таблице?</h3>
+    <p>Полная версия <b>Position Size &amp; Risk Calculator</b> добавляет 3 тейк-профита, таблицу серий убытков и Trade Planner, который считает общий открытый риск. Только формулы, без скриптов, работает на телефоне. Таблица на английском языке.</p>
+  </div>
+  <div style="text-align:center">
+    <a class="btn" href="https://www.etsy.com/listing/4600299959/position-size-calculator-google-sheets">Купить на Etsy · $7</a><br>
+    <a class="btn alt" href="../risk-calculator/">Смотреть таблицу</a>
+  </div>
+</section>
+
+<article>
+  <h2>Как рассчитать размер позиции в крипте</h2>
+  <p>Большинство трейдеров выбирают размер позиции на глаз: «зайду на $500». Проблема в том, что $500 с близким стопом и $500 с далёким — совершенно разные риски. Расчёт размера позиции переворачивает подход: сначала решите, сколько готовы потерять, а затем расстояние до стопа подскажет, какой может быть позиция.</p>
+  <div class="formula">Риск ($) = баланс счёта × риск %<br>Убыток на монету = |вход − стоп| + (вход + стоп) × комиссия %<br>Размер позиции (монет) = Риск ($) ÷ Убыток на монету</div>
+  <h3>Разобранный пример</h3>
+  <p>Счёт $5000, риск 1%, лонг BTC по $108 000 со стопом на $104 500 и комиссией 0,1% за сторону:</p>
+  <table>
+    <tr><th>Шаг</th><th>Расчёт</th><th>Результат</th></tr>
+    <tr><td>Риск</td><td>5,000 × 1%</td><td>$50.00</td></tr>
+    <tr><td>Убыток на монету</td><td>3,500 + 212,500 × 0.1%</td><td>$3,712.50</td></tr>
+    <tr><td>Размер позиции</td><td>50 ÷ 3,712.50</td><td>0.01346801 BTC</td></tr>
+    <tr><td>Стоимость позиции</td><td>0.01346801 × 108,000</td><td>$1,454.55</td></tr>
+  </table>
+  <p>Если сработает стоп, вы потеряете $50 с учётом комиссий — при любом плече.</p>
+
+  <h2>Меняет ли плечо ваш риск?</h2>
+  <p>Нет, если размер считается от стопа. Плечо меняет только то, сколько маржи вы блокируете (здесь $290,91 при 5x) и где биржа вас ликвидирует (около $86 400). Опасно, когда ликвидация наступает <i>раньше</i> стопа: тогда можно потерять больше запланированного. Калькулятор предупредит об этом.</p>
+
+  <h2>Что такое R-кратное?</h2>
+  <p>1R — это сумма, которой вы рискуете. В примере выше тейк-профит на $116 000 приносит $104,73 после комиссий, то есть +2,09R. Мышление в R делает сделки сравнимыми: стратегия с 40% прибыльных сделок может быть прибыльной, если средняя прибыль 2R, а средний убыток 1R.</p>
+
+  <h2>Сколько рисковать на сделку?</h2>
+  <p>Многие трейдеры держат риск в пределах 0,5–2%. Причина — серии убытков. При риске 1% десять убытков подряд оставляют около 90% счёта. При риске 5% та же серия оставляет около 60%, и потом нужно +67%, только чтобы вернуться в ноль. Это математика, а не совет: выбирайте то, что подходит вам.</p>
+
+  <h2>FAQ</h2>
+  <h3>Работает ли для шортов?</h3>
+  <p>Да. Переключитесь на Шорт: стоп должен быть выше входа, а тейк-профит — ниже.</p>
+  <h3>Цена ликвидации точная?</h3>
+  <p>Нет. Это оценка без учёта поддерживающей маржи и фандинга. Всегда сверяйтесь с ценой ликвидации на бирже.</p>
+  <h3>Мои данные где-то сохраняются?</h3>
+  <p>Нет. Всё считается в вашем браузере. Ничего никуда не отправляется.</p>
+</article>
+
+<footer>
+  Калькулятор считает по введённым вами числам. Это не финансовая рекомендация, и он не говорит, что и когда торговать.<br>© 2026 SignalCheckerHQ. SignalCheckerHQ™ является товарным знаком SignalCheckerHQ.<br>
+  Другие инструменты на <a href="../">signalcheckerhq.org</a> · <a href="../../legal/">Условия и конфиденциальность</a> · <a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy</a> ·
+  <a href="https://x.com/SignalCheckerHQ">X</a> · <a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a>
+</footer>
+</div>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var dir = 'Long';
+  var money = function (v) { return (v < 0 ? '−$' : '$') + Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+  var price = function (v) { return '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: v >= 1 ? 2 : 8 }); };
+  var num = function (id) { var v = parseFloat($(id).value); return isFinite(v) ? v : NaN; };
+  function setDir(d) { dir = d; $('long').classList.toggle('on', d === 'Long'); $('short').classList.toggle('on', d === 'Short'); calc(); }
+  $('long').onclick = function () { setDir('Long'); };
+  $('short').onclick = function () { setDir('Short'); };
+  ['bal', 'risk', 'entry', 'stop', 'tp', 'fee', 'lev'].forEach(function (id) { $(id).addEventListener('input', calc); });
+
+  function show(id, text, cls) { var el = $(id); el.textContent = text; el.className = cls || ''; }
+  function clear() { ['loss', 'value', 'margin', 'needlev', 'liq', 'dist', 'be', 'tpres'].forEach(function (id) { show(id, '–'); }); $('size').textContent = '–'; }
+  function msg(text, cls) { var m = $('msg'); m.textContent = text; m.className = 'msg ' + cls; }
+
+  function calc() {
+    var bal = num('bal'), risk = num('risk') / 100, e = num('entry'), s = num('stop'), tp = num('tp'), fee = (num('fee') || 0) / 100, lev = Math.max(1, num('lev') || 1);
+    if (!(bal > 0) || !(risk > 0) || !(e > 0) || !(s > 0)) { clear(); return msg('Заполните баланс, риск, вход и стоп.', 'err'); }
+    if (e === s) { clear(); return msg('Стоп не может быть равен входу.', 'err'); }
+    if (dir === 'Long' && s > e) { clear(); return msg('Лонг: стоп должен быть НИЖЕ входа.', 'err'); }
+    if (dir === 'Short' && s < e) { clear(); return msg('Шорт: стоп должен быть ВЫШЕ входа.', 'err'); }
+    var riskUsd = bal * risk, perCoin = Math.abs(e - s) + (e + s) * fee, size = riskUsd / perCoin, value = size * e, margin = value / lev;
+    var liq = lev > 1 ? (dir === 'Long' ? e * (1 - 1 / lev) : e * (1 + 1 / lev)) : null;
+    var be = dir === 'Long' ? e * (1 + fee) / (1 - fee) : e * (1 - fee) / (1 + fee);
+    $('size').textContent = size.toLocaleString('en-US', { maximumFractionDigits: 8 }) + ' монет';
+    show('loss', money(-riskUsd), 'neg');
+    show('value', money(value));
+    show('margin', money(margin));
+    show('needlev', (value / bal).toFixed(2) + 'x');
+    show('liq', liq ? price(liq) : 'нет (спот)');
+    show('dist', (Math.abs(e - s) / e * 100).toFixed(2) + '%');
+    show('be', price(be));
+    if (tp > 0) {
+      var profit = size * (dir === 'Long' ? tp - e : e - tp) - size * (e + tp) * fee;
+      show('tpres', (profit >= 0 ? '+' : '') + money(profit).replace('$-', '−$') + ' · ' + (profit >= 0 ? '+' : '') + (profit / riskUsd).toFixed(2) + 'R', profit >= 0 ? 'pos' : 'neg');
+    } else show('tpres', '–');
+    if (margin > bal) return msg('⚠ Позиция больше вашего баланса. Нужно плечо не меньше ' + (Math.ceil(value / bal * 10) / 10).toFixed(1) + 'x.', 'warn');
+    if (liq && (dir === 'Long' ? s <= liq : s >= liq)) return msg('⚠ Ликвидация наступит РАНЬШЕ стопа. Уменьшите плечо.', 'warn');
+    if (tp > 0 && (dir === 'Long' ? tp <= e : tp >= e)) return msg('⚠ Тейк-профит не с той стороны от входа.', 'warn');
+    if (risk > 0.02) return msg('⚠ Вы рискуете больше чем 2% счёта в этой сделке.', 'warn');
+    msg('✓ Всё в порядке', 'ok');
+  }
+  calc();
+})();
+</script>
+<script data-goatcounter="https://signalcheckerhq.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
