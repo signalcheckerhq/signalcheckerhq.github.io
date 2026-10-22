@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora de beneficio cripto: P&amp;L tras comisiones, largo o corto, con apalancamiento (gratis) | SignalCheckerHQ</title>
+<meta name="description" content="Calculadora de beneficio cripto gratis. Con entrada, salida y tamaño de posición obtienes tu ganancia o pérdida tras comisiones, el rendimiento sobre el margen con apalancamiento y el precio de break-even. Largo o corto.">
+<link rel="canonical" href="https://signalcheckerhq.org/es/crypto-profit-calculator/">
+<meta property="og:title" content="Calculadora de beneficio cripto: P&amp;L tras comisiones, largo o corto, con apalancamiento (gratis) | SignalCheckerHQ"><meta property="og:description" content="Calculadora de beneficio cripto gratis. Con entrada, salida y tamaño de posición obtienes tu ganancia o pérdida tras comisiones, el rendimiento sobre el margen con apalancamiento y el precio de break-even. Largo o corto.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://signalcheckerhq.org/es/crypto-profit-calculator/">
+<meta property="og:image" content="https://signalcheckerhq.org/assets/img/rc-1.webp">
+<meta name="theme-color" content="#0b1120">
+<meta name="google-site-verification" content="uh0u66NYvt6K8r_yqwLmn0GAHeASmu_aV-5lmH9_T-0">
+<meta name="google-site-verification" content="UvHvX4_1aVpsXs5uoaKarwA5mYzig2ahWrXbkXhL_fY">
+<link rel="icon" href="../../assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../assets/site.css?v=3">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora de beneficio cripto","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://signalcheckerhq.org/es/crypto-profit-calculator/"}</script><link rel="alternate" hreflang="en" href="https://signalcheckerhq.org/crypto-profit-calculator/"><link rel="alternate" hreflang="es" href="https://signalcheckerhq.org/es/crypto-profit-calculator/"><link rel="alternate" hreflang="ru" href="https://signalcheckerhq.org/ru/crypto-profit-calculator/"><link rel="alternate" hreflang="x-default" href="https://signalcheckerhq.org/crypto-profit-calculator/"></head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../es/"><img src="../../assets/img/icon.png" alt="" width="32" height="32"><span>Signal<b>Checker</b>HQ</span></a>
+  <div class="langs"><a href="../../crypto-profit-calculator/" hreflang="en" lang="en">EN</a><a href="../../es/crypto-profit-calculator/" class=on aria-current=page hreflang="es" lang="es">ES</a><a href="../../ru/crypto-profit-calculator/" hreflang="ru" lang="ru">RU</a></div>
+  <button type="button" class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('.top');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button>
+  <nav><a href="../../es/#tools">Herramientas</a><a href="../../es/bundle/">Complete Kit</a><a href="../../es/guides/">Guías</a><a href="../../es/how-its-built/">Humano + IA</a><a href="../../es/tools/" class="free">Herramientas gratis</a></nav>
+</div></header>
+<main>
+
+<section class="hero in" style="padding-bottom:0"><div class="tag">Herramienta gratis</div><h1>Calculadora de beneficio cripto <span>(gratis)</span></h1><p class="lead">Entrada, salida y tamaño de posición: obtén tu ganancia o pérdida tras comisiones, el rendimiento sobre el dinero que pones y tu precio de break-even. Largo o corto, spot o apalancado.</p></section>
+<div class="in grid2 calc">
+  <section class="card" aria-label="Tus números"><h2 class="ch">Tus números</h2>
+<div class="seg" role="group" aria-label="Dirección"><button type="button" id="long" class="on">Largo</button><button type="button" id="short">Corto</button></div>
+<div class="two">
+  <div><label for="entry">Precio de entrada</label><input id="entry" type="number" inputmode="decimal" value="3000" step="any" min="0"></div>
+  <div><label for="exit">Precio de salida</label><input id="exit" type="number" inputmode="decimal" value="3300" step="any" min="0"></div>
+</div>
+<div class="two">
+  <div><label for="size">Tamaño de posición ($)</label><input id="size" type="number" inputmode="decimal" value="1000" step="any" min="0"></div>
+  <div><label for="lev">Apalancamiento (1 = spot)</label><input id="lev" type="number" inputmode="decimal" value="1" step="any" min="1"></div>
+</div>
+<label for="fee">Comisión por lado (%)</label><input id="fee" type="number" inputmode="decimal" value="0.1" step="any" min="0">
+</section>
+  <section class="card" aria-live="polite" aria-label="Resultado"><h2 class="ch">Resultado</h2>
+<div class="big"><span>Ganancia / pérdida tras comisiones</span><b id="pnl">–</b></div>
+<div class="row"><span>Rendimiento sobre tu dinero (margen)</span><b id="roe">–</b></div>
+<div class="row"><span>Movimiento del precio</span><b id="move">–</b></div>
+<div class="row"><span>Monedas</span><b id="coins">–</b></div>
+<div class="row"><span>Margen (tu dinero en la operación)</span><b id="margin">–</b></div>
+<div class="row"><span>Comisiones pagadas</span><b id="fees">–</b></div>
+<div class="row"><span>Precio de salida de break-even</span><b id="be">–</b></div>
+<div id="msg" class="msg ok">✓ Todo correcto</div>
+</section>
+</div>
+<section class="in box cta"><div><h2>¿Lo quieres en tu propia hoja de Google?</h2><p>Sigue automáticamente el P&amp;L real de cada moneda con precios en vivo: el <b>Crypto Portfolio Tracker</b>. Registra operaciones con tasa de acierto y profit factor en el <a href="../trade-journal/">Trade Journal</a>.</p></div><a class="btn" href="../../es/portfolio-tracker/">Ver Portfolio Tracker · $12</a></section>
+<article class="in prose">
+<h2>Cómo se calcula</h2>
+<div class="formula">Monedas = tamaño de posición ÷ entrada<br>Beneficio = monedas × (salida − entrada) en largo, monedas × (entrada − salida) en corto<br>Comisiones = monedas × (entrada + salida) × % de comisión<br>Rendimiento sobre margen = beneficio ÷ (tamaño de posición ÷ apalancamiento)</div>
+<p>Ejemplo: largo de $1.000 a $3.000, vendido a $3.300 con un 0,1% de comisión por lado: bruto +$100, comisiones $2,10, beneficio <b>+$97,90</b> (+9,79%). Con apalancamiento 5x la misma operación usa $200 de margen, así que el rendimiento sobre tu dinero es +48,95%, y una caída del 20% en tu contra bastaría para liquidarla.</p>
+<h2>Precio de break-even</h2>
+<p>Como pagas comisiones al entrar y al salir, el precio tiene que moverse un poco antes de quedar en tablas. Con un 0,1% por lado, son aproximadamente +0,2% en un largo.</p>
+<p>¿Quieres el P&amp;L realizado y no realizado de todo el portafolio en lugar de una sola operación? Lee <a href="../guides/crypto-portfolio-real-pnl/">Cómo seguir el P&amp;L real de tu portafolio cripto</a>.</p>
+
+<p class="small">Todo se calcula en tu navegador; no se envía nada. Esta calculadora hace cuentas con los números que introduces. No es asesoramiento financiero.</p>
+<p>Más herramientas gratis: <a href="../../es/signal-checker-demo/">Demo de Signal Checker</a> · <a href="../../es/dca-calculator/">Calculadora de precio medio DCA</a> · <a href="../../es/liquidation-calculator/">Calculadora de precio de liquidación</a> · <a href="../../es/position-size-calculator/">Calculadora de tamaño de posición</a></p></article>
+<script>(function(){
+var $=function(id){return document.getElementById(id);};
+var num=function(id){var v=parseFloat(String($(id).value).replace(',','.'));return isFinite(v)?v:NaN;};
+var money=function(v){return (v<0?'−$':'$')+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});};
+var signed=function(v){return (v>0?'+':'')+money(v);};
+var price=function(v){return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:v>=1?2:8});};
+var pct=function(v,d){return (v>0?'+':v<0?'−':'')+Math.abs(v*100).toFixed(d==null?2:d)+'%';};
+var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
+var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
+document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
+
+var dir='Long'; function setDir(d){dir=d;$('long').classList.toggle('on',d==='Long');$('short').classList.toggle('on',d==='Short');calc();}
+$('long').onclick=function(){setDir('Long');}; $('short').onclick=function(){setDir('Short');};
+function calc(){
+ var e=num('entry'),x=num('exit'),size=num('size'),lev=Math.max(1,num('lev')||1),fee=(num('fee')||0)/100;
+ if(!(e>0&&x>0&&size>0)){['pnl','roe','move','coins','margin','fees','be'].forEach(function(i){show(i,'–');});return msg('Rellena entrada, salida y tamaño de posición.','err');}
+ var coins=size/e, gross=coins*(dir==='Long'?x-e:e-x), fees=coins*(e+x)*fee, pnl=gross-fees, margin=size/lev;
+ show('pnl',signed(pnl),pnl>=0?'pos':'neg'); show('roe',pct(pnl/margin),pnl>=0?'pos':'neg'); show('move',pct(x/e-1));
+ show('coins',coins.toLocaleString('en-US',{maximumFractionDigits:8})); show('margin',money(margin)); show('fees',money(fees));
+ show('be',price(dir==='Long'?e*(1+fee)/(1-fee):e*(1-fee)/(1+fee)));
+ if(lev>1){var liq=dir==='Long'?e*(1-1/lev):e*(1+1/lev); if(dir==='Long'?x<=liq:x>=liq) return msg('⚠ Con este apalancamiento la posición se liquidaría (alrededor de '+price(liq)+') antes de llegar a esta salida.','warn');}
+ msg('✓ Todo correcto','ok');
+}
+calc();
+})();</script>
+
+</main>
+<footer class="foot"><div class="in">
+  <div><a class="logo" href="../../es/"><span>Signal<b>Checker</b>HQ</span></a>
+  <p>Herramientas de Google Sheets que muestran los números reales del trading cripto. Creadas por un trader junto con IA. Sin señales, sin humo.</p><p><a href="../../es/how-its-built/">Cómo se crean: humano + IA →</a></p></div>
+  <div><h4>Herramientas</h4><a href="../../es/signal-checker/">Crypto Signal Checker</a><a href="../../es/trade-journal/">Crypto Trade Journal + DCA Planner</a><a href="../../es/portfolio-tracker/">Crypto Portfolio Tracker</a><a href="../../es/risk-calculator/">Position Size & Risk Calculator</a><a href="../../es/bundle/">Paquetes: Complete Kit y Toolkit</a><a href="../../es/tools/">Calculadoras gratis</a><a href="../../es/guides/">Guías</a></div>
+  <div><h4>Tienda y redes</h4><a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy</a><a href="https://5778611980656.gumroad.com/">Gumroad</a><a href="https://x.com/SignalCheckerHQ">X</a><a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a><a href="https://www.pinterest.com/ilonavoitenco/crypto-trading-tools-templates/">Pinterest</a></div>
+  <div><h4>Info</h4><a href="../../legal/">Términos, privacidad y reembolsos (en inglés)</a><a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></div>
+</div><p class="fine in">Todas las herramientas son para análisis y registro. Nada en este sitio es asesoramiento financiero. Los ejemplos usan datos de ejemplo o históricos; los resultados varían. © 2026 SignalCheckerHQ. SignalCheckerHQ™, Signal Checker™ y el logotipo de SignalCheckerHQ son marcas de SignalCheckerHQ. Todos los productos, imágenes, videos y textos están protegidos por derechos de autor; no se permite copiarlos ni revenderlos.</p></footer>
+<script src="https://gumroad.com/js/gumroad.js" defer></script>
+<script data-goatcounter="https://signalcheckerhq.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
