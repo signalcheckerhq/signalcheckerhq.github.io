@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ru"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Как считать реальный P&amp;L криптопортфеля (метод средней стоимости) | SignalCheckerHQ</title>
+<meta name="description" content="Реализованная и нереализованная прибыль, средняя стоимость и что происходит со стоимостью при частичной продаже — с полностью разобранным примером на BTC.">
+<link rel="canonical" href="https://signalcheckerhq.org/ru/guides/crypto-portfolio-real-pnl/">
+<meta property="og:title" content="Как считать реальный P&amp;L криптопортфеля (метод средней стоимости) | SignalCheckerHQ"><meta property="og:description" content="Реализованная и нереализованная прибыль, средняя стоимость и что происходит со стоимостью при частичной продаже — с полностью разобранным примером на BTC.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://signalcheckerhq.org/ru/guides/crypto-portfolio-real-pnl/">
+<meta property="og:image" content="https://signalcheckerhq.org/assets/img/rc-1.webp">
+<meta name="theme-color" content="#0b1120">
+<meta name="google-site-verification" content="uh0u66NYvt6K8r_yqwLmn0GAHeASmu_aV-5lmH9_T-0">
+<meta name="google-site-verification" content="UvHvX4_1aVpsXs5uoaKarwA5mYzig2ahWrXbkXhL_fY">
+<link rel="icon" href="../../../assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../../assets/site.css?v=3">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Как считать реальный P&L криптопортфеля (метод средней стоимости)","description":"Реализованная и нереализованная прибыль, средняя стоимость и что происходит со стоимостью при частичной продаже — с полностью разобранным примером на BTC.","datePublished":"2026-10-21","inLanguage":"ru","author":{"@type":"Organization","name":"SignalCheckerHQ"},"publisher":{"@type":"Organization","name":"SignalCheckerHQ","logo":{"@type":"ImageObject","url":"https://signalcheckerhq.org/assets/img/icon.png"}},"mainEntityOfPage":"https://signalcheckerhq.org/ru/guides/crypto-portfolio-real-pnl/"}</script><link rel="alternate" hreflang="en" href="https://signalcheckerhq.org/guides/crypto-portfolio-real-pnl/"><link rel="alternate" hreflang="es" href="https://signalcheckerhq.org/es/guides/crypto-portfolio-real-pnl/"><link rel="alternate" hreflang="ru" href="https://signalcheckerhq.org/ru/guides/crypto-portfolio-real-pnl/"><link rel="alternate" hreflang="x-default" href="https://signalcheckerhq.org/guides/crypto-portfolio-real-pnl/"></head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../../ru/"><img src="../../../assets/img/icon.png" alt="" width="32" height="32"><span>Signal<b>Checker</b>HQ</span></a>
+  <div class="langs"><a href="../../../guides/crypto-portfolio-real-pnl/" hreflang="en" lang="en">EN</a><a href="../../../es/guides/crypto-portfolio-real-pnl/" hreflang="es" lang="es">ES</a><a href="../../../ru/guides/crypto-portfolio-real-pnl/" class=on aria-current=page hreflang="ru" lang="ru">RU</a></div>
+  <button type="button" class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('.top');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button>
+  <nav><a href="../../../ru/#tools">Инструменты</a><a href="../../../ru/bundle/">Complete Kit</a><a href="../../../ru/guides/">Гайды</a><a href="../../../ru/how-its-built/">Человек + AI</a><a href="../../../ru/tools/" class="free">Бесплатно</a></nav>
+</div></header>
+<main>
+
+<article class="in prose guide">
+<p class="small"><a href="../../../ru/guides/">Гайды</a> · 5 мин чтения · Обновлено 2026-10-21</p>
+<h1>Как считать реальный P&amp;L криптопортфеля (метод средней стоимости)</h1>
+
+<p class="lead">«Сколько я в плюсе?» звучит как простой вопрос, пока вы не купили по трём ценам, немного продали и заплатили комиссии по пути. Вот как получить понятный ответ.</p>
+
+<h2>Два вида прибыли</h2>
+<ul>
+<li><b>Реализованный P&amp;L</b>: прибыль или убыток, зафиксированные продажей.</li>
+<li><b>Нереализованный P&amp;L</b>: прибыль или убыток по монетам, которые у вас ещё есть, по сегодняшней цене.</li>
+</ul>
+<p>Ваш общий результат — сумма обоих. Приложения бирж часто показывают только один из них или только последнюю сделку.</p>
+
+<h2>Средняя стоимость</h2>
+<p>При методе средней стоимости каждая монета в портфеле имеет одинаковую стоимость: всего потрачено (с комиссиями) ÷ куплено монет. При продаже проданные монеты «забирают» эту среднюю стоимость с собой; средняя стоимость оставшихся не меняется.</p>
+
+<h2>Разобранный пример</h2>
+<table class="tbl">
+<tr><th>Шаг</th><th>Что произошло</th><th>Результат</th></tr>
+<tr><td>Покупка</td><td>0,05 BTC по $60 000 + $3 комиссия</td><td>стоимость $3003</td></tr>
+<tr><td>Покупка</td><td>0,02 BTC по $70 000 + $2 комиссия</td><td>стоимость $1402</td></tr>
+<tr><td>В портфеле</td><td>0,07 BTC, общая стоимость $4405</td><td>средняя <b>$62 928,57</b></td></tr>
+<tr><td>Продажа</td><td>0,03 BTC по $75 000 − $2 комиссия</td><td>получено $2248</td></tr>
+<tr><td>Реализовано</td><td>$2248 − (0,03 × $62 928,57 = $1887,86)</td><td class="pos"><b>+$360,14</b></td></tr>
+<tr><td>Осталось</td><td>0,04 BTC, стоимость $2517,14</td><td>средняя всё ещё $62 928,57</td></tr>
+<tr><td>Не реализовано</td><td>при $72 000: стоимость $2880 − затраты $2517,14</td><td class="pos"><b>+$362,86</b> (+14,4%)</td></tr>
+</table>
+<p class="small">Условные числа.</p>
+<p>Итого: +$360,14 реализовано + $362,86 не реализовано = <b>+$723,00</b>.</p>
+
+<h2>Частые ошибки</h2>
+<ul>
+<li>Забывать о комиссиях — из-за этого каждая монета кажется дешевле, чем была.</li>
+<li>Пересчитывать среднюю после продажи. При методе средней стоимости продажа не меняет среднюю цену оставшихся монет.</li>
+<li>Считать переводы между своими кошельками покупками или продажами. Это ни то, ни другое.</li>
+<li>Считать стейблкоины прибылью. Это деньги по $1.</li>
+</ul>
+
+<h2>Обновляйте автоматически</h2>
+<p><a href="../../portfolio-tracker/">Crypto Portfolio Tracker</a> делает всё это в Google Таблицах: вы записываете покупки и продажи, а он ведёт среднюю цену, реализованный и нереализованный P&amp;L и распределение по каждой монете с живыми ценами. Это инструмент учёта; по налогам консультируйтесь со специалистом в вашей стране.</p>
+
+<p class="small note">Образовательный материал, не финансовая рекомендация. В примерах используются условные числа.</p>
+</article>
+<section class="in box cta"><div><div class="tag">Инструмент в Google Таблицах</div><h2>Crypto Portfolio Tracker</h2><p>Все монеты в одной таблице. Живая стоимость, средняя цена покупки, P&amp;L и распределение.</p></div><a class="btn" href="../../../ru/portfolio-tracker/">Смотреть · $12</a></section>
+<section class="in prose"><h2>Другие гайды</h2><ul><li><a href="../../../ru/guides/is-my-crypto-signal-group-legit/">Как проверить, честная ли криптосигнальная группа (до того, как платить)</a></li><li><a href="../../../ru/guides/win-rate-vs-profit-factor/">Винрейт и профит-фактор: почему 70% прибыльных сделок может давать убыток</a></li><li><a href="../../../ru/guides/dca-average-price/">Как посчитать среднюю цену при DCA в крипте</a></li></ul></section>
+
+</main>
+<footer class="foot"><div class="in">
+  <div><a class="logo" href="../../../ru/"><span>Signal<b>Checker</b>HQ</span></a>
+  <p>Инструменты в Google Таблицах, которые показывают реальные цифры криптотрейдинга. Создано трейдером вместе с AI. Без сигналов и без хайпа.</p><p><a href="../../../ru/how-its-built/">Как мы работаем: человек + AI →</a></p></div>
+  <div><h4>Инструменты</h4><a href="../../../ru/signal-checker/">Crypto Signal Checker</a><a href="../../../ru/trade-journal/">Crypto Trade Journal + DCA Planner</a><a href="../../../ru/portfolio-tracker/">Crypto Portfolio Tracker</a><a href="../../../ru/risk-calculator/">Position Size & Risk Calculator</a><a href="../../../ru/bundle/">Наборы: Complete Kit и Toolkit</a><a href="../../../ru/tools/">Бесплатные калькуляторы</a><a href="../../../ru/guides/">Гайды</a></div>
+  <div><h4>Магазин и соцсети</h4><a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy</a><a href="https://5778611980656.gumroad.com/">Gumroad</a><a href="https://x.com/SignalCheckerHQ">X</a><a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a><a href="https://www.pinterest.com/ilonavoitenco/crypto-trading-tools-templates/">Pinterest</a></div>
+  <div><h4>Инфо</h4><a href="../../../legal/">Условия, конфиденциальность и возвраты (англ.)</a><a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></div>
+</div><p class="fine in">Все инструменты предназначены для анализа и учёта. Ничто на этом сайте не является финансовой рекомендацией. В примерах используются примерные или исторические данные; результаты могут отличаться. © 2026 SignalCheckerHQ. SignalCheckerHQ™, Signal Checker™ и логотип SignalCheckerHQ являются товарными знаками SignalCheckerHQ. Все продукты, изображения, видео и тексты защищены авторским правом; копировать и перепродавать их запрещено.</p></footer>
+<script src="https://gumroad.com/js/gumroad.js" defer></script>
+<script data-goatcounter="https://signalcheckerhq.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
