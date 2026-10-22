@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Калькулятор прибыли для крипты: P&amp;L с комиссиями, лонг или шорт, с плечом (бесплатно) | SignalCheckerHQ</title>
+<meta name="description" content="Бесплатный калькулятор прибыли для крипты. По входу, выходу и размеру позиции считает прибыль или убыток с учётом комиссий, доходность на маржу с плечом и цену безубытка. Лонг или шорт.">
+<link rel="canonical" href="https://signalcheckerhq.org/ru/crypto-profit-calculator/">
+<meta property="og:title" content="Калькулятор прибыли для крипты: P&amp;L с комиссиями, лонг или шорт, с плечом (бесплатно) | SignalCheckerHQ"><meta property="og:description" content="Бесплатный калькулятор прибыли для крипты. По входу, выходу и размеру позиции считает прибыль или убыток с учётом комиссий, доходность на маржу с плечом и цену безубытка. Лонг или шорт.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://signalcheckerhq.org/ru/crypto-profit-calculator/">
+<meta property="og:image" content="https://signalcheckerhq.org/assets/img/rc-1.webp">
+<meta name="theme-color" content="#0b1120">
+<meta name="google-site-verification" content="uh0u66NYvt6K8r_yqwLmn0GAHeASmu_aV-5lmH9_T-0">
+<meta name="google-site-verification" content="UvHvX4_1aVpsXs5uoaKarwA5mYzig2ahWrXbkXhL_fY">
+<link rel="icon" href="../../assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../assets/site.css?v=3">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Калькулятор прибыли для крипты","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://signalcheckerhq.org/ru/crypto-profit-calculator/"}</script><link rel="alternate" hreflang="en" href="https://signalcheckerhq.org/crypto-profit-calculator/"><link rel="alternate" hreflang="es" href="https://signalcheckerhq.org/es/crypto-profit-calculator/"><link rel="alternate" hreflang="ru" href="https://signalcheckerhq.org/ru/crypto-profit-calculator/"><link rel="alternate" hreflang="x-default" href="https://signalcheckerhq.org/crypto-profit-calculator/"></head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../ru/"><img src="../../assets/img/icon.png" alt="" width="32" height="32"><span>Signal<b>Checker</b>HQ</span></a>
+  <div class="langs"><a href="../../crypto-profit-calculator/" hreflang="en" lang="en">EN</a><a href="../../es/crypto-profit-calculator/" hreflang="es" lang="es">ES</a><a href="../../ru/crypto-profit-calculator/" class=on aria-current=page hreflang="ru" lang="ru">RU</a></div>
+  <button type="button" class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('.top');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button>
+  <nav><a href="../../ru/#tools">Инструменты</a><a href="../../ru/bundle/">Complete Kit</a><a href="../../ru/guides/">Гайды</a><a href="../../ru/how-its-built/">Человек + AI</a><a href="../../ru/tools/" class="free">Бесплатно</a></nav>
+</div></header>
+<main>
+
+<section class="hero in" style="padding-bottom:0"><div class="tag">Бесплатный инструмент</div><h1>Калькулятор прибыли для крипты <span>(бесплатно)</span></h1><p class="lead">Вход, выход и размер позиции: прибыль или убыток с учётом комиссий, доходность на вложенные деньги и цена безубытка. Лонг или шорт, спот или плечо.</p></section>
+<div class="in grid2 calc">
+  <section class="card" aria-label="Ваши данные"><h2 class="ch">Ваши данные</h2>
+<div class="seg" role="group" aria-label="Направление"><button type="button" id="long" class="on">Лонг</button><button type="button" id="short">Шорт</button></div>
+<div class="two">
+  <div><label for="entry">Цена входа</label><input id="entry" type="number" inputmode="decimal" value="3000" step="any" min="0"></div>
+  <div><label for="exit">Цена выхода</label><input id="exit" type="number" inputmode="decimal" value="3300" step="any" min="0"></div>
+</div>
+<div class="two">
+  <div><label for="size">Размер позиции ($)</label><input id="size" type="number" inputmode="decimal" value="1000" step="any" min="0"></div>
+  <div><label for="lev">Плечо (1 = спот)</label><input id="lev" type="number" inputmode="decimal" value="1" step="any" min="1"></div>
+</div>
+<label for="fee">Комиссия за сторону (%)</label><input id="fee" type="number" inputmode="decimal" value="0.1" step="any" min="0">
+</section>
+  <section class="card" aria-live="polite" aria-label="Результат"><h2 class="ch">Результат</h2>
+<div class="big"><span>Прибыль / убыток с комиссиями</span><b id="pnl">–</b></div>
+<div class="row"><span>Доходность на ваши деньги (маржу)</span><b id="roe">–</b></div>
+<div class="row"><span>Движение цены</span><b id="move">–</b></div>
+<div class="row"><span>Монет</span><b id="coins">–</b></div>
+<div class="row"><span>Маржа (ваши деньги в сделке)</span><b id="margin">–</b></div>
+<div class="row"><span>Уплачено комиссий</span><b id="fees">–</b></div>
+<div class="row"><span>Цена выхода в безубыток</span><b id="be">–</b></div>
+<div id="msg" class="msg ok">✓ Всё в порядке</div>
+</section>
+</div>
+<section class="in box cta"><div><h2>Хотите то же самое в своей Google Таблице?</h2><p>Автоматически отслеживайте реальный P&amp;L каждой монеты по живым ценам: <b>Crypto Portfolio Tracker</b>. Сделки с винрейтом и профит-фактором — в <a href="../trade-journal/">Trade Journal</a>.</p></div><a class="btn" href="../../ru/portfolio-tracker/">Смотреть Portfolio Tracker · $12</a></section>
+<article class="in prose">
+<h2>Как считается</h2>
+<div class="formula">Монет = размер позиции ÷ вход<br>Прибыль = монеты × (выход − вход) для лонга, монеты × (вход − выход) для шорта<br>Комиссии = монеты × (вход + выход) × % комиссии<br>Доходность на маржу = прибыль ÷ (размер позиции ÷ плечо)</div>
+<p>Пример: лонг на $1000 по $3000, продажа по $3300, комиссия 0,1% за сторону: валовая прибыль +$100, комиссии $2,10, прибыль <b>+$97,90</b> (+9,79%). С плечом 5x та же сделка использует $200 маржи, поэтому доходность на ваши деньги +48,95%, а падения на 20% против вас хватит для ликвидации.</p>
+<h2>Цена безубытка</h2>
+<p>Так как комиссия платится при входе и при выходе, цене нужно немного пройти, прежде чем вы выйдете в ноль. При 0,1% за сторону это примерно +0,2% для лонга.</p>
+<p>Нужен реализованный и нереализованный P&amp;L всего портфеля, а не одной сделки? Читайте <a href="../guides/crypto-portfolio-real-pnl/">Как считать реальный P&amp;L криптопортфеля</a>.</p>
+
+<p class="small">Всё считается в вашем браузере, никакие данные никуда не отправляются. Калькулятор считает по введённым вами числам. Это не финансовая рекомендация.</p>
+<p>Другие бесплатные инструменты: <a href="../../ru/signal-checker-demo/">Демо Signal Checker</a> · <a href="../../ru/dca-calculator/">Калькулятор средней цены DCA</a> · <a href="../../ru/liquidation-calculator/">Калькулятор цены ликвидации</a> · <a href="../../ru/position-size-calculator/">Калькулятор размера позиции</a></p></article>
+<script>(function(){
+var $=function(id){return document.getElementById(id);};
+var num=function(id){var v=parseFloat(String($(id).value).replace(',','.'));return isFinite(v)?v:NaN;};
+var money=function(v){return (v<0?'−$':'$')+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});};
+var signed=function(v){return (v>0?'+':'')+money(v);};
+var price=function(v){return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:v>=1?2:8});};
+var pct=function(v,d){return (v>0?'+':v<0?'−':'')+Math.abs(v*100).toFixed(d==null?2:d)+'%';};
+var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
+var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
+document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
+
+var dir='Long'; function setDir(d){dir=d;$('long').classList.toggle('on',d==='Long');$('short').classList.toggle('on',d==='Short');calc();}
+$('long').onclick=function(){setDir('Long');}; $('short').onclick=function(){setDir('Short');};
+function calc(){
+ var e=num('entry'),x=num('exit'),size=num('size'),lev=Math.max(1,num('lev')||1),fee=(num('fee')||0)/100;
+ if(!(e>0&&x>0&&size>0)){['pnl','roe','move','coins','margin','fees','be'].forEach(function(i){show(i,'–');});return msg('Заполните вход, выход и размер позиции.','err');}
+ var coins=size/e, gross=coins*(dir==='Long'?x-e:e-x), fees=coins*(e+x)*fee, pnl=gross-fees, margin=size/lev;
+ show('pnl',signed(pnl),pnl>=0?'pos':'neg'); show('roe',pct(pnl/margin),pnl>=0?'pos':'neg'); show('move',pct(x/e-1));
+ show('coins',coins.toLocaleString('en-US',{maximumFractionDigits:8})); show('margin',money(margin)); show('fees',money(fees));
+ show('be',price(dir==='Long'?e*(1+fee)/(1-fee):e*(1-fee)/(1+fee)));
+ if(lev>1){var liq=dir==='Long'?e*(1-1/lev):e*(1+1/lev); if(dir==='Long'?x<=liq:x>=liq) return msg('⚠ С таким плечом позицию ликвидируют (около '+price(liq)+') раньше, чем цена дойдёт до выхода.','warn');}
+ msg('✓ Всё в порядке','ok');
+}
+calc();
+})();</script>
+
+</main>
+<footer class="foot"><div class="in">
+  <div><a class="logo" href="../../ru/"><span>Signal<b>Checker</b>HQ</span></a>
+  <p>Инструменты в Google Таблицах, которые показывают реальные цифры криптотрейдинга. Создано трейдером вместе с AI. Без сигналов и без хайпа.</p><p><a href="../../ru/how-its-built/">Как мы работаем: человек + AI →</a></p></div>
+  <div><h4>Инструменты</h4><a href="../../ru/signal-checker/">Crypto Signal Checker</a><a href="../../ru/trade-journal/">Crypto Trade Journal + DCA Planner</a><a href="../../ru/portfolio-tracker/">Crypto Portfolio Tracker</a><a href="../../ru/risk-calculator/">Position Size & Risk Calculator</a><a href="../../ru/bundle/">Наборы: Complete Kit и Toolkit</a><a href="../../ru/tools/">Бесплатные калькуляторы</a><a href="../../ru/guides/">Гайды</a></div>
+  <div><h4>Магазин и соцсети</h4><a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy</a><a href="https://5778611980656.gumroad.com/">Gumroad</a><a href="https://x.com/SignalCheckerHQ">X</a><a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a><a href="https://www.pinterest.com/ilonavoitenco/crypto-trading-tools-templates/">Pinterest</a></div>
+  <div><h4>Инфо</h4><a href="../../legal/">Условия, конфиденциальность и возвраты (англ.)</a><a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></div>
+</div><p class="fine in">Все инструменты предназначены для анализа и учёта. Ничто на этом сайте не является финансовой рекомендацией. В примерах используются примерные или исторические данные; результаты могут отличаться. © 2026 SignalCheckerHQ. SignalCheckerHQ™, Signal Checker™ и логотип SignalCheckerHQ являются товарными знаками SignalCheckerHQ. Все продукты, изображения, видео и тексты защищены авторским правом; копировать и перепродавать их запрещено.</p></footer>
+<script src="https://gumroad.com/js/gumroad.js" defer></script>
+<script data-goatcounter="https://signalcheckerhq.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
