@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tasa de acierto vs profit factor: por qué un 70% de aciertos puede perder dinero | SignalCheckerHQ</title>
+<meta name="description" content="La tasa de acierto sola esconde las pérdidas. Aprende profit factor, expectativa y múltiplos R con un ejemplo en el que un 70% de aciertos pierde dinero y un 35% gana.">
+<link rel="canonical" href="https://signalcheckerhq.org/es/guides/win-rate-vs-profit-factor/">
+<meta property="og:title" content="Tasa de acierto vs profit factor: por qué un 70% de aciertos puede perder dinero | SignalCheckerHQ"><meta property="og:description" content="La tasa de acierto sola esconde las pérdidas. Aprende profit factor, expectativa y múltiplos R con un ejemplo en el que un 70% de aciertos pierde dinero y un 35% gana.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://signalcheckerhq.org/es/guides/win-rate-vs-profit-factor/">
+<meta property="og:image" content="https://signalcheckerhq.org/assets/img/rc-1.webp">
+<meta name="theme-color" content="#0b1120">
+<meta name="google-site-verification" content="uh0u66NYvt6K8r_yqwLmn0GAHeASmu_aV-5lmH9_T-0">
+<meta name="google-site-verification" content="UvHvX4_1aVpsXs5uoaKarwA5mYzig2ahWrXbkXhL_fY">
+<link rel="icon" href="../../../assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../../assets/site.css?v=3">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Tasa de acierto vs profit factor: por qué un 70% de aciertos puede perder dinero","description":"La tasa de acierto sola esconde las pérdidas. Aprende profit factor, expectativa y múltiplos R con un ejemplo en el que un 70% de aciertos pierde dinero y un 35% gana.","datePublished":"2026-10-21","inLanguage":"es","author":{"@type":"Organization","name":"SignalCheckerHQ"},"publisher":{"@type":"Organization","name":"SignalCheckerHQ","logo":{"@type":"ImageObject","url":"https://signalcheckerhq.org/assets/img/icon.png"}},"mainEntityOfPage":"https://signalcheckerhq.org/es/guides/win-rate-vs-profit-factor/"}</script><link rel="alternate" hreflang="en" href="https://signalcheckerhq.org/guides/win-rate-vs-profit-factor/"><link rel="alternate" hreflang="es" href="https://signalcheckerhq.org/es/guides/win-rate-vs-profit-factor/"><link rel="alternate" hreflang="ru" href="https://signalcheckerhq.org/ru/guides/win-rate-vs-profit-factor/"><link rel="alternate" hreflang="x-default" href="https://signalcheckerhq.org/guides/win-rate-vs-profit-factor/"></head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../../es/"><img src="../../../assets/img/icon.png" alt="" width="32" height="32"><span>Signal<b>Checker</b>HQ</span></a>
+  <div class="langs"><a href="../../../guides/win-rate-vs-profit-factor/" hreflang="en" lang="en">EN</a><a href="../../../es/guides/win-rate-vs-profit-factor/" class=on aria-current=page hreflang="es" lang="es">ES</a><a href="../../../ru/guides/win-rate-vs-profit-factor/" hreflang="ru" lang="ru">RU</a></div>
+  <button type="button" class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('.top');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button>
+  <nav><a href="../../../es/#tools">Herramientas</a><a href="../../../es/bundle/">Complete Kit</a><a href="../../../es/guides/">Guías</a><a href="../../../es/how-its-built/">Humano + IA</a><a href="../../../es/tools/" class="free">Herramientas gratis</a></nav>
+</div></header>
+<main>
+
+<article class="in prose guide">
+<p class="small"><a href="../../../es/guides/">Guías</a> · 5 min de lectura · Actualizado 2026-10-21</p>
+<h1>Tasa de acierto vs profit factor: por qué un 70% de aciertos puede perder dinero</h1>
+
+<p class="lead">La tasa de acierto es el número más citado del trading y, por sí solo, el menos útil. Lo que importa es cuánto ganas cuando aciertas comparado con cuánto pierdes cuando fallas.</p>
+
+<h2>Dos traders, una sorpresa</h2>
+<table class="tbl">
+<tr><th></th><th>Trader A</th><th>Trader B</th></tr>
+<tr><td>Tasa de acierto</td><td>70%</td><td>35%</td></tr>
+<tr><td>Ganancia media</td><td>+2%</td><td>+6%</td></tr>
+<tr><td>Pérdida media</td><td>−6%</td><td>−2%</td></tr>
+<tr><td>Expectativa por operación</td><td class="neg">−0,40%</td><td class="pos">+0,80%</td></tr>
+<tr><td>Profit factor</td><td class="neg">0,78</td><td class="pos">1,62</td></tr>
+<tr><td>Resultado de 100 operaciones de $1.000</td><td class="neg">−$400</td><td class="pos">+$800</td></tr>
+</table>
+<p class="small">Números de ejemplo, antes de comisiones.</p>
+<p>El trader A acierta 7 de cada 10 veces y aun así pierde dinero. El trader B pierde casi dos de cada tres operaciones y termina ganando.</p>
+
+<h2>Expectativa: lo que vale de media una operación</h2>
+<div class="formula">Expectativa = (tasa de acierto × ganancia media) − (tasa de fallo × pérdida media)</div>
+<p>Trader A: 0,70 × 2% − 0,30 × 6% = 1,4% − 1,8% = <b>−0,4%</b> por operación.<br>Trader B: 0,35 × 6% − 0,65 × 2% = 2,1% − 1,3% = <b>+0,8%</b> por operación.</p>
+
+<h2>Profit factor: ganancias divididas entre pérdidas</h2>
+<div class="formula">Profit factor = dinero total de las operaciones ganadoras ÷ dinero total perdido en las perdedoras</div>
+<p>Por encima de 1,0 significa que las ganancias superan a las pérdidas. Trader A: 1,4 ÷ 1,8 = 0,78. Trader B: 2,1 ÷ 1,3 = 1,62. Es un solo número que ya contiene la tasa de acierto y el tamaño de las ganancias.</p>
+
+<h2>Múltiplos R: mide cada operación frente a lo que arriesgaste</h2>
+<p>1R es lo que pierdes si salta tu stop. Una operación que gana el doble es +2R; un stop es −1R. Pensar en R hace comparables operaciones de distinto tamaño y muestra rápido si tus objetivos compensan tus stops.</p>
+
+<h2>El número que casi nadie revisa</h2>
+<p>¿Cuántas ganancias medias necesitas para cubrir tu mayor pérdida? Si la respuesta es 5, una mala operación borra una semana de buenas. Seguir este número mantiene honestos los stops.</p>
+
+<h2>Síguelo automáticamente</h2>
+<p>El <a href="../../trade-journal/">Crypto Trade Journal</a> calcula tasa de acierto, profit factor, expectativa, múltiplos R y «ganancias necesarias para cubrir tu mayor pérdida» a partir de tus propias operaciones, con precios en vivo para las posiciones abiertas. Para comprobar los números de un grupo de señales en lugar de los tuyos, usa <a href="../../signal-checker/">Signal Checker</a>.</p>
+
+<p class="small note">Contenido educativo, no asesoramiento financiero. Los ejemplos usan números de ejemplo.</p>
+</article>
+<section class="in box cta"><div><div class="tag">Herramienta de Google Sheets</div><h2>Crypto Trade Journal + DCA Planner</h2><p>Registra cada operación con precios en vivo. Tasa de acierto, profit factor, curva de capital y planificador DCA.</p></div><a class="btn" href="../../../es/trade-journal/">Ver · $15</a></section>
+<section class="in prose"><h2>Más guías</h2><ul><li><a href="../../../es/guides/is-my-crypto-signal-group-legit/">Cómo saber si un grupo de señales cripto es fiable (antes de pagar)</a></li><li><a href="../../../es/guides/dca-average-price/">Cómo calcular tu precio medio cuando haces DCA en cripto</a></li><li><a href="../../../es/guides/crypto-portfolio-real-pnl/">Cómo seguir el P&amp;L real de tu portafolio cripto (método de coste medio)</a></li></ul></section>
+
+</main>
+<footer class="foot"><div class="in">
+  <div><a class="logo" href="../../../es/"><span>Signal<b>Checker</b>HQ</span></a>
+  <p>Herramientas de Google Sheets que muestran los números reales del trading cripto. Creadas por un trader junto con IA. Sin señales, sin humo.</p><p><a href="../../../es/how-its-built/">Cómo se crean: humano + IA →</a></p></div>
+  <div><h4>Herramientas</h4><a href="../../../es/signal-checker/">Crypto Signal Checker</a><a href="../../../es/trade-journal/">Crypto Trade Journal + DCA Planner</a><a href="../../../es/portfolio-tracker/">Crypto Portfolio Tracker</a><a href="../../../es/risk-calculator/">Position Size & Risk Calculator</a><a href="../../../es/bundle/">Paquetes: Complete Kit y Toolkit</a><a href="../../../es/tools/">Calculadoras gratis</a><a href="../../../es/guides/">Guías</a></div>
+  <div><h4>Tienda y redes</h4><a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy</a><a href="https://5778611980656.gumroad.com/">Gumroad</a><a href="https://x.com/SignalCheckerHQ">X</a><a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a><a href="https://www.pinterest.com/ilonavoitenco/crypto-trading-tools-templates/">Pinterest</a></div>
+  <div><h4>Info</h4><a href="../../../legal/">Términos, privacidad y reembolsos (en inglés)</a><a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></div>
+</div><p class="fine in">Todas las herramientas son para análisis y registro. Nada en este sitio es asesoramiento financiero. Los ejemplos usan datos de ejemplo o históricos; los resultados varían. © 2026 SignalCheckerHQ. SignalCheckerHQ™, Signal Checker™ y el logotipo de SignalCheckerHQ son marcas de SignalCheckerHQ. Todos los productos, imágenes, videos y textos están protegidos por derechos de autor; no se permite copiarlos ni revenderlos.</p></footer>
+<script src="https://gumroad.com/js/gumroad.js" defer></script>
+<script data-goatcounter="https://signalcheckerhq.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
