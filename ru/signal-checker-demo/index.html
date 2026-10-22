@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ru"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Бесплатное демо Signal Checker: проверьте 3 криптосигнала по реальным ценам | SignalCheckerHQ</title>
+<meta name="description" content="Введите до 3 криптосигналов (монета, вход, стоп, цели, время) и посмотрите, что произошло на самом деле по реальным часовым ценам: исполнение, цели, стопы и P&amp;L с учётом комиссий. Бесплатно, прямо в браузере.">
+<link rel="canonical" href="https://signalcheckerhq.org/ru/signal-checker-demo/">
+<meta property="og:title" content="Бесплатное демо Signal Checker: проверьте 3 криптосигнала по реальным ценам | SignalCheckerHQ"><meta property="og:description" content="Введите до 3 криптосигналов (монета, вход, стоп, цели, время) и посмотрите, что произошло на самом деле по реальным часовым ценам: исполнение, цели, стопы и P&amp;L с учётом комиссий. Бесплатно, прямо в браузере.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://signalcheckerhq.org/ru/signal-checker-demo/">
+<meta property="og:image" content="https://signalcheckerhq.org/assets/img/rc-1.webp">
+<meta name="theme-color" content="#0b1120">
+<meta name="google-site-verification" content="uh0u66NYvt6K8r_yqwLmn0GAHeASmu_aV-5lmH9_T-0">
+<meta name="google-site-verification" content="UvHvX4_1aVpsXs5uoaKarwA5mYzig2ahWrXbkXhL_fY">
+<link rel="icon" href="../../assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../assets/site.css?v=3">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Демо Signal Checker","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://signalcheckerhq.org/ru/signal-checker-demo/"}</script><link rel="alternate" hreflang="en" href="https://signalcheckerhq.org/signal-checker-demo/"><link rel="alternate" hreflang="es" href="https://signalcheckerhq.org/es/signal-checker-demo/"><link rel="alternate" hreflang="ru" href="https://signalcheckerhq.org/ru/signal-checker-demo/"><link rel="alternate" hreflang="x-default" href="https://signalcheckerhq.org/signal-checker-demo/"></head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../ru/"><img src="../../assets/img/icon.png" alt="" width="32" height="32"><span>Signal<b>Checker</b>HQ</span></a>
+  <div class="langs"><a href="../../signal-checker-demo/" hreflang="en" lang="en">EN</a><a href="../../es/signal-checker-demo/" hreflang="es" lang="es">ES</a><a href="../../ru/signal-checker-demo/" class=on aria-current=page hreflang="ru" lang="ru">RU</a></div>
+  <button type="button" class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('.top');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button>
+  <nav><a href="../../ru/#tools">Инструменты</a><a href="../../ru/bundle/">Complete Kit</a><a href="../../ru/guides/">Гайды</a><a href="../../ru/how-its-built/">Человек + AI</a><a href="../../ru/tools/" class="free">Бесплатно</a></nav>
+</div></header>
+<main>
+
+<section class="hero in" style="padding-bottom:0"><div class="tag">Бесплатный инструмент</div><h1>Проверьте сигнальную группу <span>за 30 секунд</span></h1><p class="lead">Введите до 3 сигналов из любой группы в Telegram, Discord или X. Мы проверим их по реальным часовым ценам Coinbase: исполнился ли вход, какие цели достигнуты, не сработал ли сначала стоп, и какой P&amp;L с учётом комиссий.</p></section>
+<div class="in grid2 calc">
+  <section class="card" aria-label="Ваши данные"><h2 class="ch">Ваши данные</h2><div id="sigs"></div>
+<div class="buy" style="margin-top:14px"><button type="button" class="btn" id="run">Проверить сигналы</button><button type="button" class="btn alt" id="ex">Загрузить реальный пример</button></div>
+<p class="small" id="exnote" hidden>Пример построен по реальным ценам BTC 10 дней назад, это не реальный сигнал какой-либо группы.</p></section>
+  <section class="card" aria-live="polite" aria-label="Результат"><h2 class="ch">Результат</h2><div id="status" class="small"></div>
+<table class="tbl" id="out" hidden><thead><tr><th>Сигнал</th><th>Что произошло</th><th>P&L с комиссиями</th></tr></thead><tbody></tbody></table>
+<div id="sum" hidden><div class="row"><span>Проверено сигналов</span><b id="sn">–</b></div><div class="row"><span>Винрейт (закрытые)</span><b id="sw">–</b></div><div class="row"><span>Средний P&L на закрытый сигнал</span><b id="sa">–</b></div></div>
+<p class="small">Правила демо: сначала должен исполниться вход; если стоп и цель задеты в одном часе, засчитывается стоп; позиция делится поровну между целями; комиссия 0,1% за сторону; до 30 дней после сигнала. Открытые сделки оцениваются по последней цене. Не является финансовой рекомендацией.</p></section>
+</div>
+<section class="in box cta"><div><h2>Проверяйте все сигналы, а не только 3</h2><p>Полная версия Signal Checker делает это для всей истории группы в Google Таблицах: уровни DCA, стоп в безубыток, монеты с KuCoin, сводка с винрейтом и профит-фактором, результаты по монетам. Таблица на английском языке.</p><p class="small"><a href="https://5778611980656.gumroad.com/l/signal-checker-lite">Или попробуйте бесплатную Signal Checker Lite (10 сигналов)</a></p></div><div class="buy" style="margin:0"><a class="btn" href="https://5778611980656.gumroad.com/l/signal-checker" data-gumroad-overlay-checkout="true">Купить Signal Checker · $19</a><a class="btn alt" href="../../ru/signal-checker/">Смотреть Signal Checker</a></div></section>
+<article class="in prose"><h2>Что проверяет демо</h2>
+<p>Для каждого сигнала загружаются часовые свечи Coinbase начиная с часа публикации. Сначала проверяется, дошла ли цена до вашего входа. Затем, час за часом, что наступило раньше: цель или стоп. Если оба события в одном часе, засчитывается стоп: по часовым свечам нельзя понять, что было первым, а худший вариант делает результат честным.</p>
+<h2>Почему группы выглядят лучше, чем есть</h2>
+<p>Посты «TP1 достигнут ✅» редко упоминают, что потом цена пробила стоп или что вход вообще не исполнился. Полный чек-лист — в гайде <a href="../guides/is-my-crypto-signal-group-legit/">Как проверить, честная ли сигнальная группа</a>.</p>
+
+<p>Другие бесплатные инструменты: <a href="../../ru/dca-calculator/">Калькулятор средней цены DCA</a> · <a href="../../ru/crypto-profit-calculator/">Калькулятор прибыли для крипты</a> · <a href="../../ru/liquidation-calculator/">Калькулятор цены ликвидации</a> · <a href="../../ru/position-size-calculator/">Калькулятор размера позиции</a></p></article>
+<script>(function(){
+var $=function(id){return document.getElementById(id);};
+var num=function(id){var v=parseFloat(String($(id).value).replace(',','.'));return isFinite(v)?v:NaN;};
+var money=function(v){return (v<0?'−$':'$')+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});};
+var signed=function(v){return (v>0?'+':'')+money(v);};
+var price=function(v){return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:v>=1?2:8});};
+var pct=function(v,d){return (v>0?'+':v<0?'−':'')+Math.abs(v*100).toFixed(d==null?2:d)+'%';};
+var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
+var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
+document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
+
+var L={"sig": "Сигнал", "coin": "Монета", "side": "Направление", "long": "Лонг", "short_": "Шорт", "entry": "Вход", "stop": "Стоп", "tp": "TP", "posted": "Время публикации (ваше)", "checking": "Загружаем цены…", "notfilled": "Вход так и не исполнился", "open": "Ещё открыта", "stopped": "Сработал стоп", "alltp": "Все цели достигнуты", "tphit": "достигнут", "after": "после", "nodata": "Нет цены Coinbase для этой монеты (полная версия также использует KuCoin)", "bad": "Заполните монету, вход, стоп и хотя бы TP1", "wrong": "Стоп или цели не с той стороны от входа", "future": "Время публикации в будущем", "toolong": "проверены первые 30 дней после сигнала"};
+function calc(){}
+function el(h){var d=document.createElement('div');d.innerHTML=h;return d.firstChild;}
+function card(i){return el('<fieldset class="sigbox"><legend>'+L.sig+' '+(i+1)+'</legend>'+
+ '<div class="two"><div><label>'+L.coin+'</label><input class="coin" placeholder="BTC" autocapitalize="characters"></div>'+
+ '<div><label>'+L.side+'</label><select class="side"><option value="L">'+L.long+'</option><option value="S">'+L.short_+'</option></select></div></div>'+
+ '<div class="two"><div><label>'+L.entry+'</label><input class="entry" type="number" step="any" inputmode="decimal"></div><div><label>'+L.stop+'</label><input class="stop" type="number" step="any" inputmode="decimal"></div></div>'+
+ '<div class="three"><div><label>'+L.tp+'1</label><input class="tp1" type="number" step="any" inputmode="decimal"></div><div><label>'+L.tp+'2</label><input class="tp2" type="number" step="any" inputmode="decimal"></div><div><label>'+L.tp+'3</label><input class="tp3" type="number" step="any" inputmode="decimal"></div></div>'+
+ '<label>'+L.posted+'</label><input class="when" type="datetime-local"></fieldset>');}
+for(var i=0;i<3;i++) $('sigs').appendChild(card(i));
+function pad(n){return (n<10?'0':'')+n;}
+function localISO(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes());}
+function fmtP(v){return v.toLocaleString('en-US',{maximumFractionDigits:v>=100?0:v>=1?2:6});}
+async function candles(coin,start,end){
+ var out=[],t=start;
+ while(t<end){var t2=Math.min(end,t+300*3600e3);
+  var r=await fetch('https://api.exchange.coinbase.com/products/'+coin+'-USD/candles?granularity=3600&start='+new Date(t).toISOString()+'&end='+new Date(t2).toISOString());
+  if(!r.ok) throw new Error('nodata'); var a=await r.json(); out=out.concat(a); t=t2;}
+ var seen={}; out=out.filter(function(c){if(seen[c[0]])return false;seen[c[0]]=1;return true;});
+ out.sort(function(a,b){return a[0]-b[0];}); return out; /* [time, low, high, open, close, volume] */
+}
+function sim(s,cs){
+ var isL=s.side==='L', fee=0.001, fi=-1;
+ for(var i=0;i<cs.length;i++){ if(isL? cs[i][1]<=s.entry : cs[i][2]>=s.entry){fi=i;break;} }
+ if(fi<0) return {txt:L.notfilled, pnl:null, closed:true, filled:false};
+ var tps=s.tps, part=1/tps.length, hit=0, pnl=0, hours=0, done=false, stopped=false;
+ for(var j=fi;j<cs.length && !done;j++){
+  var lo=cs[j][1], hi=cs[j][2]; hours=j-fi;
+  var stopHit=isL? lo<=s.stop : hi>=s.stop;
+  if(stopHit){stopped=true; done=true; break;}
+  while(hit<tps.length && (isL? hi>=tps[hit] : lo<=tps[hit])){ pnl+=part*((isL?tps[hit]-s.entry:s.entry-tps[hit])/s.entry); hit++; }
+  if(hit===tps.length) done=true;
+ }
+ var rest=1-hit*part, last=cs[cs.length-1][4];
+ if(stopped) pnl+=rest*((isL?s.stop-s.entry:s.entry-s.stop)/s.entry);
+ else if(!done) pnl+=rest*((isL?last-s.entry:s.entry-last)/s.entry);
+ pnl-=2*fee;
+ var parts=[]; for(var k=0;k<hit;k++) parts.push(L.tp+(k+1)+' '+L.tphit);
+ var txt = stopped ? (parts.length? parts.join(', ')+', ' : '')+L.stopped+' ('+L.after+' '+hours+'h)' : hit===tps.length ? L.alltp+' ('+L.after+' '+hours+'h)' : (parts.length? parts.join(', ')+', ' : '')+L.open;
+ return {txt:txt, pnl:pnl, closed:stopped||hit===tps.length, filled:true};
+}
+function read(f){var g=function(c){return parseFloat(String(f.querySelector('.'+c).value).replace(',','.'));};
+ var s={coin:f.querySelector('.coin').value.trim().toUpperCase(), side:f.querySelector('.side').value, entry:g('entry'), stop:g('stop'), tps:[g('tp1'),g('tp2'),g('tp3')].filter(function(x){return x>0;}), when:f.querySelector('.when').value};
+ if(!s.coin && !(s.entry>0)) return null; return s;}
+$('run').onclick=async function(){
+ var rows=[], body=$('out').querySelector('tbody'); body.innerHTML=''; $('status').textContent=L.checking; $('out').hidden=false; $('sum').hidden=true;
+ var fs=[].slice.call(document.querySelectorAll('.sigbox')), res=[];
+ for(var i=0;i<fs.length;i++){var s=read(fs[i]); if(!s) continue;
+  var name=(s.coin||'?')+' '+(s.side==='L'?L.long:L.short_)+' @ '+(s.entry>0?fmtP(s.entry):'?'), txt, pnl=null, cls='';
+  if(!s.coin||!(s.entry>0)||!(s.stop>0)||!s.tps.length||!s.when){txt=L.bad;}
+  else if(s.side==='L'? (s.stop>=s.entry||s.tps.some(function(t){return t<=s.entry;})) : (s.stop<=s.entry||s.tps.some(function(t){return t>=s.entry;}))){txt=L.wrong;}
+  else { var st=new Date(s.when).getTime(); st=Math.floor(st/3600e3)*3600e3; var now=Date.now();
+   if(st>now) txt=L.future; else {
+    var end=Math.min(now, st+30*24*3600e3);
+    try{ var cs=await candles(s.coin,st,end); if(!cs.length) throw new Error('nodata'); var r=sim(s,cs); txt=r.txt+(end<now&&!r.closed&&r.filled?' ('+L.toolong+')':''); pnl=r.pnl; if(r.filled) res.push(r);}
+    catch(e){txt=L.nodata;} } }
+  var tr=document.createElement('tr'); tr.innerHTML='<td>'+name+'</td><td>'+txt+'</td><td class="'+(pnl==null?'':pnl>=0?'pos':'neg')+'">'+(pnl==null?'–':pct(pnl))+'</td>'; body.appendChild(tr);
+ }
+ $('status').textContent='';
+ var closed=res.filter(function(r){return r.closed;});
+ $('sum').hidden=false; show('sn',String(body.children.length));
+ if(closed.length){ show('sw',Math.round(100*closed.filter(function(r){return r.pnl>0;}).length/closed.length)+'%'); var a=closed.reduce(function(x,r){return x+r.pnl;},0)/closed.length; show('sa',pct(a),a>=0?'pos':'neg'); }
+ else {show('sw','–');show('sa','–');}
+};
+$('ex').onclick=async function(){
+ var t=Math.floor((Date.now()-10*24*3600e3)/3600e3)*3600e3;
+ try{ var cs=await candles('BTC',t,t+3*3600e3); var p=Math.round(cs[0][4]);
+  var f=document.querySelectorAll('.sigbox')[0]; f.querySelector('.coin').value='BTC'; f.querySelector('.side').value='L';
+  f.querySelector('.entry').value=Math.round(p*0.99); f.querySelector('.stop').value=Math.round(p*0.96);
+  f.querySelector('.tp1').value=Math.round(p*1.01); f.querySelector('.tp2').value=Math.round(p*1.03); f.querySelector('.tp3').value=Math.round(p*1.05);
+  f.querySelector('.when').value=localISO(new Date(t)); $('exnote').hidden=false; $('run').click(); }
+ catch(e){ $('status').textContent=L.nodata; }
+};
+})();</script>
+
+</main>
+<footer class="foot"><div class="in">
+  <div><a class="logo" href="../../ru/"><span>Signal<b>Checker</b>HQ</span></a>
+  <p>Инструменты в Google Таблицах, которые показывают реальные цифры криптотрейдинга. Создано трейдером вместе с AI. Без сигналов и без хайпа.</p><p><a href="../../ru/how-its-built/">Как мы работаем: человек + AI →</a></p></div>
+  <div><h4>Инструменты</h4><a href="../../ru/signal-checker/">Crypto Signal Checker</a><a href="../../ru/trade-journal/">Crypto Trade Journal + DCA Planner</a><a href="../../ru/portfolio-tracker/">Crypto Portfolio Tracker</a><a href="../../ru/risk-calculator/">Position Size & Risk Calculator</a><a href="../../ru/bundle/">Наборы: Complete Kit и Toolkit</a><a href="../../ru/tools/">Бесплатные калькуляторы</a><a href="../../ru/guides/">Гайды</a></div>
+  <div><h4>Магазин и соцсети</h4><a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy</a><a href="https://5778611980656.gumroad.com/">Gumroad</a><a href="https://x.com/SignalCheckerHQ">X</a><a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a><a href="https://www.pinterest.com/ilonavoitenco/crypto-trading-tools-templates/">Pinterest</a></div>
+  <div><h4>Инфо</h4><a href="../../legal/">Условия, конфиденциальность и возвраты (англ.)</a><a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></div>
+</div><p class="fine in">Все инструменты предназначены для анализа и учёта. Ничто на этом сайте не является финансовой рекомендацией. В примерах используются примерные или исторические данные; результаты могут отличаться. © 2026 SignalCheckerHQ. SignalCheckerHQ™, Signal Checker™ и логотип SignalCheckerHQ являются товарными знаками SignalCheckerHQ. Все продукты, изображения, видео и тексты защищены авторским правом; копировать и перепродавать их запрещено.</p></footer>
+<script src="https://gumroad.com/js/gumroad.js" defer></script>
+<script data-goatcounter="https://signalcheckerhq.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
