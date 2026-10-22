@@ -193,3 +193,9 @@ h1 span,.gtext{background:var(--grad);-webkit-background-clip:text;background-cl
 @media(max-width:900px){.langs{order:2;margin-left:auto}.burger{order:3;margin-left:4px}}
 @media(max-width:480px){.top .in{gap:8px}.logo{font-size:16px;gap:7px}.logo img{width:26px;height:26px}.langs a{padding:4px 6px;font-size:11px}.burger{padding:4px 6px;font-size:24px}}
 
+/* signal checker demo */
+.sigbox{border:1px solid var(--line);border-radius:14px;padding:6px 14px 14px;margin:0 0 12px}
+.sigbox legend{color:var(--green);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:0 6px}
+.calc .three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+#out td{vertical-align:top}
+#out td:last-child{white-space:nowrap;font-variant-numeric:tabular-nums}
