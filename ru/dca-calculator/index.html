@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ru"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DCA-калькулятор для крипты: средняя цена, безубыток и риск стопа (бесплатно) | SignalCheckerHQ</title>
+<meta name="description" content="Бесплатный DCA-калькулятор для крипты. Введите каждую покупку и получите реальную среднюю цену (с комиссиями), движение до безубытка, P&amp;L по текущей цене и стоимость стопа.">
+<link rel="canonical" href="https://signalcheckerhq.org/ru/dca-calculator/">
+<meta property="og:title" content="DCA-калькулятор для крипты: средняя цена, безубыток и риск стопа (бесплатно) | SignalCheckerHQ"><meta property="og:description" content="Бесплатный DCA-калькулятор для крипты. Введите каждую покупку и получите реальную среднюю цену (с комиссиями), движение до безубытка, P&amp;L по текущей цене и стоимость стопа.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://signalcheckerhq.org/ru/dca-calculator/">
+<meta property="og:image" content="https://signalcheckerhq.org/assets/img/rc-1.webp">
+<meta name="theme-color" content="#0b1120">
+<meta name="google-site-verification" content="uh0u66NYvt6K8r_yqwLmn0GAHeASmu_aV-5lmH9_T-0">
+<meta name="google-site-verification" content="UvHvX4_1aVpsXs5uoaKarwA5mYzig2ahWrXbkXhL_fY">
+<link rel="icon" href="../../assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../assets/site.css?v=3">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Калькулятор средней цены DCA","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://signalcheckerhq.org/ru/dca-calculator/"}</script><link rel="alternate" hreflang="en" href="https://signalcheckerhq.org/dca-calculator/"><link rel="alternate" hreflang="es" href="https://signalcheckerhq.org/es/dca-calculator/"><link rel="alternate" hreflang="ru" href="https://signalcheckerhq.org/ru/dca-calculator/"><link rel="alternate" hreflang="x-default" href="https://signalcheckerhq.org/dca-calculator/"></head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../ru/"><img src="../../assets/img/icon.png" alt="" width="32" height="32"><span>Signal<b>Checker</b>HQ</span></a>
+  <div class="langs"><a href="../../dca-calculator/" hreflang="en" lang="en">EN</a><a href="../../es/dca-calculator/" hreflang="es" lang="es">ES</a><a href="../../ru/dca-calculator/" class=on aria-current=page hreflang="ru" lang="ru">RU</a></div>
+  <button type="button" class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('.top');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button>
+  <nav><a href="../../ru/#tools">Инструменты</a><a href="../../ru/bundle/">Complete Kit</a><a href="../../ru/guides/">Гайды</a><a href="../../ru/how-its-built/">Человек + AI</a><a href="../../ru/tools/" class="free">Бесплатно</a></nav>
+</div></header>
+<main>
+
+<section class="hero in" style="padding-bottom:0"><div class="tag">Бесплатный инструмент</div><h1>DCA-калькулятор для крипты <span>(бесплатно)</span></h1><p class="lead">Введите каждую покупку (сумма в $ и цена). Получите реальную среднюю цену с учётом комиссий, P&amp;L по текущей цене и то, во сколько обойдётся стоп.</p></section>
+<div class="in grid2 calc">
+  <section class="card" aria-label="Ваши данные"><h2 class="ch">Ваши данные</h2>
+<div class="rows" id="rows"></div>
+<button type="button" class="btn alt small" id="add">+ Добавить покупку</button>
+<div class="two">
+  <div><label for="fee">Комиссия за покупку (%)</label><input id="fee" type="number" inputmode="decimal" value="0.1" step="any" min="0"></div>
+  <div><label for="now">Текущая цена (необязательно)</label><input id="now" type="number" inputmode="decimal" value="85" step="any" min="0"></div>
+</div>
+<label for="stop">Стоп-лосс (необязательно)</label><input id="stop" type="number" inputmode="decimal" value="72" step="any" min="0">
+</section>
+  <section class="card" aria-live="polite" aria-label="Результат"><h2 class="ch">Результат</h2>
+<div class="big"><span>Средняя цена</span><b id="avg">–</b></div>
+<div class="row"><span>Всего потрачено (с комиссиями)</span><b id="spent">–</b></div>
+<div class="row"><span>Куплено монет</span><b id="coins">–</b></div>
+<div class="row"><span>Простое среднее цен (неправильный способ)</span><b id="naive">–</b></div>
+<div class="row"><span>Нужное движение от последней покупки до безубытка</span><b id="be">–</b></div>
+<div class="row"><span>Стоимость по текущей цене</span><b id="val">–</b></div>
+<div class="row"><span>P&amp;L по текущей цене</span><b id="pnl">–</b></div>
+<div class="row"><span>Убыток при срабатывании стопа</span><b id="sl">–</b></div>
+<div id="msg" class="msg ok">✓ Всё в порядке</div>
+</section>
+</div>
+<section class="in box cta"><div><h2>Хотите то же самое в своей Google Таблице?</h2><p>Планируйте каждый уровень DCA до сделки, с предупреждением, если стоп стоит раньше последней покупки: <b>DCA Planner</b> в Crypto Trade Journal.</p></div><a class="btn" href="../../ru/trade-journal/">Смотреть Trade Journal · $15</a></section>
+<article class="in prose">
+<h2>Почему нельзя просто усреднить цены?</h2>
+<p>Потому что каждая покупка весит пропорционально количеству купленных монет. В примере ($100 по $100, $100 по $90 и $200 по $80) реальная средняя цена — <b>$86,75</b> до комиссий, а не $90. Самая крупная покупка по самой низкой цене тянет среднюю вниз. Подробнее — в гайде <a href="../guides/dca-average-price/">Как посчитать среднюю цену при DCA</a>.</p>
+<div class="formula">Средняя цена = всего потрачено ÷ всего куплено монет</div>
+<h2>Сколько на самом деле стоит стоп</h2>
+<p>Если исполнились все уровни DCA и сработал стоп, вы теряете на всей позиции. Калькулятор показывает эту сумму ещё до сделки и предупреждает, если стоп стоит выше самой низкой запланированной покупки.</p>
+
+<p class="small">Всё считается в вашем браузере, никакие данные никуда не отправляются. Калькулятор считает по введённым вами числам. Это не финансовая рекомендация.</p>
+<p>Другие бесплатные инструменты: <a href="../../ru/signal-checker-demo/">Демо Signal Checker</a> · <a href="../../ru/crypto-profit-calculator/">Калькулятор прибыли для крипты</a> · <a href="../../ru/liquidation-calculator/">Калькулятор цены ликвидации</a> · <a href="../../ru/position-size-calculator/">Калькулятор размера позиции</a></p></article>
+<script>(function(){
+var $=function(id){return document.getElementById(id);};
+var num=function(id){var v=parseFloat(String($(id).value).replace(',','.'));return isFinite(v)?v:NaN;};
+var money=function(v){return (v<0?'−$':'$')+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});};
+var signed=function(v){return (v>0?'+':'')+money(v);};
+var price=function(v){return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:v>=1?2:8});};
+var pct=function(v,d){return (v>0?'+':v<0?'−':'')+Math.abs(v*100).toFixed(d==null?2:d)+'%';};
+var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
+var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
+document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
+
+var start=[[100,100],[100,90],[200,80]];
+function addRow(a,p){var d=document.createElement('div');d.className='two buyrow';
+ d.innerHTML='<div><label>Сумма ($)</label><input type="number" inputmode="decimal" step="any" min="0" class="amt" value="'+(a||'')+'"></div><div><label>Цена</label><input type="number" inputmode="decimal" step="any" min="0" class="prc" value="'+(p||'')+'"></div>';
+ $('rows').appendChild(d); d.querySelectorAll('input').forEach(function(e){e.addEventListener('input',calc);});}
+start.forEach(function(r){addRow(r[0],r[1]);}); $('add').onclick=function(){addRow();};
+function calc(){
+ var fee=(num('fee')||0)/100, spent=0, coins=0, prices=[], last=NaN;
+ document.querySelectorAll('.buyrow').forEach(function(r){var a=parseFloat(r.querySelector('.amt').value),p=parseFloat(r.querySelector('.prc').value);
+  if(a>0&&p>0){spent+=a; coins+=a*(1-fee)/p; prices.push(p); last=p;}});
+ if(!coins){['avg','spent','coins','naive','be','val','pnl','sl'].forEach(function(i){show(i,'–');});return msg('Введите хотя бы одну покупку с суммой и ценой.','err');}
+ var avg=spent/coins; show('avg',price(avg)); show('spent',money(spent)); show('coins',coins.toLocaleString('en-US',{maximumFractionDigits:8}));
+ show('naive',price(prices.reduce(function(s,x){return s+x;},0)/prices.length));
+ show('be',pct(avg/last-1));
+ var now=num('now'); if(now>0){var v=coins*now; show('val',money(v)); show('pnl',signed(v-spent)+' ('+pct(v/spent-1)+')',v>=spent?'pos':'neg');} else {show('val','–');show('pnl','–');}
+ var st=num('stop'); if(st>0){var l=coins*st-spent; show('sl',signed(l)+' ('+pct(l/spent)+')','neg');
+  var minP=Math.min.apply(null,prices); if(st>=minP) return msg('⚠ Ваш стоп ('+price(st)+') на уровне или выше самой низкой покупки ('+price(minP)+'). Эта покупка не может исполниться раньше стопа.','warn');} else show('sl','–');
+ msg('✓ Всё в порядке','ok');
+}
+calc();
+})();</script>
+
+</main>
+<footer class="foot"><div class="in">
+  <div><a class="logo" href="../../ru/"><span>Signal<b>Checker</b>HQ</span></a>
+  <p>Инструменты в Google Таблицах, которые показывают реальные цифры криптотрейдинга. Создано трейдером вместе с AI. Без сигналов и без хайпа.</p><p><a href="../../ru/how-its-built/">Как мы работаем: человек + AI →</a></p></div>
+  <div><h4>Инструменты</h4><a href="../../ru/signal-checker/">Crypto Signal Checker</a><a href="../../ru/trade-journal/">Crypto Trade Journal + DCA Planner</a><a href="../../ru/portfolio-tracker/">Crypto Portfolio Tracker</a><a href="../../ru/risk-calculator/">Position Size & Risk Calculator</a><a href="../../ru/bundle/">Наборы: Complete Kit и Toolkit</a><a href="../../ru/tools/">Бесплатные калькуляторы</a><a href="../../ru/guides/">Гайды</a></div>
+  <div><h4>Магазин и соцсети</h4><a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy</a><a href="https://5778611980656.gumroad.com/">Gumroad</a><a href="https://x.com/SignalCheckerHQ">X</a><a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a><a href="https://www.pinterest.com/ilonavoitenco/crypto-trading-tools-templates/">Pinterest</a></div>
+  <div><h4>Инфо</h4><a href="../../legal/">Условия, конфиденциальность и возвраты (англ.)</a><a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></div>
+</div><p class="fine in">Все инструменты предназначены для анализа и учёта. Ничто на этом сайте не является финансовой рекомендацией. В примерах используются примерные или исторические данные; результаты могут отличаться. © 2026 SignalCheckerHQ. SignalCheckerHQ™, Signal Checker™ и логотип SignalCheckerHQ являются товарными знаками SignalCheckerHQ. Все продукты, изображения, видео и тексты защищены авторским правом; копировать и перепродавать их запрещено.</p></footer>
+<script src="https://gumroad.com/js/gumroad.js" defer></script>
+<script data-goatcounter="https://signalcheckerhq.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
