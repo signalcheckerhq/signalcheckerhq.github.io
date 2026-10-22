@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora de precio de liquidación cripto para operaciones apalancadas (gratis) | SignalCheckerHQ</title>
+<meta name="description" content="Calculadora gratis del precio de liquidación cripto para posiciones largas y cortas con margen aislado. Mira aproximadamente dónde te liquidarían con cualquier apalancamiento y si tu stop llega antes.">
+<link rel="canonical" href="https://signalcheckerhq.org/es/liquidation-calculator/">
+<meta property="og:title" content="Calculadora de precio de liquidación cripto para operaciones apalancadas (gratis) | SignalCheckerHQ"><meta property="og:description" content="Calculadora gratis del precio de liquidación cripto para posiciones largas y cortas con margen aislado. Mira aproximadamente dónde te liquidarían con cualquier apalancamiento y si tu stop llega antes.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://signalcheckerhq.org/es/liquidation-calculator/">
+<meta property="og:image" content="https://signalcheckerhq.org/assets/img/rc-1.webp">
+<meta name="theme-color" content="#0b1120">
+<meta name="google-site-verification" content="uh0u66NYvt6K8r_yqwLmn0GAHeASmu_aV-5lmH9_T-0">
+<meta name="google-site-verification" content="UvHvX4_1aVpsXs5uoaKarwA5mYzig2ahWrXbkXhL_fY">
+<link rel="icon" href="../../assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../assets/site.css?v=3">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora de precio de liquidación","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://signalcheckerhq.org/es/liquidation-calculator/"}</script><link rel="alternate" hreflang="en" href="https://signalcheckerhq.org/liquidation-calculator/"><link rel="alternate" hreflang="es" href="https://signalcheckerhq.org/es/liquidation-calculator/"><link rel="alternate" hreflang="ru" href="https://signalcheckerhq.org/ru/liquidation-calculator/"><link rel="alternate" hreflang="x-default" href="https://signalcheckerhq.org/liquidation-calculator/"></head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../es/"><img src="../../assets/img/icon.png" alt="" width="32" height="32"><span>Signal<b>Checker</b>HQ</span></a>
+  <div class="langs"><a href="../../liquidation-calculator/" hreflang="en" lang="en">EN</a><a href="../../es/liquidation-calculator/" class=on aria-current=page hreflang="es" lang="es">ES</a><a href="../../ru/liquidation-calculator/" hreflang="ru" lang="ru">RU</a></div>
+  <button type="button" class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('.top');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button>
+  <nav><a href="../../es/#tools">Herramientas</a><a href="../../es/bundle/">Complete Kit</a><a href="../../es/guides/">Guías</a><a href="../../es/how-its-built/">Humano + IA</a><a href="../../es/tools/" class="free">Herramientas gratis</a></nav>
+</div></header>
+<main>
+
+<section class="hero in" style="padding-bottom:0"><div class="tag">Herramienta gratis</div><h1>Calculadora de precio de liquidación <span>(gratis)</span></h1><p class="lead">Entrada, apalancamiento y dirección: mira aproximadamente dónde se liquida una posición con margen aislado, a qué distancia está y si tu stop llega antes.</p></section>
+<div class="in grid2 calc">
+  <section class="card" aria-label="Tus números"><h2 class="ch">Tus números</h2>
+<div class="seg" role="group" aria-label="Dirección"><button type="button" id="long" class="on">Largo</button><button type="button" id="short">Corto</button></div>
+<div class="two">
+  <div><label for="entry">Precio de entrada</label><input id="entry" type="number" inputmode="decimal" value="108000" step="any" min="0"></div>
+  <div><label for="lev">Apalancamiento</label><input id="lev" type="number" inputmode="decimal" value="10" step="any" min="1"></div>
+</div>
+<div class="two">
+  <div><label for="mmr">Margen de mantenimiento (%)</label><input id="mmr" type="number" inputmode="decimal" value="0.5" step="any" min="0"></div>
+  <div><label for="stop">Tu stop (opcional)</label><input id="stop" type="number" inputmode="decimal" value="104500" step="any" min="0"></div>
+</div>
+</section>
+  <section class="card" aria-live="polite" aria-label="Resultado"><h2 class="ch">Resultado</h2>
+<div class="big"><span>Precio de liquidación (aprox.)</span><b id="liq">–</b></div>
+<div class="row"><span>Distancia desde la entrada</span><b id="dist">–</b></div>
+<div class="row"><span>Sin margen de mantenimiento</span><b id="raw">–</b></div>
+<div class="row"><span>Distancia del stop a la entrada</span><b id="sd">–</b></div>
+<div id="msg" class="msg ok">✓ Todo correcto</div>
+<table class="tbl small" id="levtab"></table>
+</section>
+</div>
+<section class="in box cta"><div><h2>¿Lo quieres en tu propia hoja de Google?</h2><p>Calcula el tamaño de cada operación apalancada para que un stop cueste exactamente lo planeado, con control de liquidación y objetivos en R: la <b>Position Size &amp; Risk Calculator</b>.</p></div><a class="btn" href="../../es/risk-calculator/">Ver Risk Calculator · $7</a></section>
+<article class="in prose">
+<h2>Cómo se estima</h2>
+<div class="formula">Largo: liquidación ≈ entrada × (1 − 1/apalancamiento + margen de mantenimiento)<br>Corto: liquidación ≈ entrada × (1 + 1/apalancamiento − margen de mantenimiento)</div>
+<p>Es la estimación habitual para una posición con <b>margen aislado</b>. Los exchanges usan distintos niveles de margen de mantenimiento, comisiones y funding, y las posiciones con margen cruzado dependen de todo tu saldo, así que el precio real puede variar. Comprueba siempre el precio de liquidación que muestra tu exchange.</p>
+<h2>El apalancamiento no cambia tu riesgo; cambia tu margen</h2>
+<p>Si calculas el tamaño de la operación según su stop, la pérdida en dólares en el stop es la misma con 2x o con 20x. El apalancamiento solo cambia cuánto dinero bloqueas y lo cerca que está la liquidación. El peligro aparece cuando la liquidación llega antes que el stop: entonces puedes perder todo el margen en lugar del riesgo planeado. Usa la <a href="../position-size-calculator/">calculadora de tamaño de posición</a> gratis para calcular primero el tamaño.</p>
+
+<p class="small">Todo se calcula en tu navegador; no se envía nada. Esta calculadora hace cuentas con los números que introduces. No es asesoramiento financiero.</p>
+<p>Más herramientas gratis: <a href="../../es/signal-checker-demo/">Demo de Signal Checker</a> · <a href="../../es/dca-calculator/">Calculadora de precio medio DCA</a> · <a href="../../es/crypto-profit-calculator/">Calculadora de beneficio cripto</a> · <a href="../../es/position-size-calculator/">Calculadora de tamaño de posición</a></p></article>
+<script>(function(){
+var $=function(id){return document.getElementById(id);};
+var num=function(id){var v=parseFloat(String($(id).value).replace(',','.'));return isFinite(v)?v:NaN;};
+var money=function(v){return (v<0?'−$':'$')+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});};
+var signed=function(v){return (v>0?'+':'')+money(v);};
+var price=function(v){return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:v>=1?2:8});};
+var pct=function(v,d){return (v>0?'+':v<0?'−':'')+Math.abs(v*100).toFixed(d==null?2:d)+'%';};
+var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
+var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
+document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
+
+var dir='Long'; function setDir(d){dir=d;$('long').classList.toggle('on',d==='Long');$('short').classList.toggle('on',d==='Short');calc();}
+$('long').onclick=function(){setDir('Long');}; $('short').onclick=function(){setDir('Short');};
+function liqAt(e,lev,m){return dir==='Long'?e*(1-1/lev+m):e*(1+1/lev-m);}
+function calc(){
+ var e=num('entry'),lev=num('lev'),m=(num('mmr')||0)/100,st=num('stop');
+ if(!(e>0&&lev>=1)){['liq','dist','raw','sd'].forEach(function(i){show(i,'–');});$('levtab').innerHTML='';return msg('Rellena entrada y apalancamiento (1 o más).','err');}
+ if(lev===1){show('liq','ninguna con 1x');show('dist','–');show('raw','–');} else {
+  var l=liqAt(e,lev,m); show('liq',price(l)); show('dist',pct(l/e-1)); show('raw',price(liqAt(e,lev,0)));}
+ var rows='<tr><th>Apalancamiento</th><th>Liquidation ≈</th><th>Move</th></tr>';
+ [2,3,5,10,20,50,100].forEach(function(L){var l=liqAt(e,L,m);rows+='<tr><td>'+L+'x</td><td>'+price(l)+'</td><td>'+pct(l/e-1,1)+'</td></tr>';}); $('levtab').innerHTML=rows;
+ if(st>0){show('sd',pct(st/e-1)); if(dir==='Long'&&st>e||dir==='Short'&&st<e) return msg('⚠ El stop está del lado equivocado de la entrada para un '+(dir==='Long'?'largo':'corto')+'.','warn');
+  if(lev>1){var l2=liqAt(e,lev,m); if(dir==='Long'?st<=l2:st>=l2) return msg('⚠ La liquidación llega ANTES que tu stop. Baja el apalancamiento o mueve el stop.','warn');}} else show('sd','–');
+ msg('✓ Todo correcto','ok');
+}
+calc();
+})();</script>
+
+</main>
+<footer class="foot"><div class="in">
+  <div><a class="logo" href="../../es/"><span>Signal<b>Checker</b>HQ</span></a>
+  <p>Herramientas de Google Sheets que muestran los números reales del trading cripto. Creadas por un trader junto con IA. Sin señales, sin humo.</p><p><a href="../../es/how-its-built/">Cómo se crean: humano + IA →</a></p></div>
+  <div><h4>Herramientas</h4><a href="../../es/signal-checker/">Crypto Signal Checker</a><a href="../../es/trade-journal/">Crypto Trade Journal + DCA Planner</a><a href="../../es/portfolio-tracker/">Crypto Portfolio Tracker</a><a href="../../es/risk-calculator/">Position Size & Risk Calculator</a><a href="../../es/bundle/">Paquetes: Complete Kit y Toolkit</a><a href="../../es/tools/">Calculadoras gratis</a><a href="../../es/guides/">Guías</a></div>
+  <div><h4>Tienda y redes</h4><a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy</a><a href="https://5778611980656.gumroad.com/">Gumroad</a><a href="https://x.com/SignalCheckerHQ">X</a><a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a><a href="https://www.pinterest.com/ilonavoitenco/crypto-trading-tools-templates/">Pinterest</a></div>
+  <div><h4>Info</h4><a href="../../legal/">Términos, privacidad y reembolsos (en inglés)</a><a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></div>
+</div><p class="fine in">Todas las herramientas son para análisis y registro. Nada en este sitio es asesoramiento financiero. Los ejemplos usan datos de ejemplo o históricos; los resultados varían. © 2026 SignalCheckerHQ. SignalCheckerHQ™, Signal Checker™ y el logotipo de SignalCheckerHQ son marcas de SignalCheckerHQ. Todos los productos, imágenes, videos y textos están protegidos por derechos de autor; no se permite copiarlos ni revenderlos.</p></footer>
+<script src="https://gumroad.com/js/gumroad.js" defer></script>
+<script data-goatcounter="https://signalcheckerhq.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
