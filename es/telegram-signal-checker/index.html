@@ -197,6 +197,20 @@ function wrap(x,text,maxW,maxL){var ws=String(text).split(' '),lines=[],cur='';
  if(lines.length>maxL){lines=lines.slice(0,maxL); var l=lines[maxL-1]; while(x.measureText(l+'…').width>maxW && l.length) l=l.slice(0,-1); lines[maxL-1]=l+'…';}
  return lines;}
 
+/* A message can hold several calls ("1. #XRPUSDT SHORT ... 2. #UNIUSDT ..."). Split it at lines that start a new coin,
+   when there are at least two such blocks that each look like a call. The text before the first block (header, date) is kept with every block. */
+function splitCalls(raw){
+ var lines=String(raw).split(/\r?\n/), starts=[];
+ for(var i=0;i<lines.length;i++){ if(/^\s*(\d{1,2}\s*[.)]\s*)?[^\w#$]{0,4}\s*[#$][A-Za-z0-9]{2,15}/.test(lines[i])) starts.push(i); }
+ if(starts.length<2) return [raw];
+ var head=lines.slice(0,starts[0]).join('\n'), blocks=[];
+ for(var k=0;k<starts.length;k++){ blocks.push(lines.slice(starts[k], k+1<starts.length? starts[k+1] : lines.length).join('\n')); }
+ var good=blocks.filter(function(b){ var p=parseCall(b); return p.coin && (p.entry>0 || p.market) && (p.stop>0 || p.tps.length); });
+ if(good.length<2) return [raw];
+ return blocks.map(function(b){ return head? head+'\n'+b : b; });
+}
+
+
 var FXN=0, CALLS=[], NAME='', MSGS=0, UNLOCK=false, RES=[], STATS={};
 function fmt(s,o){return s.replace(/\{(\w+)\}/g,function(m,k){return o[k]!=null?o[k]:m;});}
 function ds(t){try{return new Date(t).toLocaleDateString(L.lang,{day:'numeric',month:'short',year:'numeric'});}catch(e){return new Date(t).toDateString();}}
@@ -208,7 +222,8 @@ function extract(d){
  var ms=(d&&d.messages)||[], out=[], seen={};
  ms.forEach(function(m){
   if(m.type!=='message') return; var tx=msgText(m); if(!tx || tx.length<12) return;
-  var p=parseCall(tx);
+  splitCalls(tx).forEach(function(seg){
+  var p=parseCall(seg);
   if(!p.coin || !(p.entry>0) || !(p.stop>0) || !p.tps.length) return;
   if(p.fx){ FXN++; return; }
   var isL=p.side==='L';
@@ -217,6 +232,7 @@ function extract(d){
   var k=p.coin+'|'+p.side+'|'+(+p.entry.toPrecision(5))+'|'+(+p.stop.toPrecision(5));
   if(seen[k] && t-seen[k]<14*24*3600e3) return; seen[k]=t;
   out.push({coin:p.coin, side:p.side, entry:p.entry, stop:p.stop, tps:p.tps, t:t, id:m.id, lev0:p.lev});
+  });
  });
  return out.sort(function(a,b){return b.t-a.t;});
 }
