@@ -32,6 +32,7 @@ Objetivos: 68500 / 69500 / 71000
 Stop loss: 65800
 Apalancamiento 5x"></textarea>
 <button type="button" class="btn small" id="readbtn">Leer la llamada</button><div id="pmsg" class="msg" hidden></div>
+<p class="small" style="margin:10px 0 0"><a href="../telegram-signal-checker/">¿Tienes un canal entero? Comprueba todas sus llamadas desde una exportación de Telegram →</a></p>
 <div id="sigs" style="margin-top:16px"></div>
 <div class="buy" style="margin-top:14px"><button type="button" class="btn" id="run">Comprobar estas señales</button><button type="button" class="btn alt" id="ex">Cargar un ejemplo real</button></div>
 <p class="small" id="exnote" hidden>Ejemplo creado con precios reales de BTC de hace 10 días, no es una llamada real de un grupo.</p></section>
@@ -51,7 +52,7 @@ Apalancamiento 5x"></textarea>
 <h2>Por qué los grupos parecen mejores de lo que son</h2>
 <p>Los mensajes de «TP1 alcanzado ✅» rara vez dicen que después el precio cayó por debajo del stop, o que la entrada nunca se ejecutó. Lee la lista completa en <a href="../guides/is-my-crypto-signal-group-legit/">Cómo saber si un grupo de señales cripto es fiable</a>.</p>
 
-<p>Más herramientas gratis: <a href="../../es/dca-calculator/">Calculadora de precio medio DCA</a> · <a href="../../es/crypto-profit-calculator/">Calculadora de beneficio cripto</a> · <a href="../../es/liquidation-calculator/">Calculadora de precio de liquidación</a> · <a href="../../es/position-size-calculator/">Calculadora de tamaño de posición</a></p></article>
+<p>Más herramientas gratis: <a href="../../es/telegram-signal-checker/">Comprobador de canales de Telegram</a> · <a href="../../es/dca-calculator/">Calculadora de precio medio DCA</a> · <a href="../../es/crypto-profit-calculator/">Calculadora de beneficio cripto</a> · <a href="../../es/liquidation-calculator/">Calculadora de precio de liquidación</a> · <a href="../../es/position-size-calculator/">Calculadora de tamaño de posición</a></p></article>
 <script>(function(){
 var $=function(id){return document.getElementById(id);};
 var num=function(id){var v=parseFloat(String($(id).value).replace(',','.'));return isFinite(v)?v:NaN;};
@@ -63,26 +64,42 @@ var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
 var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
 document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
 
-var L={"sig": "Señal", "coin": "Moneda", "side": "Dirección", "long": "Largo", "short_": "Corto", "entry": "Entrada", "stop": "Stop", "tp": "TP", "posted": "Publicada (tu hora)", "checking": "Comprobando precios…", "notfilled": "La entrada nunca se ejecutó", "open": "Sigue abierta", "stopped": "Saltó el stop", "alltp": "Todos los objetivos alcanzados", "tphit": "alcanzado", "after": "después de", "hrs": " h", "nodata": "No hay precio de Coinbase para esta moneda (la versión completa también usa KuCoin)", "bad": "Rellena moneda, entrada, stop y al menos TP1", "wrong": "El stop o los objetivos están del lado equivocado de la entrada", "future": "La hora de publicación está en el futuro", "toolong": "se revisaron los primeros 30 días tras la llamada", "p_read": "Leído", "p_ok": "Revisa los números y la hora de publicación, luego pulsa «Comprobar estas señales».", "p_notime": "No hay fecha en el texto: pon la hora de publicación abajo.", "p_fail": "No encontramos moneda, entrada, stop y objetivo en este texto. Rellena las casillas a mano.", "p_market": "La entrada dice «a mercado»: escribe el precio que tenía al publicarse.", "p_more": "solo se usan los 3 primeros objetivos", "p_range": "rango de entrada: se usa el punto medio", "cp": "Copiar imagen", "copied": "Copiada ✓", "card_t": "Señales comprobadas con precios reales", "card_src": "Precios horarios reales de Coinbase · 0,1% de comisión por lado", "card_cta": "Comprueba cualquier grupo gratis:", "card_nfa": "No es asesoramiento financiero", "sum_n": "Señales comprobadas", "sum_win": "Tasa de acierto (cerradas)", "sum_avg": "P&L medio por señal cerrada", "lang": "es"};
-function calc(){}
-function el(h){var d=document.createElement('div');d.innerHTML=h;return d.firstChild;}
-function card(i){return el('<fieldset class="sigbox"><legend>'+L.sig+' '+(i+1)+'</legend>'+
- '<div class="two"><div><label>'+L.coin+'</label><input class="coin" placeholder="BTC" autocapitalize="characters"></div>'+
- '<div><label>'+L.side+'</label><select class="side"><option value="L">'+L.long+'</option><option value="S">'+L.short_+'</option></select></div></div>'+
- '<div class="two"><div><label>'+L.entry+'</label><input class="entry" type="number" step="any" inputmode="decimal"></div><div><label>'+L.stop+'</label><input class="stop" type="number" step="any" inputmode="decimal"></div></div>'+
- '<div class="three"><div><label>'+L.tp+'1</label><input class="tp1" type="number" step="any" inputmode="decimal"></div><div><label>'+L.tp+'2</label><input class="tp2" type="number" step="any" inputmode="decimal"></div><div><label>'+L.tp+'3</label><input class="tp3" type="number" step="any" inputmode="decimal"></div></div>'+
- '<label>'+L.posted+'</label><input class="when" type="datetime-local"></fieldset>');}
-for(var i=0;i<3;i++) $('sigs').appendChild(card(i));
+var L={"sig": "Señal", "coin": "Moneda", "side": "Dirección", "long": "Largo", "short_": "Corto", "entry": "Entrada", "stop": "Stop", "tp": "TP", "posted": "Publicada (tu hora)", "checking": "Comprobando precios…", "notfilled": "La entrada nunca se ejecutó", "open": "Sigue abierta", "stopped": "Saltó el stop", "alltp": "Todos los objetivos alcanzados", "tphit": "alcanzado", "after": "después de", "hrs": " h", "nodata": "No hay precio horario de esta moneda en Coinbase, Binance ni Gate.io", "bad": "Rellena moneda, entrada, stop y al menos TP1", "wrong": "El stop o los objetivos están del lado equivocado de la entrada", "future": "La hora de publicación está en el futuro", "toolong": "se revisaron los primeros 30 días tras la llamada", "p_read": "Leído", "p_ok": "Revisa los números y la hora de publicación, luego pulsa «Comprobar estas señales».", "p_notime": "No hay fecha en el texto: pon la hora de publicación abajo.", "p_fail": "No encontramos moneda, entrada, stop y objetivo en este texto. Rellena las casillas a mano.", "p_market": "La entrada dice «a mercado»: escribe el precio que tenía al publicarse.", "p_more": "solo se usan los 3 primeros objetivos", "p_range": "rango de entrada: se usa el punto medio", "cp": "Copiar imagen", "copied": "Copiada ✓", "card_t": "Señales comprobadas con precios reales", "card_src": "Precios horarios reales de exchanges · 0,1% de comisión por lado", "card_cta": "Comprueba cualquier grupo gratis:", "card_nfa": "No es asesoramiento financiero", "sum_n": "Señales comprobadas", "sum_win": "Tasa de acierto (cerradas)", "sum_avg": "P&L medio por señal cerrada", "lang": "es"};
+
 function pad(n){return (n<10?'0':'')+n;}
 function localISO(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes());}
 function fmtP(v){return v.toLocaleString('en-US',{maximumFractionDigits:v>=100?0:v>=1?2:6});}
-async function candles(coin,start,end){
+/* Hourly candles as [time(s), low, high, open, close], oldest first. Tries Coinbase, then Binance's public data mirror, then Gate.io.
+   Remembers which source has each coin. Throws 'nodata' if none has it. */
+var SRC={};
+async function cbCandles(coin,start,end){
  var out=[],t=start;
  while(t<end){var t2=Math.min(end,t+300*3600e3);
   var r=await fetch('https://api.exchange.coinbase.com/products/'+coin+'-USD/candles?granularity=3600&start='+new Date(t).toISOString()+'&end='+new Date(t2).toISOString());
-  if(!r.ok) throw new Error('nodata'); var a=await r.json(); out=out.concat(a); t=t2;}
- var seen={}; out=out.filter(function(c){if(seen[c[0]])return false;seen[c[0]]=1;return true;});
- out.sort(function(a,b){return a[0]-b[0];}); return out; /* [time, low, high, open, close, volume] */
+  if(!r.ok) throw new Error('nodata'); var a=await r.json(); if(!Array.isArray(a)) throw new Error('nodata'); out=out.concat(a); t=t2;}
+ return out.map(function(c){return [c[0],c[1],c[2],c[3],c[4]];});}
+async function bnCandles(coin,start,end){
+ var out=[],t=start;
+ while(t<end){var r=await fetch('https://data-api.binance.vision/api/v3/klines?symbol='+coin+'USDT&interval=1h&limit=1000&startTime='+t+'&endTime='+end);
+  if(!r.ok) throw new Error('nodata'); var a=await r.json(); if(!Array.isArray(a)||!a.length) break;
+  out=out.concat(a.map(function(c){return [c[0]/1000,+c[3],+c[2],+c[1],+c[4]];})); t=a[a.length-1][0]+3600e3; if(a.length<1000) break;}
+ if(!out.length) throw new Error('nodata'); return out;}
+async function gtCandles(coin,start,end){
+ var out=[],t=start;
+ while(t<end){var t2=Math.min(end,t+900*3600e3);
+  var r=await fetch('https://api.gateio.ws/api/v4/spot/candlesticks?currency_pair='+coin+'_USDT&interval=1h&from='+Math.floor(t/1000)+'&to='+Math.floor(t2/1000));
+  if(!r.ok) throw new Error('nodata'); var a=await r.json(); if(!Array.isArray(a)) throw new Error('nodata');
+  out=out.concat(a.map(function(c){return [+c[0],+c[4],+c[3],+c[5],+c[2]];})); t=t2;}
+ if(!out.length) throw new Error('nodata'); return out;}
+async function candles(coin,start,end){
+ var order=SRC[coin]?[SRC[coin]]:['cb','bn','gt'], fn={cb:cbCandles,bn:bnCandles,gt:gtCandles};
+ for(var i=0;i<order.length;i++){
+  try{ var out=await fn[order[i]](coin,start,end); if(!out.length) continue; SRC[coin]=order[i];
+   var seen={}; out=out.filter(function(c){if(seen[c[0]])return false;seen[c[0]]=1;return true;});
+   out.sort(function(a,b){return a[0]-b[0];}); return out; }catch(e){}
+ }
+ if(SRC[coin]) { delete SRC[coin]; return candles(coin,start,end); }
+ throw new Error('nodata');
 }
 function sim(s,cs){
  var isL=s.side==='L', fee=0.001, fi=-1;
@@ -103,8 +120,79 @@ function sim(s,cs){
  var parts=[]; for(var k=0;k<hit;k++) parts.push(L.tp+(k+1)+' '+L.tphit);
  var lc=function(x){return x.charAt(0).toLowerCase()+x.slice(1);}, pre=parts.length? parts.join(', ')+', ' : '', hh=' ('+L.after+' '+hours+L.hrs+')';
  var txt = stopped ? (pre? pre+lc(L.stopped) : L.stopped)+hh : hit===tps.length ? L.alltp+hh : (pre? pre+lc(L.open) : L.open);
- return {txt:txt, pnl:pnl, closed:stopped||hit===tps.length, filled:true};
+ return {txt:txt, pnl:pnl, closed:stopped||hit===tps.length, filled:true, hit:hit, stopped:stopped, hours:hours};
 }
+function gc(n){try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:'demo-'+n,title:'demo '+n,event:true});}catch(e){}}
+var KW={tp:'TP TPS T TARGET TARGETS TAKEPROFIT TAKEPROFITS ЦЕЛИ ЦЕЛЬ ТЕЙК ТЕЙКИ ТП OBJETIVO OBJETIVOS',
+ stop:'SL STOP STOPLOSS S/L INVALIDATION СТОП СЛ СТОПЛОСС',
+ entry:'ENTRY ENTRIES ENTER BUYZONE ENTRYZONE ВХОД ВХОДА ЗОНАВХОДА ТОЧКАВХОДА ТВХ ENTRADA ENTRADAS',
+ long:'LONG LONGING ЛОНГ LARGO', short:'SHORT SHORTING ШОРТ CORTO', buy:'BUY ПОКУПКА COMPRA', sell:'SELL ПРОДАЖА VENTA',
+ lev:'LEVERAGE LEV ПЛЕЧО APALANCAMIENTO', mkt:'CMP MARKET РЫНОК РЫНКУ РЫНКА MERCADO'};
+for(var k in KW) KW[k]=' '+KW[k]+' ';
+var SKIP=' USDT USD USDC BUSD PERP PERPS SIGNAL SIGNALS VIP NEW PAIR COIN EXCHANGE BINANCE BYBIT OKX KUCOIN BITGET MEXC GATE FUTURES FUTURE SPOT CROSS ISOLATED MARGIN TIME DATE AM PM UTC GMT AND OR TO THE FROM FOR AT IN ON OF IS ZONE AREA RANGE DCA RISK SIZE PROFIT PROFITS LOSS POSITION TRADE SETUP CALL ALERT TYPE SIDE DIRECTION PRICE NOW ORDER LIMIT NOTE MANAGEMENT MONEY CAPITAL USE ONLY MAX MIN HIGH LOW MID RR TF BREAKOUT SCALP SWING REWARD EXIT CLOSE OPEN TAKE HOLD STRATEGY ANALYSIS CHART WAIT UPDATE POSTED BETWEEN ABOVE BELOW UNTIL WITH ALL HERE REASON LOOKS LOOKING CHART BEARISH BULLISH SIGNALS QUICK ';
+function kind(w){var k=' '+w.replace(/[\s-]/g,'').replace(/\d+$/,'')+' '; for(var t in KW) if(KW[t].indexOf(k)>=0) return t; return null;}
+function nums(tok){var p=tok.split(',');
+ if(p.length===1) return [parseFloat(tok)];
+ if(p[0].length<=3 && p[0].charAt(0)!=='0' && p.slice(1).every(function(x){return /^\d{3}(\.\d+)?$/.test(x);})) return [parseFloat(tok.replace(/,/g,''))];
+ if(p.length===2 && p[0].length<=3) return [parseFloat(p[0]+'.'+p[1])];
+ return p.filter(Boolean).map(parseFloat);}
+function findDate(t){
+ var m=t.match(/(\d{4})-(\d{1,2})-(\d{1,2})[ T,]+(\d{1,2}):(\d{2})/), d=null;
+ if(m) d=new Date(+m[1],m[2]-1,+m[3],+m[4],+m[5]);
+ else if((m=t.match(/(\d{1,2})([.\/])(\d{1,2})\2(\d{2,4})[ ,]*(\d{1,2}):(\d{2})(?::\d{2})?\s*([AP]M)?/))){
+  var a=+m[1], b=+m[3], y=+m[4]; if(y<100) y+=2000; var dd=a, mm=b;
+  if(m[2]==='/' && b<=12 && a<=12) {mm=a; dd=b;} else if(a<=12 && b>12) {mm=a; dd=b;}
+  var h=+m[5]; if(m[7]==='PM'&&h<12) h+=12; if(m[7]==='AM'&&h===12) h=0;
+  d=new Date(y,mm-1,dd,h,+m[6]); }
+ if(d && (isNaN(d) || d.getTime()>Date.now())) d=null;
+ return {d:d, rest:m? t.replace(m[0],' '):t};}
+function parseCall(raw){
+ var t=' '+raw.toUpperCase().replace(/[‐-―−]/g,'-')+' ', fd=findDate(t); t=fd.rest;
+ t=t.replace(/HTTPS?:\/\/\S+/g,' ').replace(/\d️?⃣/g,' ')
+  .replace(/[+\-]?\d+(?:[.,]\d+)?\s*%/g,' ').replace(/(^|[^A-Z])\d{1,3}\s*X(?![A-Z])/g,'$1 ').replace(/(^|[^A-Z])X\s*\d{1,3}(?![\d.])/g,'$1 ')
+  .replace(/\b\d{1,2}:\d{2}(?::\d{2})?(?:\s*[AP]M)?/g,' ')
+  .replace(/(TP|TARGET|T|ЦЕЛЬ|ТП|OBJETIVO)\s*(\d)(?![\d.,])/g,'$1$2')
+  .replace(/(\s|^)\(?\d\s*[).:](?=\s)/g,' ');
+ var toks=t.match(/TAKE[\s-]*PROFITS?|STOP[\s-]*LOSS|S\/L|BUY[\s-]*ZONE|ENTRY[\s-]*ZONE|ЗОНА\s+ВХОДА|ТОЧКА\s+ВХОДА|[A-ZА-ЯЁ][A-ZА-ЯЁ0-9]*(?:\s?\/\s?(?:USDT|USDC|USD|BUSD|PERP)(?![A-Z]))?|\d[\d,]*(?:\.\d+)?|\.\d+|[#$]/g)||[];
+ var mode=null, b={entry:[],stop:[],tp:[]}, side=null, mkt=false, coins=[], prev='';
+ toks.forEach(function(w){
+  if(!/^[\d.]/.test(w)) w=w.replace(/\s*\/\s*/,'/');
+  if(/^[\d.]/.test(w)){ if(b[mode]) nums(w).forEach(function(v){if(isFinite(v)&&v>0) b[mode].push(v);}); }
+  else if(w==='#'||w==='$'){}
+  else { var k=kind(w), pk=kind(prev);
+   if(k==='tp' && (pk==='entry'||pk==='stop')) {} /* "Entry Targets:", "Stop Targets:" */
+   else if(k==='tp'||k==='stop'||k==='entry') mode=k;
+   else if(k==='long'||k==='short'){ if(!side) side=k==='long'?'L':'S'; if(!b.entry.length) mode='entry'; }
+   else if(k==='buy'||k==='sell'){ if(!side) side=k==='buy'?'L':'S'; mode='entry'; }
+   else if(k==='lev') mode=null;
+   else if(k==='mkt'){ if(mode==='entry') mkt=true; }
+   else if(/^[A-Z][A-Z0-9]{1,14}(\/[A-Z]+)?$/.test(w) && SKIP.indexOf(' '+w+' ')<0){
+    var c=w.split('/')[0]; if(c.length>4) c=c.replace(/(USDT|USDC|BUSD|PERP|USD)$/,'');
+    if(c.length>=2 && SKIP.indexOf(' '+c+' ')<0) coins.push({c:c, pri:prev==='#'||prev==='$'||w.indexOf('/')>0||c!==w}); }
+  }
+  prev=w; });
+ var coin=(coins.filter(function(x){return x.pri;})[0]||coins[0]||{}).c||'';
+ var e=b.entry.length? b.entry.reduce(function(x,y){return x+y;},0)/b.entry.length : NaN;
+ var ok=function(v){return !(e>0) || (v>e*0.2 && v<e*5);};
+ var stop=b.stop.filter(ok)[0], tps=b.tp.filter(ok);
+ if(!side && e>0 && stop>0) side=stop<e?'L':'S';
+ return {coin:coin, side:side||'L', entry:e, stop:stop, tps:tps.slice(0,3), more:tps.length>3, range:b.entry.length>1, market:mkt&&!(e>0), when:fd.d};
+}
+function rr(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath();}
+function wrap(x,text,maxW,maxL){var ws=String(text).split(' '),lines=[],cur='';
+ ws.forEach(function(w){var t=cur?cur+' '+w:w; if(x.measureText(t).width>maxW && cur){lines.push(cur);cur=w;} else cur=t;}); if(cur) lines.push(cur);
+ if(lines.length>maxL){lines=lines.slice(0,maxL); var l=lines[maxL-1]; while(x.measureText(l+'…').width>maxW && l.length) l=l.slice(0,-1); lines[maxL-1]=l+'…';}
+ return lines;}
+
+function calc(){}
+function el(h){var d=document.createElement('div');d.innerHTML=h;return d.firstChild;}
+function card(i){return el('<fieldset class="sigbox"><legend>'+L.sig+' '+(i+1)+'</legend>'+
+ '<div class="two"><div><label>'+L.coin+'</label><input class="coin" placeholder="BTC" autocapitalize="characters"></div>'+
+ '<div><label>'+L.side+'</label><select class="side"><option value="L">'+L.long+'</option><option value="S">'+L.short_+'</option></select></div></div>'+
+ '<div class="two"><div><label>'+L.entry+'</label><input class="entry" type="number" step="any" inputmode="decimal"></div><div><label>'+L.stop+'</label><input class="stop" type="number" step="any" inputmode="decimal"></div></div>'+
+ '<div class="three"><div><label>'+L.tp+'1</label><input class="tp1" type="number" step="any" inputmode="decimal"></div><div><label>'+L.tp+'2</label><input class="tp2" type="number" step="any" inputmode="decimal"></div><div><label>'+L.tp+'3</label><input class="tp3" type="number" step="any" inputmode="decimal"></div></div>'+
+ '<label>'+L.posted+'</label><input class="when" type="datetime-local"></fieldset>');}
+for(var i=0;i<3;i++) $('sigs').appendChild(card(i));
 function read(f){var g=function(c){return parseFloat(String(f.querySelector('.'+c).value).replace(',','.'));};
  var s={coin:f.querySelector('.coin').value.trim().toUpperCase(), side:f.querySelector('.side').value, entry:g('entry'), stop:g('stop'), tps:[g('tp1'),g('tp2'),g('tp3')].filter(function(x){return x>0;}), when:f.querySelector('.when').value};
  if(!s.coin && !(s.entry>0)) return null; return s;}
@@ -134,63 +222,9 @@ $('run').onclick=async function(){
  $('sharebox').hidden=!ROWS.some(function(r){return r.pnl!=null;});
  gc('check');
 };
-function gc(n){try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:'demo-'+n,title:'demo '+n,event:true});}catch(e){}}
+
 
 /* ---------- paste-a-call reader ---------- */
-var KW={tp:'TP TPS T TARGET TARGETS TAKEPROFIT TAKEPROFITS ЦЕЛИ ЦЕЛЬ ТЕЙК ТЕЙКИ ТП OBJETIVO OBJETIVOS',
- stop:'SL STOP STOPLOSS S/L INVALIDATION СТОП СЛ СТОПЛОСС',
- entry:'ENTRY ENTRIES ENTER BUYZONE ENTRYZONE ВХОД ВХОДА ЗОНАВХОДА ТОЧКАВХОДА ТВХ ENTRADA ENTRADAS',
- long:'LONG ЛОНГ LARGO', short:'SHORT ШОРТ CORTO', buy:'BUY ПОКУПКА COMPRA', sell:'SELL ПРОДАЖА VENTA',
- lev:'LEVERAGE LEV ПЛЕЧО APALANCAMIENTO', mkt:'CMP MARKET РЫНОК РЫНКУ РЫНКА MERCADO'};
-for(var k in KW) KW[k]=' '+KW[k]+' ';
-var SKIP=' USDT USD USDC BUSD PERP PERPS SIGNAL SIGNALS VIP NEW PAIR COIN EXCHANGE BINANCE BYBIT OKX KUCOIN BITGET MEXC GATE FUTURES FUTURE SPOT CROSS ISOLATED MARGIN TIME DATE AM PM UTC GMT AND OR TO THE FROM FOR AT IN ON OF IS ZONE AREA RANGE DCA RISK SIZE PROFIT PROFITS LOSS POSITION TRADE SETUP CALL ALERT TYPE SIDE DIRECTION PRICE NOW ORDER LIMIT NOTE MANAGEMENT MONEY CAPITAL USE ONLY MAX MIN HIGH LOW MID RR TF PUMP BREAKOUT SCALP SWING REWARD EXIT CLOSE OPEN TAKE HOLD STRATEGY ANALYSIS CHART WAIT UPDATE POSTED BETWEEN ABOVE BELOW UNTIL WITH ALL ';
-function kind(w){var k=' '+w.replace(/[\s-]/g,'').replace(/\d+$/,'')+' '; for(var t in KW) if(KW[t].indexOf(k)>=0) return t; return null;}
-function nums(tok){var p=tok.split(',');
- if(p.length===1) return [parseFloat(tok)];
- if(p[0].length<=3 && p[0].charAt(0)!=='0' && p.slice(1).every(function(x){return /^\d{3}(\.\d+)?$/.test(x);})) return [parseFloat(tok.replace(/,/g,''))];
- if(p.length===2 && p[0].length<=3) return [parseFloat(p[0]+'.'+p[1])];
- return p.filter(Boolean).map(parseFloat);}
-function findDate(t){
- var m=t.match(/(\d{4})-(\d{1,2})-(\d{1,2})[ T,]+(\d{1,2}):(\d{2})/), d=null;
- if(m) d=new Date(+m[1],m[2]-1,+m[3],+m[4],+m[5]);
- else if((m=t.match(/(\d{1,2})([.\/])(\d{1,2})\2(\d{2,4})[ ,]*(\d{1,2}):(\d{2})(?::\d{2})?\s*([AP]M)?/))){
-  var a=+m[1], b=+m[3], y=+m[4]; if(y<100) y+=2000; var dd=a, mm=b;
-  if(m[2]==='/' && b<=12 && a<=12) {mm=a; dd=b;} else if(a<=12 && b>12) {mm=a; dd=b;}
-  var h=+m[5]; if(m[7]==='PM'&&h<12) h+=12; if(m[7]==='AM'&&h===12) h=0;
-  d=new Date(y,mm-1,dd,h,+m[6]); }
- if(d && (isNaN(d) || d.getTime()>Date.now())) d=null;
- return {d:d, rest:m? t.replace(m[0],' '):t};}
-function parseCall(raw){
- var t=' '+raw.toUpperCase().replace(/[‐-―−]/g,'-')+' ', fd=findDate(t); t=fd.rest;
- t=t.replace(/HTTPS?:\/\/\S+/g,' ').replace(/\d️?⃣/g,' ')
-  .replace(/[+\-]?\d+(?:[.,]\d+)?\s*%/g,' ').replace(/(^|[^A-Z])\d{1,3}\s*X(?![A-Z])/g,'$1 ').replace(/(^|[^A-Z])X\s*\d{1,3}(?![\d.])/g,'$1 ')
-  .replace(/\b\d{1,2}:\d{2}(?::\d{2})?(?:\s*[AP]M)?/g,' ')
-  .replace(/(TP|TARGET|T|ЦЕЛЬ|ТП|OBJETIVO)\s*(\d)(?![\d.,])/g,'$1$2')
-  .replace(/(\s|^)\(?\d\s*[).:](?=\s)/g,' ');
- var toks=t.match(/TAKE[\s-]*PROFITS?|STOP[\s-]*LOSS|S\/L|BUY[\s-]*ZONE|ENTRY[\s-]*ZONE|ЗОНА\s+ВХОДА|ТОЧКА\s+ВХОДА|[A-ZА-ЯЁ][A-ZА-ЯЁ0-9]*(?:\/[A-Z]+)?|\d[\d,]*(?:\.\d+)?|\.\d+|[#$]/g)||[];
- var mode=null, b={entry:[],stop:[],tp:[]}, side=null, mkt=false, coins=[], prev='';
- toks.forEach(function(w){
-  if(/^[\d.]/.test(w)){ if(b[mode]) nums(w).forEach(function(v){if(isFinite(v)&&v>0) b[mode].push(v);}); }
-  else if(w==='#'||w==='$'){}
-  else { var k=kind(w), pk=kind(prev);
-   if(k==='tp' && (pk==='entry'||pk==='stop')) {} /* "Entry Targets:", "Stop Targets:" */
-   else if(k==='tp'||k==='stop'||k==='entry') mode=k;
-   else if(k==='long'||k==='short'){ if(!side) side=k==='long'?'L':'S'; if(!b.entry.length) mode='entry'; }
-   else if(k==='buy'||k==='sell'){ if(!side) side=k==='buy'?'L':'S'; mode='entry'; }
-   else if(k==='lev') mode=null;
-   else if(k==='mkt'){ if(mode==='entry') mkt=true; }
-   else if(/^[A-Z][A-Z0-9]{1,14}(\/[A-Z]+)?$/.test(w) && SKIP.indexOf(' '+w+' ')<0){
-    var c=w.split('/')[0]; if(c.length>4) c=c.replace(/(USDT|USDC|BUSD|PERP|USD)$/,'');
-    if(c.length>=2 && SKIP.indexOf(' '+c+' ')<0) coins.push({c:c, pri:prev==='#'||prev==='$'||w.indexOf('/')>0||c!==w}); }
-  }
-  prev=w; });
- var coin=(coins.filter(function(x){return x.pri;})[0]||coins[0]||{}).c||'';
- var e=b.entry.length? b.entry.reduce(function(x,y){return x+y;},0)/b.entry.length : NaN;
- var ok=function(v){return !(e>0) || (v>e*0.2 && v<e*5);};
- var stop=b.stop.filter(ok)[0], tps=b.tp.filter(ok);
- if(!side && e>0 && stop>0) side=stop<e?'L':'S';
- return {coin:coin, side:side||'L', entry:e, stop:stop, tps:tps.slice(0,3), more:tps.length>3, range:b.entry.length>1, market:mkt&&!(e>0), when:fd.d};
-}
 function fillFrom(p){
  var fs=[].slice.call(document.querySelectorAll('.sigbox')), f=fs.filter(function(x){return !x.querySelector('.coin').value && !x.querySelector('.entry').value;})[0]||fs[0];
  var set=function(c,v){f.querySelector('.'+c).value=(v>0||typeof v==='string')?v:'';};
@@ -224,11 +258,6 @@ $('ex').onclick=async function(){
 };
 
 /* ---------- shareable result image ---------- */
-function rr(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath();}
-function wrap(x,text,maxW,maxL){var ws=String(text).split(' '),lines=[],cur='';
- ws.forEach(function(w){var t=cur?cur+' '+w:w; if(x.measureText(t).width>maxW && cur){lines.push(cur);cur=w;} else cur=t;}); if(cur) lines.push(cur);
- if(lines.length>maxL){lines=lines.slice(0,maxL); var l=lines[maxL-1]; while(x.measureText(l+'…').width>maxW && l.length) l=l.slice(0,-1); lines[maxL-1]=l+'…';}
- return lines;}
 async function drawCard(){
  try{ await document.fonts.ready; }catch(e){}
  var W=1200,H=675,c=document.createElement('canvas'); c.width=W; c.height=H; var x=c.getContext('2d');
