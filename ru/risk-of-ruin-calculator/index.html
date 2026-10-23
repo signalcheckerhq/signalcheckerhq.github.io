@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ru"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Калькулятор риска разорения для крипты: шанс потерять половину депозита (бесплатно) | SignalCheckerHQ</title>
+<meta name="description" content="Бесплатный симулятор риска разорения для криптотрейдеров. Введите винрейт, соотношение прибыль:риск и риск на сделку — и узнайте шанс просадки на 50%, вероятные серии убытков и где может оказаться ваш депозит. 10 000 симуляций прямо в браузере.">
+<link rel="canonical" href="https://signalcheckerhq.org/ru/risk-of-ruin-calculator/">
+<meta property="og:title" content="Калькулятор риска разорения для крипты: шанс потерять половину депозита (бесплатно) | SignalCheckerHQ"><meta property="og:description" content="Бесплатный симулятор риска разорения для криптотрейдеров. Введите винрейт, соотношение прибыль:риск и риск на сделку — и узнайте шанс просадки на 50%, вероятные серии убытков и где может оказаться ваш депозит. 10 000 симуляций прямо в браузере.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://signalcheckerhq.org/ru/risk-of-ruin-calculator/">
+<meta property="og:image" content="https://signalcheckerhq.org/assets/img/rc-1.webp">
+<meta name="theme-color" content="#0b1120">
+<meta name="google-site-verification" content="uh0u66NYvt6K8r_yqwLmn0GAHeASmu_aV-5lmH9_T-0">
+<meta name="google-site-verification" content="UvHvX4_1aVpsXs5uoaKarwA5mYzig2ahWrXbkXhL_fY">
+<link rel="icon" href="../../assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../assets/site.css?v=3">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Симулятор риска разорения","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://signalcheckerhq.org/ru/risk-of-ruin-calculator/"}</script><link rel="alternate" hreflang="en" href="https://signalcheckerhq.org/risk-of-ruin-calculator/"><link rel="alternate" hreflang="es" href="https://signalcheckerhq.org/es/risk-of-ruin-calculator/"><link rel="alternate" hreflang="ru" href="https://signalcheckerhq.org/ru/risk-of-ruin-calculator/"><link rel="alternate" hreflang="x-default" href="https://signalcheckerhq.org/risk-of-ruin-calculator/"></head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../ru/"><img src="../../assets/img/icon.png" alt="" width="32" height="32"><span>Signal<b>Checker</b>HQ</span></a>
+  <div class="langs"><a href="../../risk-of-ruin-calculator/" hreflang="en" lang="en">EN</a><a href="../../es/risk-of-ruin-calculator/" hreflang="es" lang="es">ES</a><a href="../../ru/risk-of-ruin-calculator/" class=on aria-current=page hreflang="ru" lang="ru">RU</a></div>
+  <button type="button" class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('.top');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button>
+  <nav><a href="../../ru/#tools">Инструменты</a><a href="../../ru/bundle/">Complete Kit</a><a href="../../ru/guides/">Гайды</a><a href="../../ru/how-its-built/">Человек + AI</a><a href="../../ru/tools/" class="free">Бесплатно</a></nav>
+</div></header>
+<main>
+
+<section class="hero in" style="padding-bottom:0"><div class="tag">Бесплатный инструмент</div><h1>Симулятор <span>риска разорения</span></h1><p class="lead">Насколько вероятно потерять половину депозита? Введите винрейт, среднюю прибыль относительно среднего убытка и сколько вы рискуете на сделку. Мы проиграем 10 000 возможных вариантов ваших следующих сделок.</p></section>
+<div class="in grid2 calc">
+  <section class="card" aria-label="Ваши данные"><h2 class="ch">Ваши данные</h2>
+<div class="two">
+  <div><label for="w">Винрейт (%)</label><input id="w" type="number" inputmode="decimal" value="45" step="any" min="1" max="99"></div>
+  <div><label for="rr">Средняя прибыль ÷ средний убыток (прибыль:риск)</label><input id="rr" type="number" inputmode="decimal" value="1.5" step="any" min="0.1"></div>
+</div>
+<div class="two">
+  <div><label for="rk">Риск на сделку (% депозита)</label><input id="rk" type="number" inputmode="decimal" value="2" step="any" min="0.1" max="50"></div>
+  <div><label for="n">Количество сделок</label><input id="n" type="number" inputmode="numeric" value="200" step="1" min="10" max="1000"></div>
+</div>
+<label for="ru">Считать разорением просадку в (%)</label><input id="ru" type="number" inputmode="decimal" value="50" step="any" min="5" max="95">
+<label>Риск считается от</label><div class="seg" role="group"><button type="button" class="on" id="mc">текущего баланса</button><button type="button" id="mf">начального баланса</button></div>
+<canvas id="ch" class="ruinch" aria-label="Баланс на следующих N сделках"></canvas>
+<p class="small" id="chcap"></p>
+</section>
+  <section class="card" aria-live="polite" aria-label="Результат"><h2 class="ch">Результат</h2>
+<div class="big"><span id="bigl">–</span><b id="pr">–</b></div>
+<div class="row"><span>Шанс закончить ниже стартового баланса</span><b id="pb">–</b></div>
+<div class="row"><span id="medl">–</span><b id="md">–</b></div>
+<div class="row"><span>Типичная максимальная просадка</span><b id="d50">–</b></div>
+<div class="row"><span>Максимальная просадка в 1 из 10 симуляций</span><b id="d90">–</b></div>
+<div class="row"><span>Типичная самая длинная серия убытков</span><b id="s50">–</b></div>
+<div class="row"><span>Самая длинная серия убытков в 1 из 10</span><b id="s90">–</b></div>
+<div class="row"><span>Ожидаемый результат на сделку</span><b id="ev">–</b></div>
+<div class="row"><span>Безубыточный винрейт при этом соотношении</span><b id="bw">–</b></div>
+<div id="msg" class="msg ok">–</div>
+<h3 style="font-size:16px;margin:18px 0 0">Тот же винрейт и соотношение, разный риск на сделку</h3>
+<table class="tbl" id="rt"><thead><tr><th>Риск на сделку</th><th id="rth">–</th><th>Ниже старта</th><th>Типичный результат</th></tr></thead><tbody></tbody></table>
+<p class="small">Упрощённая модель: каждая прибыльная сделка приносит ровно прибыль:риск × риск, каждая убыточная стоит ровно риск, сделки независимы. В реальной торговле есть комиссии, проскальзывание и серии на рынке, поэтому считайте эти цифры оптимистичным сценарием. Не является финансовой рекомендацией.</p>
+</section>
+</div>
+<section class="in box cta"><div><h2>Хотите то же самое в своей Google Таблице?</h2><p>Превратите % риска в точный размер позиции для каждой сделки с учётом стопа, комиссий и плеча: таблица <b>Position Size &amp; Risk Calculator</b> (на английском).</p></div><a class="btn" href="../../ru/risk-calculator/">Смотреть Risk Calculator · $7</a></section>
+<section class="in box leadbox"><img src="/assets/img/cheatsheet.webp" alt="Шпаргалка по риску в криптотрейдинге" width="210" height="297" loading="lazy"><div><div class="tag">Бесплатный PDF</div><h2>Шпаргалка по риску в криптотрейдинге</h2><p>Формула размера позиции, таблицы серий убытков и восстановления, нужный винрейт и чек-лист перед сделкой — на одной странице для печати. Оставьте email и получите её, а иногда — короткое письмо о новом инструменте. Отписаться можно в любой момент.</p><a class="btn big" href="https://5778611980656.gumroad.com/l/risk-cheat-sheet" data-gumroad-overlay-checkout="true">Получить PDF бесплатно →</a><p class="small">Бесплатно. Email вводится на следующем шаге, и PDF сразу скачивается.</p></div></section>
+<article class="in prose"><h2>Что здесь значит «риск разорения»</h2>
+<p>Это вероятность того, что где-то на следующих сделках ваш депозит опустится до выбранного уровня разорения (по умолчанию — половина стартовой суммы). Большинство трейдеров сливают депозит не потому, что у стратегии нет преимущества, а потому, что рискуют слишком много на сделку и приходит обычная серия убытков.</p>
+<h2>Почему таблица риска — самое важное</h2>
+<p>Посмотрите, как быстро растёт шанс −50% при увеличении риска на сделку с тем же винрейтом. При винрейте 45% серия из 6–7 убытков подряд рано или поздно случится. При риске 2% это болезненные −12%, при риске 10% — около −50%.</p>
+<h2>Где взять свои цифры?</h2>
+<p>Из своей истории: винрейт и средняя прибыль ÷ средний убыток из дневника сделок. Или проверьте сигналы группы в <a href="../signal-checker-demo/">демо Signal Checker</a> или в <a href="../telegram-signal-checker/">проверке Telegram-канала</a>. Затем рассчитайте каждую сделку в <a href="../position-size-calculator/">калькуляторе размера позиции</a>.</p>
+<p class="small">Всё считается в вашем браузере, никакие данные никуда не отправляются. Калькулятор считает по введённым вами числам. Это не финансовая рекомендация.</p>
+<p>Другие бесплатные инструменты: <a href="../../ru/signal-checker-demo/">Демо Signal Checker</a> · <a href="../../ru/telegram-signal-checker/">Проверка Telegram-канала</a> · <a href="../../ru/dca-calculator/">Калькулятор средней цены DCA</a> · <a href="../../ru/crypto-profit-calculator/">Калькулятор прибыли для крипты</a> · <a href="../../ru/liquidation-calculator/">Калькулятор цены ликвидации</a> · <a href="../../ru/position-size-calculator/">Калькулятор размера позиции</a></p></article>
+<script>(function(){
+var $=function(id){return document.getElementById(id);};
+var num=function(id){var v=parseFloat(String($(id).value).replace(',','.'));return isFinite(v)?v:NaN;};
+var money=function(v){return (v<0?'−$':'$')+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});};
+var signed=function(v){return (v>0?'+':'')+money(v);};
+var price=function(v){return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:v>=1?2:8});};
+var pct=function(v,d){return (v>0?'+':v<0?'−':'')+Math.abs(v*100).toFixed(d==null?2:d)+'%';};
+var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
+var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
+document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
+
+var L={"big": "Шанс потерять {x}% депозита", "med": "Типичный результат после {n} сделок (медиана)", "c_ruin": "Шанс −{x}%", "trades": "сделок", "losses": "убытков подряд", "chart": "Баланс на следующих {n} сделках. Средняя линия — типичный вариант. Заливка — 8 из 10 вариантов. Тонкие линии — примеры. Красный пунктир — уровень разорения.", "m_neg": "⚠ Эта стратегия в среднем теряет деньги. При винрейте {w}% нужно соотношение прибыль:риск выше {rr}, чтобы выйти в ноль, и никакой размер позиции этого не исправит.", "m_high": "⚠ Риск больше 5% на сделку делает глубокие просадки вероятными даже при реальном преимуществе.", "m_ok": "✓ Положительное матожидание. Риск на сделку определяет, насколько тряским будет путь.", "m_bad": "Введите винрейт от 1 до 99, соотношение прибыль:риск больше 0 и риск на сделку от 0,1 до 50."}, MODE='c', TMR=null;
+$('mc').onclick=function(){MODE='c';$('mc').className='on';$('mf').className='';calc();};
+$('mf').onclick=function(){MODE='f';$('mf').className='on';$('mc').className='';calc();};
+function fmt(s,o){return s.replace(/\{(\w+)\}/g,function(m,k){return o[k]!=null?o[k]:m;});}
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function q(arr,p){var a=Float64Array.from(arr).sort();return a[Math.min(a.length-1,Math.floor(p*(a.length-1)))];}
+/* One Monte Carlo run set. Balance starts at 1. Ruin = balance at or below 1-ruin at any point. */
+function simulate(w,rr,risk,n,ruin,paths,mode,cps,keep){
+ var r=rng(20261023), ruined=0, below=0, ends=new Float64Array(paths), dds=new Float64Array(paths), sts=new Float64Array(paths), lvl=1-ruin;
+ var grid=cps? cps.map(function(){return new Float64Array(paths);}) : null, samples=[];
+ for(var p=0;p<paths;p++){
+  var b=1, peak=1, mdd=0, s=0, ms=0, hit=false, ci=0, path=keep&&p<keep? [1] : null;
+  for(var t=1;t<=n;t++){
+   var stake=mode==='c'? b*risk : risk;
+   if(r()<w){ b+=stake*rr; s=0; } else { b-=stake; s++; if(s>ms) ms=s; }
+   if(b<=0){ b=0; }
+   if(b>peak) peak=b; var dd=peak>0? 1-b/peak : 1; if(dd>mdd) mdd=dd;
+   if(b<=lvl+1e-12) hit=true;
+   if(grid && ci<cps.length && t===cps[ci]){ grid[ci][p]=b; ci++; }
+   if(path) path.push(b);
+  }
+  if(hit) ruined++; if(b<1) below++; ends[p]=b; dds[p]=mdd; sts[p]=ms; if(path) samples.push(path);
+ }
+ var bands=grid? grid.map(function(g){return [q(g,0.1),q(g,0.5),q(g,0.9)];}) : null;
+ return {ruin:ruined/paths, below:below/paths, med:q(ends,0.5), dd50:q(dds,0.5), dd90:q(dds,0.9), st50:q(sts,0.5), st90:q(sts,0.9), bands:bands, samples:samples};
+}
+function draw(res,n,ruin,cps){
+ var c=$('ch'), dpr=window.devicePixelRatio||1, W=c.clientWidth||600, H=Math.max(220,Math.round(W*0.5)); c.width=W*dpr; c.height=H*dpr; c.style.height=H+'px';
+ var x=c.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,W,H);
+ var top=Math.max(1.3, Math.min(6, res.bands[res.bands.length-1][2]*1.1)), pl=40, pr=8, pt=8, pb=22;
+ var X=function(t){return pl+(W-pl-pr)*t/n;}, Y=function(v){return pt+(H-pt-pb)*(1-Math.min(v,top)/top);};
+ x.font='11px Inter,system-ui,sans-serif'; x.fillStyle='#64748b'; x.strokeStyle='#1f2a44'; x.lineWidth=1;
+ [0,0.5,1,top>2?2:1.5].forEach(function(v){ if(v>top) return; x.beginPath(); x.moveTo(pl,Y(v)); x.lineTo(W-pr,Y(v)); x.stroke(); x.fillText(Math.round((v-1)*100)+'%',4,Y(v)+4); });
+ x.fillText('0',pl,H-6); x.textAlign='right'; x.fillText(n+' '+L.trades,W-pr,H-6); x.textAlign='left';
+ x.beginPath(); x.moveTo(X(0),Y(1)); cps.forEach(function(t,i){x.lineTo(X(t),Y(res.bands[i][2]));});
+ for(var i=cps.length-1;i>=0;i--) x.lineTo(X(cps[i]),Y(res.bands[i][0])); x.lineTo(X(0),Y(1)); x.closePath(); x.fillStyle='rgba(74,222,128,.13)'; x.fill();
+ x.lineWidth=1; res.samples.forEach(function(s){ x.strokeStyle='rgba(148,163,184,.28)'; x.beginPath(); s.forEach(function(v,t){ t? x.lineTo(X(t),Y(v)) : x.moveTo(X(t),Y(v)); }); x.stroke(); });
+ x.setLineDash([6,5]); x.strokeStyle='#f87171'; x.lineWidth=1.5; x.beginPath(); x.moveTo(pl,Y(1-ruin)); x.lineTo(W-pr,Y(1-ruin)); x.stroke(); x.setLineDash([]);
+ x.strokeStyle='#4ade80'; x.lineWidth=2.5; x.beginPath(); x.moveTo(X(0),Y(1)); cps.forEach(function(t,i){x.lineTo(X(t),Y(res.bands[i][1]));}); x.stroke();
+}
+function calc(){ clearTimeout(TMR); TMR=setTimeout(run,120); }
+function run(){
+ var w=num('w')/100, rr=num('rr'), risk=num('rk')/100, n=Math.round(num('n')), ruin=num('ru')/100;
+ if(!(w>0.009&&w<0.991&&rr>0&&risk>=0.001&&risk<=0.5&&n>=10&&n<=1000&&ruin>=0.05&&ruin<=0.95)){ msg(L.m_bad,'err'); return; }
+ var paths=n>500?5000:10000, step=Math.max(1,Math.round(n/60)), cps=[]; for(var t=step;t<n;t+=step) cps.push(t); cps.push(n);
+ var res=simulate(w,rr,risk,n,ruin,paths,MODE,cps,14), xr=Math.round(ruin*100);
+ $('bigl').textContent=fmt(L.big,{x:xr}); $('medl').textContent=fmt(L.med,{n:n}); $('rth').textContent=fmt(L.c_ruin,{x:xr});
+ show('pr',pp(res.ruin)); show('pb',pp(res.below)); show('md',pct(res.med-1,1),res.med>=1?'pos':'neg');
+ show('d50','−'+Math.round(res.dd50*100)+'%'); show('d90','−'+Math.round(res.dd90*100)+'%');
+ show('s50',res.st50+' '+L.losses); show('s90',res.st90+' '+L.losses);
+ var ev=w*rr-(1-w); show('ev',(ev>=0?'+':'−')+Math.abs(ev).toFixed(2)+'R ('+pct(ev*risk,2)+')',ev>=0?'pos':'neg');
+ show('bw',(100/(1+rr)).toFixed(1)+'%');
+ if(ev<=0) msg(fmt(L.m_neg,{w:+(w*100).toFixed(1),rr:((1-w)/w).toFixed(2)}),'err'); else if(risk>0.05) msg(L.m_high,'warn'); else msg(L.m_ok,'ok');
+ $('chcap').textContent=fmt(L.chart,{n:n}); draw(res,n,ruin,cps);
+ var body=$('rt').querySelector('tbody'); body.innerHTML='';
+ [0.005,0.01,0.02,0.03,0.05,0.1].concat([0.005,0.01,0.02,0.03,0.05,0.1].some(function(x){return Math.abs(x-risk)<1e-9;})?[]:[risk]).sort(function(a,b){return a-b;}).forEach(function(rk){ var r2=Math.abs(rk-risk)<1e-9? res : simulate(w,rr,rk,n,ruin,3000,MODE,null,0), tr=document.createElement('tr');
+  if(Math.abs(rk-risk)<1e-9) tr.className='hl';
+  tr.innerHTML='<td>'+(+(rk*100).toFixed(2))+'%</td><td>'+pp(r2.ruin)+'</td><td>'+pp(r2.below)+'</td><td class="'+(r2.med>=1?'pos':'neg')+'">'+pct(r2.med-1,0)+'</td>'; body.appendChild(tr); });
+}
+function pp(v){ return v<0.001? '<0.1%' : v>0.999? '>99.9%' : (v*100).toFixed(v<0.1?1:0)+'%'; }
+window.addEventListener('resize',function(){calc();});
+calc();
+})();</script>
+
+</main>
+<footer class="foot"><div class="in">
+  <div><a class="logo" href="../../ru/"><span>Signal<b>Checker</b>HQ</span></a>
+  <p>Инструменты в Google Таблицах, которые показывают реальные цифры криптотрейдинга. Создано трейдером вместе с AI. Без сигналов и без хайпа.</p><p><a href="../../ru/how-its-built/">Как мы работаем: человек + AI →</a></p></div>
+  <div><h4>Инструменты</h4><a href="../../ru/signal-checker/">Crypto Signal Checker</a><a href="../../ru/trade-journal/">Crypto Trade Journal + DCA Planner</a><a href="../../ru/portfolio-tracker/">Crypto Portfolio Tracker</a><a href="../../ru/risk-calculator/">Position Size & Risk Calculator</a><a href="../../ru/bundle/">Наборы: Complete Kit и Toolkit</a><a href="../../ru/tools/">Бесплатные калькуляторы</a><a href="https://5778611980656.gumroad.com/l/risk-cheat-sheet">Бесплатная шпаргалка по риску (PDF)</a><a href="../../ru/guides/">Гайды</a></div>
+  <div><h4>Магазин и соцсети</h4><a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy</a><a href="https://5778611980656.gumroad.com/">Gumroad</a><a href="https://x.com/SignalCheckerHQ">X</a><a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a><a href="https://www.pinterest.com/ilonavoitenco/crypto-trading-tools-templates/">Pinterest</a></div>
+  <div><h4>Инфо</h4><a href="../../legal/">Условия, конфиденциальность и возвраты (англ.)</a><a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></div>
+</div><p class="fine in">Все инструменты предназначены для анализа и учёта. Ничто на этом сайте не является финансовой рекомендацией. В примерах используются примерные или исторические данные; результаты могут отличаться. © 2026 SignalCheckerHQ. SignalCheckerHQ™, Signal Checker™ и логотип SignalCheckerHQ являются товарными знаками SignalCheckerHQ. Все продукты, изображения, видео и тексты защищены авторским правом; копировать и перепродавать их запрещено.</p></footer>
+<script src="https://gumroad.com/js/gumroad.js" defer></script>
+<script src="../../assets/helpbot.js?v=1" defer></script>
+<script data-goatcounter="https://signalcheckerhq.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
