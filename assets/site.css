@@ -202,6 +202,14 @@ h1 span,.gtext{background:var(--grad);-webkit-background-clip:text;background-cl
 .calc textarea::placeholder{color:#475569}
 #pmsg{font-size:14px;line-height:1.5}
 #readbtn,#mk{background:var(--green);color:var(--ink);border-color:var(--green)}
+/* demo watchlist */
+#wl{border:1px solid #0e7490;background:linear-gradient(135deg,#0c2a33,#111a2e);border-radius:14px;padding:12px 14px;margin-bottom:16px}
+.wlh{display:flex;align-items:baseline;gap:6px;color:var(--blue);font-size:15px}
+#wlt{margin:8px 0 4px}#wlt td{vertical-align:top}#wlt td:nth-child(3){white-space:nowrap;font-variant-numeric:tabular-nums}
+.wbtn{margin-top:6px;border:1px solid var(--line);background:transparent;color:var(--blue);border-radius:999px;padding:3px 10px;font-size:13px;font-weight:600;cursor:pointer}
+.wbtn:hover{border-color:var(--blue)}
+.wrm{border:0;background:transparent;color:var(--muted);font-size:20px;line-height:1;cursor:pointer;padding:0 4px}.wrm:hover{color:#f87171}
+.newb{display:inline-block;background:var(--blue);color:var(--ink);border-radius:999px;padding:0 8px;font-size:12px;font-weight:700}
 /* telegram channel checker */
 .tgsteps{margin:0 0 14px;padding-left:20px;color:var(--soft);font-size:15px}.tgsteps li{margin:4px 0}
 [hidden]{display:none!important}
