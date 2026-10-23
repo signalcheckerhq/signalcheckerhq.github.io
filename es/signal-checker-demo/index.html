@@ -36,7 +36,8 @@ Apalancamiento 5x"></textarea>
 <div id="sigs" style="margin-top:16px"></div>
 <div class="buy" style="margin-top:14px"><button type="button" class="btn" id="run">Comprobar estas señales</button><button type="button" class="btn alt" id="ex">Cargar un ejemplo real</button></div>
 <p class="small" id="exnote" hidden>Ejemplo creado con precios reales de BTC de hace 10 días, no es una llamada real de un grupo.</p></section>
-  <section class="card" aria-live="polite" aria-label="Resultado"><h2 class="ch">Resultado</h2><div id="status" class="small"></div>
+  <section class="card" aria-live="polite" aria-label="Resultado"><h2 class="ch">Resultado</h2><div id="wl" hidden><div class="wlh"><b>Tus llamadas seguidas</b><span class="small" id="wlst"></span></div><table class="tbl" id="wlt"><tbody></tbody></table><p class="small">Se guarda solo en este navegador. Cada llamada se vuelve a comprobar cada vez que abres esta página, durante 30 días desde su publicación.</p></div>
+<div id="status" class="small"></div>
 <table class="tbl" id="out" hidden><thead><tr><th>Señal</th><th>Qué pasó</th><th>P&L tras comisiones</th></tr></thead><tbody></tbody></table>
 <div id="sum" hidden><div class="row"><span>Señales comprobadas</span><b id="sn">–</b></div><div class="row"><span>Tasa de acierto (cerradas)</span><b id="sw">–</b></div><div class="row"><span>P&L medio por señal cerrada</span><b id="sa">–</b></div></div>
 <div id="sharebox" hidden><button type="button" class="btn small" id="mk">Crear imagen para compartir</button>
@@ -64,7 +65,7 @@ var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
 var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
 document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
 
-var L={"sig": "Señal", "coin": "Moneda", "side": "Dirección", "long": "Largo", "short_": "Corto", "entry": "Entrada", "stop": "Stop", "tp": "TP", "posted": "Publicada (tu hora)", "checking": "Comprobando precios…", "notfilled": "La entrada nunca se ejecutó", "open": "Sigue abierta", "stopped": "Saltó el stop", "alltp": "Todos los objetivos alcanzados", "tphit": "alcanzado", "after": "después de", "hrs": " h", "nodata": "No hay precio horario de esta moneda en Coinbase, Binance ni Gate.io", "bad": "Rellena moneda, entrada, stop y al menos TP1", "wrong": "El stop o los objetivos están del lado equivocado de la entrada", "future": "La hora de publicación está en el futuro", "toolong": "se revisaron los primeros 30 días tras la llamada", "p_read": "Leído", "p_ok": "Revisa los números y la hora de publicación, luego pulsa «Comprobar estas señales».", "p_notime": "No hay fecha en el texto: pon la hora de publicación abajo.", "p_fail": "No encontramos moneda, entrada, stop y objetivo en este texto. Rellena las casillas a mano.", "p_market": "La entrada dice «a mercado»: escribe el precio que tenía al publicarse.", "p_more": "solo se usan los 3 primeros objetivos", "p_range": "rango de entrada: se usa el punto medio", "cp": "Copiar imagen", "copied": "Copiada ✓", "card_t": "Señales comprobadas con precios reales", "card_src": "Precios horarios reales de exchanges · 0,1% de comisión por lado", "card_cta": "Comprueba cualquier grupo gratis:", "card_nfa": "No es asesoramiento financiero", "sum_n": "Señales comprobadas", "sum_win": "Tasa de acierto (cerradas)", "sum_avg": "P&L medio por señal cerrada", "lang": "es"};
+var L={"sig": "Señal", "coin": "Moneda", "side": "Dirección", "long": "Largo", "short_": "Corto", "entry": "Entrada", "stop": "Stop", "tp": "TP", "posted": "Publicada (tu hora)", "checking": "Comprobando precios…", "notfilled": "La entrada nunca se ejecutó", "open": "Sigue abierta", "stopped": "Saltó el stop", "alltp": "Todos los objetivos alcanzados", "tphit": "alcanzado", "after": "después de", "hrs": " h", "nodata": "No hay precio horario de esta moneda en Coinbase, Binance ni Gate.io", "bad": "Rellena moneda, entrada, stop y al menos TP1", "wrong": "El stop o los objetivos están del lado equivocado de la entrada", "future": "La hora de publicación está en el futuro", "toolong": "se revisaron los primeros 30 días tras la llamada", "p_read": "Leído", "p_ok": "Revisa los números y la hora de publicación, luego pulsa «Comprobar estas señales».", "p_notime": "No hay fecha en el texto: pon la hora de publicación abajo.", "p_fail": "No encontramos moneda, entrada, stop y objetivo en este texto. Rellena las casillas a mano.", "p_market": "La entrada dice «a mercado»: escribe el precio que tenía al publicarse.", "p_more": "solo se usan los 3 primeros objetivos", "p_range": "rango de entrada: se usa el punto medio", "cp": "Copiar imagen", "copied": "Copiada ✓", "card_t": "Señales comprobadas con precios reales", "card_src": "Precios horarios reales de exchanges · 0,1% de comisión por lado", "card_cta": "Comprueba cualquier grupo gratis:", "card_nfa": "No es asesoramiento financiero", "sum_n": "Señales comprobadas", "sum_win": "Tasa de acierto (cerradas)", "sum_avg": "P&L medio por señal cerrada", "watch": "☆ Seguir", "watching": "★ Siguiendo", "wl_upd": "Actualizando…", "wl_new": "cambió", "wl_rm": "Quitar", "lang": "es"};
 
 function pad(n){return (n<10?'0':'')+n;}
 function localISO(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes());}
@@ -202,15 +203,17 @@ $('run').onclick=async function(){
  ROWS=[]; $('sharebox').hidden=true; $('shareout').hidden=true;
  var fs=[].slice.call(document.querySelectorAll('.sigbox')), res=[];
  for(var i=0;i<fs.length;i++){var s=read(fs[i]); if(!s) continue;
+  var wcall=null;
   var name=(s.coin||'?')+' '+(s.side==='L'?L.long:L.short_)+' @ '+(s.entry>0?fmtP(s.entry):'?'), txt, pnl=null, cls='';
   if(!s.coin||!(s.entry>0)||!(s.stop>0)||!s.tps.length||!s.when){txt=L.bad;}
   else if(s.side==='L'? (s.stop>=s.entry||s.tps.some(function(t){return t<=s.entry;})) : (s.stop<=s.entry||s.tps.some(function(t){return t>=s.entry;}))){txt=L.wrong;}
   else { var st=new Date(s.when).getTime(); st=Math.floor(st/3600e3)*3600e3; var now=Date.now();
    if(st>now) txt=L.future; else {
     var end=Math.min(now, st+30*24*3600e3);
-    try{ var cs=await candles(s.coin,st,end); if(!cs.length) throw new Error('nodata'); var r=sim(s,cs); txt=r.txt+(end<now&&!r.closed&&r.filled?' ('+L.toolong+')':''); pnl=r.pnl; if(r.filled) res.push(r);}
+    try{ var cs=await candles(s.coin,st,end); if(!cs.length) throw new Error('nodata'); var r=sim(s,cs); txt=r.txt+(end<now&&!r.closed&&r.filled?' ('+L.toolong+')':''); pnl=r.pnl; if(r.filled) res.push(r); if(st+30*24*3600e3>now && (!r.filled||!r.closed)) wcall={coin:s.coin,side:s.side,entry:s.entry,stop:s.stop,tps:s.tps,t:st};}
     catch(e){txt=L.nodata;} } }
-  var tr=document.createElement('tr'); tr.innerHTML='<td>'+name+'</td><td>'+txt+'</td><td class="'+(pnl==null?'':pnl>=0?'pos':'neg')+'">'+(pnl==null?'–':pct(pnl))+'</td>'; body.appendChild(tr);
+  var tr=document.createElement('tr'); tr.innerHTML='<td>'+name+'</td><td>'+txt+(wcall?'<br><button type="button" class="wbtn">'+(inWL(wcall)?L.watching:L.watch)+'</button>':'')+'</td><td class="'+(pnl==null?'':pnl>=0?'pos':'neg')+'">'+(pnl==null?'–':pct(pnl))+'</td>'; body.appendChild(tr);
+  if(wcall){ (function(c,b){ b.onclick=function(){ addWL(c); b.textContent=L.watching; }; })(wcall, tr.querySelector('.wbtn')); }
   ROWS.push({name:name, when:s.when, txt:txt, pnl:pnl});
  }
  $('status').textContent='';
@@ -298,6 +301,29 @@ $('mk').onclick=async function(){
 };
 $('cp').onclick=function(){ if(!BLOB) return; navigator.clipboard.write([new ClipboardItem({'image/png':BLOB})]).then(function(){$('cp').textContent=L.copied;}).catch(function(){$('cp').hidden=true;}); };
 $('dl').addEventListener('click',function(){gc('share-download');});
+
+/* ---------- watchlist (saved in this browser only) ---------- */
+function getWL(){ try{ return JSON.parse(localStorage.getItem('sc_watch')||'[]'); }catch(e){ return []; } }
+function setWL(a){ try{ localStorage.setItem('sc_watch', JSON.stringify(a)); }catch(e){} }
+function wkey(c){ return c.coin+'|'+c.side+'|'+c.entry+'|'+c.stop+'|'+c.t; }
+function inWL(c){ return getWL().some(function(x){ return wkey(x)===wkey(c); }); }
+function addWL(c){ var a=getWL(); if(!a.some(function(x){return wkey(x)===wkey(c);})){ a.unshift(c); setWL(a.slice(0,20)); gc('watch-add'); } refreshWL(); }
+function rmWL(k){ setWL(getWL().filter(function(x){ return wkey(x)!==k; })); refreshWL(); }
+async function refreshWL(){
+ var a=getWL(), box=$('wl'), body=$('wlt').querySelector('tbody'); if(!a.length){ box.hidden=true; return; }
+ box.hidden=false; $('wlst').textContent=' · '+L.wl_upd; body.innerHTML='';
+ var now=Date.now(), out=[];
+ for(var i=0;i<a.length;i++){ var c=a[i], txt, pnl=null, end=Math.min(now, c.t+30*24*3600e3);
+  try{ var cs=await candles(c.coin,c.t,end); var r=sim(c,cs); txt=r.txt; pnl=r.filled? r.pnl : null; }catch(e){ txt=L.nodata; }
+  var changed = c.last!=null && c.last!==txt; c.last=txt; out.push(c);
+  var tr=document.createElement('tr'), d=''; try{ d=new Date(c.t).toLocaleDateString(L.lang,{day:'numeric',month:'short'}); }catch(e){}
+  tr.innerHTML='<td>'+c.coin+' '+(c.side==='L'?L.long:L.short_)+' @ '+fmtP(c.entry)+'<br><span class="small">'+d+'</span></td><td>'+txt+(changed?' <span class="newb">'+L.wl_new+'</span>':'')+'</td>'+
+   '<td class="'+(pnl==null?'':pnl>=0?'pos':'neg')+'">'+(pnl==null?'–':pct(pnl))+'</td><td><button type="button" class="wrm" title="'+L.wl_rm+'" aria-label="'+L.wl_rm+'">×</button></td>';
+  (function(k){ tr.querySelector('.wrm').onclick=function(){ rmWL(k); }; })(wkey(c));
+  body.appendChild(tr); }
+ setWL(out); $('wlst').textContent='';
+}
+if(getWL().length){ gc('watch-view'); refreshWL(); }
 })();</script>
 
 </main>
