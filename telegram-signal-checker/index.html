@@ -162,7 +162,7 @@ function parseCall(raw){
  t=t.replace(/HTTPS?:\/\/\S+/g,' ').replace(/\d️?⃣/g,' ')
   .replace(/[+\-]?\d+(?:[.,]\d+)?\s*%/g,' ').replace(/(^|[^A-Z])\d{1,3}\s*X(?![A-Z])/g,'$1 ').replace(/(^|[^A-Z])X\s*\d{1,3}(?![\d.])/g,'$1 ')
   .replace(/\b\d{1,2}:\d{2}(?::\d{2})?(?:\s*[AP]M)?/g,' ')
-  .replace(/(TP|TARGET|T|ЦЕЛЬ|ТП|OBJETIVO)\s*(\d)(?![\d.,])/g,'$1$2')
+  .replace(/(\d)\s+\.(\d)/g,'$1.$2').replace(/(TP|TARGET|T|ЦЕЛЬ|ТП|OBJETIVO)\s*(\d)(?![\d.,])/g,'$1$2')
   .replace(/(\s|^)\(?\d\s*[).:](?=\s)/g,' ');
  var toks=t.match(/TAKE[\s-]*PROFITS?|STOP[\s-]*LOSS|S\/L|BUY[\s-]*ZONE|ENTRY[\s-]*ZONE|ЗОНА\s+ВХОДА|ТОЧКА\s+ВХОДА|[A-ZА-ЯЁ][A-ZА-ЯЁ0-9]*(?:\s?\/\s?(?:USDT|USDC|USD|BUSD|PERP)(?![A-Z]))?|\d[\d,]*(?:\.\d+)?|\.\d+|[#$]/g)||[];
  var mode=null, b={entry:[],stop:[],tp:[]}, side=null, mkt=false, coins=[], prev='';
@@ -189,6 +189,7 @@ function parseCall(raw){
  var ok=function(v){return !(e>0) || (v>e*0.2 && v<e*5);};
  var stop=b.stop.filter(ok)[0], tps=b.tp.filter(ok);
  if(!side && e>0 && stop>0) side=stop<e?'L':'S';
+ tps=tps.slice().sort(function(x,y){return (side||'L')==='S'? y-x : x-y;});
  return {lev:lev, fx:fx, coin:coin, side:side||'L', entry:e, stop:stop, tps:tps.slice(0,3), more:tps.length>3, range:b.entry.length>1, market:mkt&&!(e>0), when:fd.d};
 }
 function rr(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath();}
