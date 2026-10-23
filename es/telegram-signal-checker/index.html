@@ -65,7 +65,7 @@ var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
 var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
 document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
 
-var L={"reading": "Leyendo el archivo…", "badfile": "Esto no parece una exportación JSON de Telegram (result.json). En la ventana de exportación elige el formato JSON legible por máquina.", "nocalls": "No se encontraron llamadas con moneda, entrada, stop y objetivo en este archivo.", "onlyres": "Este canal publicó al menos {r} mensajes de resultados (tipo «objetivo alcanzado, +45%») pero ninguna llamada con entrada y stop, así que no hay nada que comprobar. Los resultados sin las llamadas originales no se pueden verificar: tómalo como una señal de alerta.", "fewcalls": " Ojo: también publicó al menos {r} mensajes de resultados (tipo «objetivo alcanzado, +45%») de llamadas que no están en este archivo, probablemente enviadas a miembros de pago. Esos resultados no se pueden verificar.", "found": "{n} llamadas en {m} mensajes", "period": "Publicadas {a} – {b}", "free_note": "La comprobación gratis cubre las últimas {k} llamadas. Una clave de licencia de Signal Checker las comprueba todas (hasta {max}).", "key_chk": "Comprobando la clave…", "key_ok": "Clave aceptada: se comprobarán todas las llamadas.", "key_bad": "Esta clave no funcionó", "key_net": "No se pudo contactar con el servidor de claves. Inténtalo de nuevo.", "prog": "Comprobando {i} de {n}…", "done": "Listo.", "s_win": "Tasa de acierto (cerradas)", "s_avg": "P&L medio por llamada cerrada", "s_fill": "Entradas ejecutadas", "s_tp1": "Tocaron TP1 y luego el stop", "card_t": "Canal de señales comprobado", "card_calls": "{n} llamadas · {a} – {b}", "card_src": "Precios horarios reales de exchanges · 0,1% de comisión por lado", "card_cta": "Comprueba cualquier grupo gratis:", "card_nfa": "No es asesoramiento financiero", "cp": "Copiar imagen", "copied": "Copiada ✓", "nodata": "No hay precio horario de esta moneda en Coinbase, Binance ni Gate.io", "notfilled": "La entrada nunca se ejecutó", "open": "Sigue abierta", "stopped": "Saltó el stop", "alltp": "Todos los objetivos alcanzados", "tphit": "alcanzado", "after": "después de", "hrs": " h", "tp": "TP", "long": "Largo", "short_": "Corto", "lang": "es", "free": 20, "max": 400, "keyurl": "https://script.google.com/macros/s/AKfycbzcIC7ai3ZztmJsNeE-rlliZo4pxSHdfbihKz4XGMDdKgfeym4EU37YFt8cm9O-QKCN/exec"};
+var L={"reading": "Leyendo el archivo…", "badfile": "Esto no parece una exportación JSON de Telegram (result.json). En la ventana de exportación elige el formato JSON legible por máquina.", "nocalls": "No se encontraron llamadas con moneda, entrada, stop y objetivo en este archivo.", "onlyres": "Este canal publicó al menos {r} mensajes de resultados (tipo «objetivo alcanzado, +45%») pero ninguna llamada con entrada y stop, así que no hay nada que comprobar. Los resultados sin las llamadas originales no se pueden verificar: tómalo como una señal de alerta.", "fewcalls": " Ojo: también publicó al menos {r} mensajes de resultados (tipo «objetivo alcanzado, +45%») de llamadas que no están en este archivo, probablemente enviadas a miembros de pago. Esos resultados no se pueden verificar.", "fxskip": " Se omitieron {x} llamadas de forex u oro: este comprobador solo cubre cripto.", "found": "{n} llamadas en {m} mensajes", "period": "Publicadas {a} – {b}", "free_note": "La comprobación gratis cubre las últimas {k} llamadas. Una clave de licencia de Signal Checker las comprueba todas (hasta {max}).", "key_chk": "Comprobando la clave…", "key_ok": "Clave aceptada: se comprobarán todas las llamadas.", "key_bad": "Esta clave no funcionó", "key_net": "No se pudo contactar con el servidor de claves. Inténtalo de nuevo.", "prog": "Comprobando {i} de {n}…", "done": "Listo.", "s_win": "Tasa de acierto (cerradas)", "s_avg": "P&L medio por llamada cerrada", "s_fill": "Entradas ejecutadas", "s_tp1": "Tocaron TP1 y luego el stop", "card_t": "Canal de señales comprobado", "card_calls": "{n} llamadas · {a} – {b}", "card_src": "Precios horarios reales de exchanges · 0,1% de comisión por lado", "card_cta": "Comprueba cualquier grupo gratis:", "card_nfa": "No es asesoramiento financiero", "cp": "Copiar imagen", "copied": "Copiada ✓", "nodata": "No hay precio horario de esta moneda en Coinbase, Binance ni Gate.io", "notfilled": "La entrada nunca se ejecutó", "open": "Sigue abierta", "stopped": "Saltó el stop", "alltp": "Todos los objetivos alcanzados", "tphit": "alcanzado", "after": "después de", "hrs": " h", "tp": "TP", "long": "Largo", "short_": "Corto", "lang": "es", "free": 20, "max": 400, "keyurl": "https://script.google.com/macros/s/AKfycbzcIC7ai3ZztmJsNeE-rlliZo4pxSHdfbihKz4XGMDdKgfeym4EU37YFt8cm9O-QKCN/exec"};
 function calc(){}
 
 function pad(n){return (n<10?'0':'')+n;}
@@ -129,7 +129,7 @@ var KW={tp:'TP TPS T TARGET TARGETS TAKEPROFIT TAKEPROFITS ЦЕЛИ ЦЕЛЬ Т�
  stop:'SL STOP STOPLOSS S/L INVALIDATION СТОП СЛ СТОПЛОСС',
  entry:'ENTRY ENTRIES ENTER BUYZONE ENTRYZONE ВХОД ВХОДА ЗОНАВХОДА ТОЧКАВХОДА ТВХ ENTRADA ENTRADAS',
  long:'LONG LONGING ЛОНГ LARGO', short:'SHORT SHORTING ШОРТ CORTO', buy:'BUY ПОКУПКА COMPRA', sell:'SELL ПРОДАЖА VENTA',
- lev:'LEVERAGE LEV ПЛЕЧО APALANCAMIENTO', mkt:'CMP MARKET РЫНОК РЫНКУ РЫНКА MERCADO'};
+ lev:'LEVERAGE LEV ПЛЕЧО APALANCAMIENTO', pair:'PAIR PAR ПАРА MONEDA COIN МОНЕТА ACTIVO ASSET SYMBOL', mkt:'CMP MARKET РЫНОК РЫНКУ РЫНКА MERCADO'};
 for(var k in KW) KW[k]=' '+KW[k]+' ';
 var SKIP=' USDT USD USDC BUSD PERP PERPS SIGNAL SIGNALS VIP NEW PAIR COIN EXCHANGE BINANCE BYBIT OKX KUCOIN BITGET MEXC GATE FUTURES FUTURE SPOT CROSS ISOLATED MARGIN TIME DATE AM PM UTC GMT AND OR TO THE FROM FOR AT IN ON OF IS ZONE AREA RANGE DCA RISK SIZE PROFIT PROFITS LOSS POSITION TRADE SETUP CALL ALERT TYPE SIDE DIRECTION PRICE NOW ORDER LIMIT NOTE MANAGEMENT MONEY CAPITAL USE ONLY MAX MIN HIGH LOW MID RR TF BREAKOUT SCALP SWING REWARD EXIT CLOSE OPEN TAKE HOLD STRATEGY ANALYSIS CHART WAIT UPDATE POSTED BETWEEN ABOVE BELOW UNTIL WITH ALL HERE REASON LOOKS LOOKING CHART BEARISH BULLISH SIGNALS QUICK ';
 function kind(w){var k=' '+w.replace(/[\s-]/g,'').replace(/\d+$/,'')+' '; for(var t in KW) if(KW[t].indexOf(k)>=0) return t; return null;}
@@ -167,18 +167,20 @@ function parseCall(raw){
    else if(k==='long'||k==='short'){ if(!side) side=k==='long'?'L':'S'; if(!b.entry.length) mode='entry'; }
    else if(k==='buy'||k==='sell'){ if(!side) side=k==='buy'?'L':'S'; mode='entry'; }
    else if(k==='lev') mode=null;
+   else if(k==='pair'){}
    else if(k==='mkt'){ if(mode==='entry') mkt=true; }
    else if(/^[A-Z][A-Z0-9]{1,14}(\/[A-Z]+)?$/.test(w) && SKIP.indexOf(' '+w+' ')<0){
     var c=w.split('/')[0]; if(c.length>4) c=c.replace(/(USDT|USDC|BUSD|PERP|USD)$/,'');
-    if(c.length>=2 && SKIP.indexOf(' '+c+' ')<0) coins.push({c:c, pri:prev==='#'||prev==='$'||w.indexOf('/')>0||c!==w}); }
+    if(c.length>=2 && SKIP.indexOf(' '+c+' ')<0) coins.push({c:c, w:w, pri:prev==='#'||prev==='$'||pk==='pair'||w.indexOf('/')>0||c!==w}); }
   }
   prev=w; });
- var coin=(coins.filter(function(x){return x.pri;})[0]||coins[0]||{}).c||'';
+ var pick=coins.filter(function(x){return x.pri;})[0]||coins[0]||{}, coin=pick.c||'';
+ var FX='EUR|USD|GBP|JPY|CHF|CAD|AUD|NZD|XAU|XAG|SGD|HKD|ZAR|MXN|TRY|SEK|NOK|PLN', fxre=new RegExp('^('+FX+')/?('+FX+')$'), fx=coins.some(function(x){return fxre.test(x.w||'');}) || /(^|[^A-Z])FOREX([^A-Z]|$)/.test(t) || /^(XAU|XAG|GOLD|SILVER|OIL|US30|NAS100|SPX|DXY|EUR|GBP|JPY|CHF|CAD|AUD|NZD)$/.test(coin);
  var e=b.entry.length? b.entry.reduce(function(x,y){return x+y;},0)/b.entry.length : NaN;
  var ok=function(v){return !(e>0) || (v>e*0.2 && v<e*5);};
  var stop=b.stop.filter(ok)[0], tps=b.tp.filter(ok);
  if(!side && e>0 && stop>0) side=stop<e?'L':'S';
- return {coin:coin, side:side||'L', entry:e, stop:stop, tps:tps.slice(0,3), more:tps.length>3, range:b.entry.length>1, market:mkt&&!(e>0), when:fd.d};
+ return {fx:fx, coin:coin, side:side||'L', entry:e, stop:stop, tps:tps.slice(0,3), more:tps.length>3, range:b.entry.length>1, market:mkt&&!(e>0), when:fd.d};
 }
 function rr(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath();}
 function wrap(x,text,maxW,maxL){var ws=String(text).split(' '),lines=[],cur='';
@@ -186,7 +188,7 @@ function wrap(x,text,maxW,maxL){var ws=String(text).split(' '),lines=[],cur='';
  if(lines.length>maxL){lines=lines.slice(0,maxL); var l=lines[maxL-1]; while(x.measureText(l+'…').width>maxW && l.length) l=l.slice(0,-1); lines[maxL-1]=l+'…';}
  return lines;}
 
-var CALLS=[], NAME='', MSGS=0, UNLOCK=false, RES=[], STATS={};
+var FXN=0, CALLS=[], NAME='', MSGS=0, UNLOCK=false, RES=[], STATS={};
 function fmt(s,o){return s.replace(/\{(\w+)\}/g,function(m,k){return o[k]!=null?o[k]:m;});}
 function ds(t){try{return new Date(t).toLocaleDateString(L.lang,{day:'numeric',month:'short',year:'numeric'});}catch(e){return new Date(t).toDateString();}}
 function dshort(t){try{return new Date(t).toLocaleDateString(L.lang,{day:'2-digit',month:'2-digit',year:'2-digit'});}catch(e){return ds(t);}}
@@ -199,6 +201,7 @@ function extract(d){
   if(m.type!=='message') return; var tx=msgText(m); if(!tx || tx.length<12) return;
   var p=parseCall(tx);
   if(!p.coin || !(p.entry>0) || !(p.stop>0) || !p.tps.length) return;
+  if(p.fx){ FXN++; return; }
   var isL=p.side==='L';
   if(isL ? (p.stop>=p.entry || p.tps.some(function(x){return x<=p.entry;})) : (p.stop<=p.entry || p.tps.some(function(x){return x>=p.entry;}))) return;
   var t=m.date_unixtime? (+m.date_unixtime)*1000 : new Date(m.date).getTime(); if(!(t>0)) return;
@@ -221,11 +224,12 @@ function load(file){
  fr.onload=function(){
   var d; try{ d=JSON.parse(fr.result); }catch(e){ d=repair(fr.result); if(!d){ info(L.badfile,'err'); return; } }
   if(!d || !Array.isArray(d.messages)){ info(L.badfile,'err'); return; }
-  NAME=d.name||''; MSGS=d.messages.length; CALLS=extract(d);
+  NAME=d.name||''; MSGS=d.messages.length; FXN=0; CALLS=extract(d);
   $('out').hidden=true; $('sum').hidden=true; $('sharebox').hidden=true; $('status').textContent='';
+  if(!CALLS.length && FXN){ info(fmt(L.fxskip,{x:FXN}).trim(),'warn'); $('keybox').hidden=true; $('run').hidden=true; return; }
   if(!CALLS.length){ var rc=d.messages.filter(function(m){return /(target|tp\s?\d|цел|objetivo)[^\n]{0,40}(achieved|hit|reached|done|достигнут|взят|alcanzad)|profit[^\n]{0,20}\d+(\.\d+)?\s?%|\bresults?\b|результат|resultado/i.test(msgText(m));}).length; info(rc>=5? fmt(L.onlyres,{r:rc}) : L.nocalls,'warn'); $('keybox').hidden=true; $('run').hidden=true; return; }
   var a=ds(CALLS[CALLS.length-1].t), b=ds(CALLS[0].t);
-  var per=fmt(L.period,{a:a,b:b}); var rc2=resCount(d), few=rc2>=20 && rc2>=3*CALLS.length; info((NAME? NAME+': ':'')+fmt(L.found,{n:CALLS.length,m:MSGS})+'. '+per+(/\.$/.test(per)?'':'.')+(few? fmt(L.fewcalls,{r:rc2}) : ''), few?'warn':'ok');
+  var per=fmt(L.period,{a:a,b:b}); var rc2=resCount(d), few=rc2>=20 && rc2>=3*CALLS.length; info((NAME? NAME+': ':'')+fmt(L.found,{n:CALLS.length,m:MSGS})+'. '+per+(/\.$/.test(per)?'':'.')+(FXN? fmt(L.fxskip,{x:FXN}) : '')+(few? fmt(L.fewcalls,{r:rc2}) : ''), few?'warn':'ok');
   $('keybox').hidden=CALLS.length<=L.free; $('freenote').textContent=fmt(L.free_note,{k:L.free,max:L.max});
   $('run').hidden=false; $('dropt').textContent=file.name;
  };
