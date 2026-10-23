@@ -65,7 +65,7 @@ var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
 var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
 document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
 
-var L={"sig": "Сигнал", "coin": "Монета", "side": "Направление", "long": "Лонг", "short_": "Шорт", "entry": "Вход", "stop": "Стоп", "tp": "TP", "posted": "Время публикации (ваше)", "checking": "Загружаем цены…", "notfilled": "Вход так и не исполнился", "open": "Ещё открыта", "stopped": "Сработал стоп", "alltp": "Все цели достигнуты", "tphit": "достигнут", "after": "после", "hrs": " ч", "nodata": "Нет часовой цены этой монеты на Coinbase, Binance или Gate.io", "bad": "Заполните монету, вход, стоп и хотя бы TP1", "wrong": "Стоп или цели не с той стороны от входа", "future": "Время публикации в будущем", "toolong": "проверены первые 30 дней после сигнала", "p_read": "Распознано", "p_ok": "Проверьте числа и время публикации, затем нажмите «Проверить сигналы».", "p_fx": "Похоже на пару форекс или золото. Проверка работает только для крипты.", "p_notime": "В тексте нет даты: укажите время публикации ниже.", "p_fail": "Не удалось найти монету, вход, стоп и цель в этом тексте. Заполните поля вручную.", "p_market": "Вход «по рынку»: впишите цену на момент публикации.", "p_more": "используются только первые 3 цели", "p_range": "зона входа: берём середину", "cp": "Копировать картинку", "copied": "Скопировано ✓", "card_t": "Проверка сигналов по реальным ценам", "card_src": "Реальные часовые цены бирж · комиссия 0,1% за сторону", "card_cta": "Проверьте любую группу бесплатно:", "card_nfa": "Не является финансовой рекомендацией", "sum_n": "Проверено сигналов", "sum_win": "Винрейт (закрытые)", "sum_avg": "Средний P&L на закрытый сигнал", "watch": "☆ Следить", "watching": "★ Слежу", "wl_upd": "Обновляем…", "wl_new": "обновлено", "wl_rm": "Убрать", "lev_l": "Плечо (x)", "onmargin": "от маржи", "liq": "Ликвидация раньше стопа", "lang": "ru"};
+var L={"sig": "Сигнал", "coin": "Монета", "side": "Направление", "long": "Лонг", "short_": "Шорт", "entry": "Вход", "stop": "Стоп", "tp": "TP", "posted": "Время публикации (ваше)", "checking": "Загружаем цены…", "notfilled": "Вход так и не исполнился", "open": "Ещё открыта", "stopped": "Сработал стоп", "alltp": "Все цели достигнуты", "tphit": "достигнут", "after": "после", "hrs": " ч", "nodata": "Нет часовой цены этой монеты на Coinbase, Binance или Gate.io", "bad": "Заполните монету, вход, стоп и хотя бы TP1", "wrong": "Стоп или цели не с той стороны от входа", "future": "Время публикации в будущем", "toolong": "проверены первые 30 дней после сигнала", "p_read": "Распознано", "p_ok": "Проверьте числа и время публикации, затем нажмите «Проверить сигналы».", "p_fx": "Похоже на пару форекс или золото. Проверка работает только для крипты.", "p_multi": "Распознано сигналов в сообщении: {n}.", "p_multi_more": " В поля помещаются только первые 3.", "p_notime": "В тексте нет даты: укажите время публикации ниже.", "p_fail": "Не удалось найти монету, вход, стоп и цель в этом тексте. Заполните поля вручную.", "p_market": "Вход «по рынку»: впишите цену на момент публикации.", "p_more": "используются только первые 3 цели", "p_range": "зона входа: берём середину", "cp": "Копировать картинку", "copied": "Скопировано ✓", "card_t": "Проверка сигналов по реальным ценам", "card_src": "Реальные часовые цены бирж · комиссия 0,1% за сторону", "card_cta": "Проверьте любую группу бесплатно:", "card_nfa": "Не является финансовой рекомендацией", "sum_n": "Проверено сигналов", "sum_win": "Винрейт (закрытые)", "sum_avg": "Средний P&L на закрытый сигнал", "watch": "☆ Следить", "watching": "★ Слежу", "wl_upd": "Обновляем…", "wl_new": "обновлено", "wl_rm": "Убрать", "lev_l": "Плечо (x)", "onmargin": "от маржи", "liq": "Ликвидация раньше стопа", "lang": "ru"};
 
 function pad(n){return (n<10?'0':'')+n;}
 function localISO(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes());}
@@ -194,6 +194,20 @@ function wrap(x,text,maxW,maxL){var ws=String(text).split(' '),lines=[],cur='';
  if(lines.length>maxL){lines=lines.slice(0,maxL); var l=lines[maxL-1]; while(x.measureText(l+'…').width>maxW && l.length) l=l.slice(0,-1); lines[maxL-1]=l+'…';}
  return lines;}
 
+/* A message can hold several calls ("1. #XRPUSDT SHORT ... 2. #UNIUSDT ..."). Split it at lines that start a new coin,
+   when there are at least two such blocks that each look like a call. The text before the first block (header, date) is kept with every block. */
+function splitCalls(raw){
+ var lines=String(raw).split(/\r?\n/), starts=[];
+ for(var i=0;i<lines.length;i++){ if(/^\s*(\d{1,2}\s*[.)]\s*)?[^\w#$]{0,4}\s*[#$][A-Za-z0-9]{2,15}/.test(lines[i])) starts.push(i); }
+ if(starts.length<2) return [raw];
+ var head=lines.slice(0,starts[0]).join('\n'), blocks=[];
+ for(var k=0;k<starts.length;k++){ blocks.push(lines.slice(starts[k], k+1<starts.length? starts[k+1] : lines.length).join('\n')); }
+ var good=blocks.filter(function(b){ var p=parseCall(b); return p.coin && (p.entry>0 || p.market) && (p.stop>0 || p.tps.length); });
+ if(good.length<2) return [raw];
+ return blocks.map(function(b){ return head? head+'\n'+b : b; });
+}
+
+
 function calc(){}
 function el(h){var d=document.createElement('div');d.innerHTML=h;return d.firstChild;}
 function card(i){return el('<fieldset class="sigbox"><legend>'+L.sig+' '+(i+1)+'</legend>'+
@@ -244,8 +258,20 @@ function fillFrom(p){
  set('tp1',p.tps[0]||''); set('tp2',p.tps[1]||''); set('tp3',p.tps[2]||''); f.querySelector('.lev').value=p.lev||1;
  if(p.when) f.querySelector('.when').value=localISO(p.when);
  return f;}
+function fmt2(s,o){return s.replace(/\{(\w+)\}/g,function(x,k){return o[k]!=null?o[k]:x;});}
 function readPaste(){
  var raw=$('paste').value, m=$('pmsg'); if(!raw.trim()) return false;
+ var segs=splitCalls(raw);
+ if(segs.length>1){
+  var ps=segs.map(parseCall).filter(function(q){return !q.fx && q.coin && q.entry>0 && q.stop>0 && q.tps.length;});
+  if(ps.length>1){ m.hidden=false; gc('paste-multi');
+   document.querySelectorAll('.sigbox input').forEach(function(i){ i.value=i.classList.contains('lev')?'1':''; });
+   ps.slice(0,3).forEach(function(q){ fillFrom(q); });
+   var hasT=ps[0].when; m.className='msg '+(hasT?'ok':'warn');
+   m.textContent=fmt2(L.p_multi,{n:ps.length})+(ps.length>3? L.p_multi_more : '')+' '+(hasT? L.p_ok : L.p_notime);
+   if(!hasT) document.querySelector('.sigbox .when').focus();
+   return !!hasT; }
+ }
  var p=parseCall(raw); m.hidden=false; gc('paste');
  if(p.fx){ m.className='msg warn'; m.textContent=L.p_fx; return false; }
  if(!(p.entry>0) && !(p.stop>0) && !p.tps.length){ m.className='msg err'; m.textContent=L.p_fail; return false; }
