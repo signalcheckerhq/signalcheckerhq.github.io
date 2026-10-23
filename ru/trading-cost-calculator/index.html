@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ru"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Калькулятор издержек криптотрейдинга: комиссии, спред и фандинг на сделку (бесплатно) | SignalCheckerHQ</title>
+<meta name="description" content="Бесплатный калькулятор издержек для криптотрейдеров. Узнайте, сколько на самом деле стоит сделка: комиссии биржи, спред, проскальзывание и фандинг фьючерсов, какое движение нужно для безубытка и как издержки меняют безубыточный винрейт.">
+<link rel="canonical" href="https://signalcheckerhq.org/ru/trading-cost-calculator/">
+<meta property="og:title" content="Калькулятор издержек криптотрейдинга: комиссии, спред и фандинг на сделку (бесплатно) | SignalCheckerHQ"><meta property="og:description" content="Бесплатный калькулятор издержек для криптотрейдеров. Узнайте, сколько на самом деле стоит сделка: комиссии биржи, спред, проскальзывание и фандинг фьючерсов, какое движение нужно для безубытка и как издержки меняют безубыточный винрейт.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://signalcheckerhq.org/ru/trading-cost-calculator/">
+<meta property="og:image" content="https://signalcheckerhq.org/assets/img/rc-1.webp">
+<meta name="theme-color" content="#0b1120">
+<meta name="google-site-verification" content="uh0u66NYvt6K8r_yqwLmn0GAHeASmu_aV-5lmH9_T-0">
+<meta name="google-site-verification" content="UvHvX4_1aVpsXs5uoaKarwA5mYzig2ahWrXbkXhL_fY">
+<link rel="icon" href="../../assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../assets/site.css?v=3">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Калькулятор торговых издержек","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://signalcheckerhq.org/ru/trading-cost-calculator/"}</script><link rel="alternate" hreflang="en" href="https://signalcheckerhq.org/trading-cost-calculator/"><link rel="alternate" hreflang="es" href="https://signalcheckerhq.org/es/trading-cost-calculator/"><link rel="alternate" hreflang="ru" href="https://signalcheckerhq.org/ru/trading-cost-calculator/"><link rel="alternate" hreflang="x-default" href="https://signalcheckerhq.org/trading-cost-calculator/"></head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../ru/"><img src="../../assets/img/icon.png" alt="" width="32" height="32"><span>Signal<b>Checker</b>HQ</span></a>
+  <div class="langs"><a href="../../trading-cost-calculator/" hreflang="en" lang="en">EN</a><a href="../../es/trading-cost-calculator/" hreflang="es" lang="es">ES</a><a href="../../ru/trading-cost-calculator/" class=on aria-current=page hreflang="ru" lang="ru">RU</a></div>
+  <button type="button" class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('.top');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button>
+  <nav><a href="../../ru/#tools">Инструменты</a><a href="../../ru/bundle/">Complete Kit</a><a href="../../ru/guides/">Гайды</a><a href="../../ru/how-its-built/">Человек + AI</a><a href="../../ru/tools/" class="free">Бесплатно</a></nav>
+</div></header>
+<main>
+
+<section class="hero in" style="padding-bottom:0"><div class="tag">Бесплатный инструмент</div><h1>Сколько сделка <span>стоит на самом деле</span></h1><p class="lead">Комиссии, спред и фандинг кажутся мелочью в одной сделке. Введите позицию и посмотрите реальные издержки в долларах, в доле маржи и риска, и как они меняют нужный винрейт.</p></section>
+<div class="in grid2 calc">
+  <section class="card" aria-label="Ваши данные"><h2 class="ch">Ваши данные</h2>
+<label>Быстрое заполнение</label><div class="seg seg3" role="group"><button type="button" id="pf" class="on">Фьючерсы, рыночные ордера</button><button type="button" id="pl">Фьючерсы, лимитный вход</button><button type="button" id="ps">Спот</button></div>
+<div class="two">
+  <div><label for="size">Размер позиции ($, с плечом)</label><input id="size" type="number" inputmode="decimal" value="1000" step="any" min="0"></div>
+  <div><label for="lev">Плечо (x)</label><input id="lev" type="number" inputmode="decimal" value="10" step="any" min="1"></div>
+</div>
+<div class="three wide">
+  <div><label for="fin">Комиссия на вход (%)</label><input id="fin" type="number" inputmode="decimal" value="0.05" step="any" min="0"></div>
+  <div><label for="fout">Комиссия на выход (%)</label><input id="fout" type="number" inputmode="decimal" value="0.05" step="any" min="0"></div>
+  <div><label for="sp">Спред + проскальзывание на сторону (%)</label><input id="sp" type="number" inputmode="decimal" value="0.02" step="any" min="0"></div>
+</div>
+<label>Направление</label><div class="seg" role="group"><button type="button" id="sl" class="on">Лонг</button><button type="button" id="ss">Шорт</button></div>
+<div class="three wide">
+  <div><label for="fr">Ставка фандинга за период (%)</label><input id="fr" type="number" inputmode="decimal" value="0.01" step="any"></div>
+  <div><label for="fper">Фандинг каждые (часов)</label><input id="fper" type="number" inputmode="decimal" value="8" step="any" min="1"></div>
+  <div><label for="hold">Время в позиции (часов)</label><input id="hold" type="number" inputmode="decimal" value="24" step="any" min="0"></div>
+</div>
+<div class="three wide">
+  <div><label for="st">Расстояние до стопа от входа (%)</label><input id="st" type="number" inputmode="decimal" value="1.5" step="any" min="0"></div>
+  <div><label for="tg">Расстояние до цели от входа (%)</label><input id="tg" type="number" inputmode="decimal" value="3" step="any" min="0"></div>
+  <div><label for="tpm">Сделок в месяц</label><input id="tpm" type="number" inputmode="decimal" value="20" step="1" min="0"></div>
+</div>
+</section>
+  <section class="card" aria-live="polite" aria-label="Результат"><h2 class="ch">Результат</h2>
+<div class="big"><span>Общие издержки этой сделки</span><b id="tot">–</b></div>
+<div class="row"><span>Комиссии (вход + выход)</span><b id="cf">–</b></div>
+<div class="row"><span>Спред и проскальзывание</span><b id="cs">–</b></div>
+<div class="row"><span>Фандинг</span><b id="cu">–</b></div>
+<div class="row"><span>Издержки в % от вашей маржи</span><b id="om">–</b></div>
+<div class="row"><span>Движение цены, нужное только для безубытка</span><b id="bm">–</b></div>
+<div class="row"><span>Издержки как доля вашего риска (стопа)</span><b id="or">–</b></div>
+<div class="row"><span>Безубыточный винрейт без издержек</span><b id="w0">–</b></div>
+<div class="row"><span>Безубыточный винрейт с издержками</span><b id="w1">–</b></div>
+<div class="row"><span id="monl">Издержки в месяц</span><b id="mo">–</b></div>
+<div class="row"><span>Издержки в год</span><b id="yo">–</b></div>
+<div id="msg" class="msg ok">–</div>
+<p class="small">Типичные ставки базового уровня — лишь отправная точка: проверьте страницу комиссий своей биржи и текущий фандинг. При положительной ставке фандинг платят лонги, при отрицательной — шорты. Не является финансовой рекомендацией.</p>
+</section>
+</div>
+<section class="in box cta"><div><h2>Хотите то же самое в своей Google Таблице?</h2><p>Рассчитывайте каждую позицию так, чтобы стоп стоил ровно запланированную сумму с учётом комиссий: таблица <b>Position Size &amp; Risk Calculator</b> (на английском).</p></div><a class="btn" href="../../ru/risk-calculator/">Смотреть Risk Calculator · $7</a></section>
+<section class="in box leadbox"><img src="/assets/img/cheatsheet.webp" alt="Шпаргалка по риску в криптотрейдинге" width="210" height="297" loading="lazy"><div><div class="tag">Бесплатный PDF</div><h2>Шпаргалка по риску в криптотрейдинге</h2><p>Формула размера позиции, таблицы серий убытков и восстановления, нужный винрейт и чек-лист перед сделкой — на одной странице для печати. Оставьте email и получите её, а иногда — короткое письмо о новом инструменте. Отписаться можно в любой момент.</p><a class="btn big" href="https://5778611980656.gumroad.com/l/risk-cheat-sheet" data-gumroad-overlay-checkout="true">Получить PDF бесплатно →</a><p class="small">Бесплатно. Email вводится на следующем шаге, и PDF сразу скачивается.</p></div></section>
+<article class="in prose"><h2>Три вида издержек в каждой сделке</h2>
+<p><b>Комиссии</b> берутся со всей позиции, а не с маржи, — на входе и ещё раз на выходе. <b>Спред и проскальзывание</b> — разница между ценой, которую вы видите, и ценой исполнения; обычно хуже всего с рыночными ордерами на мелких монетах. <b>Фандинг</b> на бессрочных фьючерсах платится между лонгами и шортами каждые несколько часов, пока позиция открыта.</p>
+<h2>Почему плечо увеличивает издержки</h2>
+<p>При плече 10x комиссия 0,1% за вход и выход — это 1% маржи в каждой сделке. Двадцать сделок в месяц — это 20% маржи бирже ещё до того, как вы что-то выиграли или проиграли.</p>
+<h2>Главная цифра: издержки против стопа</h2>
+<p>Если стоп в 1% от входа, а издержки 0,15%, каждый убыток на самом деле 1,15%, а каждая прибыль меньше, поэтому для безубытка нужен более высокий винрейт. Более широкие стопы с меньшими позициями, лимитные ордера и меньше сделок снижают эту долю. Проверьте винрейт и соотношение в <a href="../risk-of-ruin-calculator/">симуляторе риска разорения</a>.</p>
+<p class="small">Всё считается в вашем браузере, никакие данные никуда не отправляются. Калькулятор считает по введённым вами числам. Это не финансовая рекомендация.</p>
+<p>Другие бесплатные инструменты: <a href="../../ru/signal-checker-demo/">Демо Signal Checker</a> · <a href="../../ru/telegram-signal-checker/">Проверка Telegram-канала</a> · <a href="../../ru/dca-calculator/">Калькулятор средней цены DCA</a> · <a href="../../ru/crypto-profit-calculator/">Калькулятор прибыли для крипты</a> · <a href="../../ru/liquidation-calculator/">Калькулятор цены ликвидации</a> · <a href="../../ru/risk-of-ruin-calculator/">Симулятор риска разорения</a> · <a href="../../ru/position-size-calculator/">Калькулятор размера позиции</a></p></article>
+<script>(function(){
+var $=function(id){return document.getElementById(id);};
+var num=function(id){var v=parseFloat(String($(id).value).replace(',','.'));return isFinite(v)?v:NaN;};
+var money=function(v){return (v<0?'−$':'$')+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});};
+var signed=function(v){return (v>0?'+':'')+money(v);};
+var price=function(v){return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:v>=1?2:8});};
+var pct=function(v,d){return (v>0?'+':v<0?'−':'')+Math.abs(v*100).toFixed(d==null?2:d)+'%';};
+var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
+var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
+document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
+
+var L={"recv": "получено", "mon": "Издержки в месяц", "m_eat": "⚠ Издержки составляют {x} от потери на стопе. При таком коротком стопе комиссии и спред решают значительную часть результата.", "m_tg": "⚠ Цель меньше издержек: эта сделка не принесёт прибыли, даже если цель будет достигнута.", "m_ok": "✓ Издержки — небольшая доля вашего риска в этой сделке.", "m_bad": "Введите размер позиции, плечо от 1 и расстояние до стопа больше 0.", "ofmar": "маржи"}, SIDE='L';
+function seg(on,off){ $(on).className='on'; off.forEach(function(i){$(i).className='';}); }
+$('sl').onclick=function(){SIDE='L';seg('sl',['ss']);calc();};
+$('ss').onclick=function(){SIDE='S';seg('ss',['sl']);calc();};
+function preset(id,v){ seg(id,['pf','pl','ps'].filter(function(x){return x!==id;})); for(var k in v) $(k).value=v[k]; calc(); }
+$('pf').onclick=function(){preset('pf',{lev:10,fin:0.05,fout:0.05,sp:0.02,fr:0.01});};
+$('pl').onclick=function(){preset('pl',{lev:10,fin:0.02,fout:0.05,sp:0.01,fr:0.01});};
+$('ps').onclick=function(){preset('ps',{lev:1,fin:0.1,fout:0.1,sp:0.03,fr:0});};
+function fmt(s,o){return s.replace(/\{(\w+)\}/g,function(m,k){return o[k]!=null?o[k]:m;});}
+function p3(v){ return (v<0?'−':'')+Math.abs(v*100).toFixed(Math.abs(v)<0.01?3:2)+'%'; }
+function calc(){
+ var N=num('size'), lev=num('lev'), fin=(num('fin')||0)/100, fout=(num('fout')||0)/100, sp=(num('sp')||0)/100,
+     fr=(num('fr')||0)/100, fper=num('fper')||8, hold=num('hold')||0, s=(num('st')||0)/100, t=(num('tg')||0)/100, tpm=num('tpm')||0;
+ if(!(N>0 && lev>=1 && s>0)){ msg(L.m_bad,'err'); ['tot','cf','cs','cu','om','bm','or','w0','w1','mo','yo'].forEach(function(i){show(i,'–');}); return; }
+ var fees=N*(fin+fout), spr=N*sp*2, periods=hold/fper, fund=N*fr*periods*(SIDE==='L'?1:-1), tot=fees+spr+fund, c=tot/N, margin=N/lev;
+ show('tot', money(tot)+' ('+p3(c)+')');
+ show('cf', money(fees)); show('cs', money(spr));
+ show('cu', fund<0? money(-fund)+' '+L.recv : money(fund), fund<0?'pos':'');
+ show('om', p3(tot/margin)); show('bm', p3(c));
+ show('or', s>0? Math.round(c/s*100)+'%' : '–');
+ show('w0', t>0? (s/(s+t)*100).toFixed(1)+'%' : '–');
+ var w1 = t>c ? (s+c)/(s+t) : null; show('w1', t>0? (w1==null? '—' : (w1*100).toFixed(1)+'%') : '–', w1!=null && t>0 && w1>s/(s+t)? 'neg':'');
+ $('monl').textContent=L.mon+' ('+tpm+')'; show('mo', money(tot*tpm)+' · '+p3(tot*tpm/margin)+' '+L.ofmar);
+ show('yo', money(tot*tpm*12));
+ if(t>0 && t<=c) msg(L.m_tg,'err'); else if(c/s>0.15) msg(fmt(L.m_eat,{x:Math.round(c/s*100)+'%'}),'warn'); else msg(L.m_ok,'ok');
+}
+calc();
+})();</script>
+
+</main>
+<footer class="foot"><div class="in">
+  <div><a class="logo" href="../../ru/"><span>Signal<b>Checker</b>HQ</span></a>
+  <p>Инструменты в Google Таблицах, которые показывают реальные цифры криптотрейдинга. Создано трейдером вместе с AI. Без сигналов и без хайпа.</p><p><a href="../../ru/how-its-built/">Как мы работаем: человек + AI →</a></p></div>
+  <div><h4>Инструменты</h4><a href="../../ru/signal-checker/">Crypto Signal Checker</a><a href="../../ru/trade-journal/">Crypto Trade Journal + DCA Planner</a><a href="../../ru/portfolio-tracker/">Crypto Portfolio Tracker</a><a href="../../ru/risk-calculator/">Position Size & Risk Calculator</a><a href="../../ru/bundle/">Наборы: Complete Kit и Toolkit</a><a href="../../ru/tools/">Бесплатные калькуляторы</a><a href="https://5778611980656.gumroad.com/l/risk-cheat-sheet">Бесплатная шпаргалка по риску (PDF)</a><a href="../../ru/guides/">Гайды</a></div>
+  <div><h4>Магазин и соцсети</h4><a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy</a><a href="https://5778611980656.gumroad.com/">Gumroad</a><a href="https://x.com/SignalCheckerHQ">X</a><a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a><a href="https://www.pinterest.com/ilonavoitenco/crypto-trading-tools-templates/">Pinterest</a></div>
+  <div><h4>Инфо</h4><a href="../../legal/">Условия, конфиденциальность и возвраты (англ.)</a><a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></div>
+</div><p class="fine in">Все инструменты предназначены для анализа и учёта. Ничто на этом сайте не является финансовой рекомендацией. В примерах используются примерные или исторические данные; результаты могут отличаться. © 2026 SignalCheckerHQ. SignalCheckerHQ™, Signal Checker™ и логотип SignalCheckerHQ являются товарными знаками SignalCheckerHQ. Все продукты, изображения, видео и тексты защищены авторским правом; копировать и перепродавать их запрещено.</p></footer>
+<script src="https://gumroad.com/js/gumroad.js" defer></script>
+<script src="../../assets/helpbot.js?v=1" defer></script>
+<script data-goatcounter="https://signalcheckerhq.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
