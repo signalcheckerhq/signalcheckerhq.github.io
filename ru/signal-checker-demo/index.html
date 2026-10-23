@@ -65,7 +65,7 @@ var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
 var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
 document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
 
-var L={"sig": "Сигнал", "coin": "Монета", "side": "Направление", "long": "Лонг", "short_": "Шорт", "entry": "Вход", "stop": "Стоп", "tp": "TP", "posted": "Время публикации (ваше)", "checking": "Загружаем цены…", "notfilled": "Вход так и не исполнился", "open": "Ещё открыта", "stopped": "Сработал стоп", "alltp": "Все цели достигнуты", "tphit": "достигнут", "after": "после", "hrs": " ч", "nodata": "Нет часовой цены этой монеты на Coinbase, Binance или Gate.io", "bad": "Заполните монету, вход, стоп и хотя бы TP1", "wrong": "Стоп или цели не с той стороны от входа", "future": "Время публикации в будущем", "toolong": "проверены первые 30 дней после сигнала", "p_read": "Распознано", "p_ok": "Проверьте числа и время публикации, затем нажмите «Проверить сигналы».", "p_notime": "В тексте нет даты: укажите время публикации ниже.", "p_fail": "Не удалось найти монету, вход, стоп и цель в этом тексте. Заполните поля вручную.", "p_market": "Вход «по рынку»: впишите цену на момент публикации.", "p_more": "используются только первые 3 цели", "p_range": "зона входа: берём середину", "cp": "Копировать картинку", "copied": "Скопировано ✓", "card_t": "Проверка сигналов по реальным ценам", "card_src": "Реальные часовые цены бирж · комиссия 0,1% за сторону", "card_cta": "Проверьте любую группу бесплатно:", "card_nfa": "Не является финансовой рекомендацией", "sum_n": "Проверено сигналов", "sum_win": "Винрейт (закрытые)", "sum_avg": "Средний P&L на закрытый сигнал", "watch": "☆ Следить", "watching": "★ Слежу", "wl_upd": "Обновляем…", "wl_new": "обновлено", "wl_rm": "Убрать", "lang": "ru"};
+var L={"sig": "Сигнал", "coin": "Монета", "side": "Направление", "long": "Лонг", "short_": "Шорт", "entry": "Вход", "stop": "Стоп", "tp": "TP", "posted": "Время публикации (ваше)", "checking": "Загружаем цены…", "notfilled": "Вход так и не исполнился", "open": "Ещё открыта", "stopped": "Сработал стоп", "alltp": "Все цели достигнуты", "tphit": "достигнут", "after": "после", "hrs": " ч", "nodata": "Нет часовой цены этой монеты на Coinbase, Binance или Gate.io", "bad": "Заполните монету, вход, стоп и хотя бы TP1", "wrong": "Стоп или цели не с той стороны от входа", "future": "Время публикации в будущем", "toolong": "проверены первые 30 дней после сигнала", "p_read": "Распознано", "p_ok": "Проверьте числа и время публикации, затем нажмите «Проверить сигналы».", "p_fx": "Похоже на пару форекс или золото. Проверка работает только для крипты.", "p_notime": "В тексте нет даты: укажите время публикации ниже.", "p_fail": "Не удалось найти монету, вход, стоп и цель в этом тексте. Заполните поля вручную.", "p_market": "Вход «по рынку»: впишите цену на момент публикации.", "p_more": "используются только первые 3 цели", "p_range": "зона входа: берём середину", "cp": "Копировать картинку", "copied": "Скопировано ✓", "card_t": "Проверка сигналов по реальным ценам", "card_src": "Реальные часовые цены бирж · комиссия 0,1% за сторону", "card_cta": "Проверьте любую группу бесплатно:", "card_nfa": "Не является финансовой рекомендацией", "sum_n": "Проверено сигналов", "sum_win": "Винрейт (закрытые)", "sum_avg": "Средний P&L на закрытый сигнал", "watch": "☆ Следить", "watching": "★ Слежу", "wl_upd": "Обновляем…", "wl_new": "обновлено", "wl_rm": "Убрать", "lang": "ru"};
 
 function pad(n){return (n<10?'0':'')+n;}
 function localISO(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes());}
@@ -128,7 +128,7 @@ var KW={tp:'TP TPS T TARGET TARGETS TAKEPROFIT TAKEPROFITS ЦЕЛИ ЦЕЛЬ Т�
  stop:'SL STOP STOPLOSS S/L INVALIDATION СТОП СЛ СТОПЛОСС',
  entry:'ENTRY ENTRIES ENTER BUYZONE ENTRYZONE ВХОД ВХОДА ЗОНАВХОДА ТОЧКАВХОДА ТВХ ENTRADA ENTRADAS',
  long:'LONG LONGING ЛОНГ LARGO', short:'SHORT SHORTING ШОРТ CORTO', buy:'BUY ПОКУПКА COMPRA', sell:'SELL ПРОДАЖА VENTA',
- lev:'LEVERAGE LEV ПЛЕЧО APALANCAMIENTO', mkt:'CMP MARKET РЫНОК РЫНКУ РЫНКА MERCADO'};
+ lev:'LEVERAGE LEV ПЛЕЧО APALANCAMIENTO', pair:'PAIR PAR ПАРА MONEDA COIN МОНЕТА ACTIVO ASSET SYMBOL', mkt:'CMP MARKET РЫНОК РЫНКУ РЫНКА MERCADO'};
 for(var k in KW) KW[k]=' '+KW[k]+' ';
 var SKIP=' USDT USD USDC BUSD PERP PERPS SIGNAL SIGNALS VIP NEW PAIR COIN EXCHANGE BINANCE BYBIT OKX KUCOIN BITGET MEXC GATE FUTURES FUTURE SPOT CROSS ISOLATED MARGIN TIME DATE AM PM UTC GMT AND OR TO THE FROM FOR AT IN ON OF IS ZONE AREA RANGE DCA RISK SIZE PROFIT PROFITS LOSS POSITION TRADE SETUP CALL ALERT TYPE SIDE DIRECTION PRICE NOW ORDER LIMIT NOTE MANAGEMENT MONEY CAPITAL USE ONLY MAX MIN HIGH LOW MID RR TF BREAKOUT SCALP SWING REWARD EXIT CLOSE OPEN TAKE HOLD STRATEGY ANALYSIS CHART WAIT UPDATE POSTED BETWEEN ABOVE BELOW UNTIL WITH ALL HERE REASON LOOKS LOOKING CHART BEARISH BULLISH SIGNALS QUICK ';
 function kind(w){var k=' '+w.replace(/[\s-]/g,'').replace(/\d+$/,'')+' '; for(var t in KW) if(KW[t].indexOf(k)>=0) return t; return null;}
@@ -166,18 +166,20 @@ function parseCall(raw){
    else if(k==='long'||k==='short'){ if(!side) side=k==='long'?'L':'S'; if(!b.entry.length) mode='entry'; }
    else if(k==='buy'||k==='sell'){ if(!side) side=k==='buy'?'L':'S'; mode='entry'; }
    else if(k==='lev') mode=null;
+   else if(k==='pair'){}
    else if(k==='mkt'){ if(mode==='entry') mkt=true; }
    else if(/^[A-Z][A-Z0-9]{1,14}(\/[A-Z]+)?$/.test(w) && SKIP.indexOf(' '+w+' ')<0){
     var c=w.split('/')[0]; if(c.length>4) c=c.replace(/(USDT|USDC|BUSD|PERP|USD)$/,'');
-    if(c.length>=2 && SKIP.indexOf(' '+c+' ')<0) coins.push({c:c, pri:prev==='#'||prev==='$'||w.indexOf('/')>0||c!==w}); }
+    if(c.length>=2 && SKIP.indexOf(' '+c+' ')<0) coins.push({c:c, w:w, pri:prev==='#'||prev==='$'||pk==='pair'||w.indexOf('/')>0||c!==w}); }
   }
   prev=w; });
- var coin=(coins.filter(function(x){return x.pri;})[0]||coins[0]||{}).c||'';
+ var pick=coins.filter(function(x){return x.pri;})[0]||coins[0]||{}, coin=pick.c||'';
+ var FX='EUR|USD|GBP|JPY|CHF|CAD|AUD|NZD|XAU|XAG|SGD|HKD|ZAR|MXN|TRY|SEK|NOK|PLN', fxre=new RegExp('^('+FX+')/?('+FX+')$'), fx=coins.some(function(x){return fxre.test(x.w||'');}) || /(^|[^A-Z])FOREX([^A-Z]|$)/.test(t) || /^(XAU|XAG|GOLD|SILVER|OIL|US30|NAS100|SPX|DXY|EUR|GBP|JPY|CHF|CAD|AUD|NZD)$/.test(coin);
  var e=b.entry.length? b.entry.reduce(function(x,y){return x+y;},0)/b.entry.length : NaN;
  var ok=function(v){return !(e>0) || (v>e*0.2 && v<e*5);};
  var stop=b.stop.filter(ok)[0], tps=b.tp.filter(ok);
  if(!side && e>0 && stop>0) side=stop<e?'L':'S';
- return {coin:coin, side:side||'L', entry:e, stop:stop, tps:tps.slice(0,3), more:tps.length>3, range:b.entry.length>1, market:mkt&&!(e>0), when:fd.d};
+ return {fx:fx, coin:coin, side:side||'L', entry:e, stop:stop, tps:tps.slice(0,3), more:tps.length>3, range:b.entry.length>1, market:mkt&&!(e>0), when:fd.d};
 }
 function rr(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath();}
 function wrap(x,text,maxW,maxL){var ws=String(text).split(' '),lines=[],cur='';
@@ -238,6 +240,7 @@ function fillFrom(p){
 function readPaste(){
  var raw=$('paste').value, m=$('pmsg'); if(!raw.trim()) return false;
  var p=parseCall(raw); m.hidden=false; gc('paste');
+ if(p.fx){ m.className='msg warn'; m.textContent=L.p_fx; return false; }
  if(!(p.entry>0) && !(p.stop>0) && !p.tps.length){ m.className='msg err'; m.textContent=L.p_fail; return false; }
  var f=fillFrom(p);
  if(!p.coin || !(p.stop>0) || !p.tps.length || !(p.entry>0)){
