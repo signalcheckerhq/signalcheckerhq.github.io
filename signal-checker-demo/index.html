@@ -24,14 +24,24 @@
 </div></header>
 <main>
 
-<section class="hero in" style="padding-bottom:0"><div class="tag">Free tool</div><h1>Test a signal group <span>in 30 seconds</span></h1><p class="lead">Enter up to 3 calls from any Telegram, Discord or X group. We check them against real Coinbase hourly prices: did the entry fill, which targets hit, was it stopped out first, and the P&amp;L after fees.</p></section>
+<section class="hero in" style="padding-bottom:0"><div class="tag">Free tool</div><h1>Test a signal group <span>in 30 seconds</span></h1><p class="lead">Paste a call from any Telegram, Discord or X group, or type up to 3 in. We check them against real Coinbase hourly prices: did the entry fill, which targets hit, was it stopped out first, and the P&amp;L after fees.</p></section>
 <div class="in grid2 calc">
-  <section class="card" aria-label="Your numbers"><h2 class="ch">Your numbers</h2><div id="sigs"></div>
+  <section class="card" aria-label="Your numbers"><h2 class="ch">Your numbers</h2><label for="paste">Paste a call (the whole message is fine)</label><textarea id="paste" rows="5" placeholder="#BTC/USDT LONG
+Entry: 67000 - 67500
+Targets: 68500 / 69500 / 71000
+Stop loss: 65800
+Leverage 5x"></textarea>
+<button type="button" class="btn small" id="readbtn">Read the call</button><div id="pmsg" class="msg" hidden></div>
+<div id="sigs" style="margin-top:16px"></div>
 <div class="buy" style="margin-top:14px"><button type="button" class="btn" id="run">Check these signals</button><button type="button" class="btn alt" id="ex">Load a real example</button></div>
 <p class="small" id="exnote" hidden>Example built from real BTC prices 10 days ago, not a real group's call.</p></section>
   <section class="card" aria-live="polite" aria-label="Result"><h2 class="ch">Result</h2><div id="status" class="small"></div>
 <table class="tbl" id="out" hidden><thead><tr><th>Signal</th><th>What happened</th><th>P&L after fees</th></tr></thead><tbody></tbody></table>
 <div id="sum" hidden><div class="row"><span>Signals checked</span><b id="sn">–</b></div><div class="row"><span>Win rate (closed)</span><b id="sw">–</b></div><div class="row"><span>Average P&L per closed signal</span><b id="sa">–</b></div></div>
+<div id="sharebox" hidden><button type="button" class="btn small" id="mk">Make a share image</button>
+<div id="shareout" hidden><img id="cardimg" alt="" style="width:100%;border-radius:12px;margin-top:12px;display:block">
+<div class="buy" style="margin-top:4px"><a class="btn small alt" id="dl" download="signal-check.png" href="#">Download PNG</a><button type="button" class="btn small alt" id="cp" hidden>Copy image</button><button type="button" class="btn small alt" id="sh" hidden>Share</button></div>
+<p class="small">Post it to show what really happened. The image is made in your browser.</p></div></div>
 <p class="small">Demo rules: the entry must fill first; if the stop and a target are hit in the same hour, the stop counts; the position is split equally between the targets; 0.1% fee per side; up to 30 days after the call. Open trades are marked at the latest price. Not financial advice.</p></section>
 </div>
 <section class="in box cta"><div><h2>Check every call, not just 3</h2><p>The full Signal Checker does this for a whole group's history in Google Sheets: DCA levels, breakeven stops, KuCoin coins, a summary with win rate and profit factor, and results by coin.</p><p class="small"><a href="https://5778611980656.gumroad.com/l/signal-checker-lite">Or try the free Signal Checker Lite (10 signals)</a></p></div><div class="buy" style="margin:0"><a class="btn" href="https://5778611980656.gumroad.com/l/signal-checker" data-gumroad-overlay-checkout="true">Get Signal Checker · $19</a><a class="btn alt" href="../signal-checker/">See the Signal Checker</a></div></section>
@@ -53,7 +63,7 @@ var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
 var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
 document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
 
-var L={"sig": "Signal", "coin": "Coin", "side": "Side", "long": "Long", "short_": "Short", "entry": "Entry", "stop": "Stop", "tp": "TP", "posted": "Posted (your time)", "checking": "Checking prices…", "notfilled": "Entry never filled", "open": "Still open", "stopped": "Stopped out", "alltp": "All targets hit", "tphit": "hit", "after": "after", "hrs": "h", "nodata": "No Coinbase price for this coin (the full version also uses KuCoin)", "bad": "Fill in coin, entry, stop and at least TP1", "wrong": "Stop or targets are on the wrong side of the entry", "future": "The post time is in the future", "toolong": "checked the first 30 days after the call"};
+var L={"sig": "Signal", "coin": "Coin", "side": "Side", "long": "Long", "short_": "Short", "entry": "Entry", "stop": "Stop", "tp": "TP", "posted": "Posted (your time)", "checking": "Checking prices…", "notfilled": "Entry never filled", "open": "Still open", "stopped": "Stopped out", "alltp": "All targets hit", "tphit": "hit", "after": "after", "hrs": "h", "nodata": "No Coinbase price for this coin (the full version also uses KuCoin)", "bad": "Fill in coin, entry, stop and at least TP1", "wrong": "Stop or targets are on the wrong side of the entry", "future": "The post time is in the future", "toolong": "checked the first 30 days after the call", "p_read": "Read", "p_ok": "Check the numbers and the post time, then press “Check these signals”.", "p_notime": "No date found in the text: set the post time below.", "p_fail": "Couldn't find a coin, entry, stop and target in this text. Fill the boxes by hand.", "p_market": "The entry says “market price”: type the price it had when it was posted.", "p_more": "only the first 3 targets are used", "p_range": "entry range: using the middle", "cp": "Copy image", "copied": "Copied ✓", "card_t": "Signal check against real prices", "card_src": "Real Coinbase hourly prices · 0.1% fee per side", "card_cta": "Check any signal group free:", "card_nfa": "Not financial advice", "sum_n": "Signals checked", "sum_win": "Win rate (closed)", "sum_avg": "Average P&L per closed signal", "lang": "en"};
 function calc(){}
 function el(h){var d=document.createElement('div');d.innerHTML=h;return d.firstChild;}
 function card(i){return el('<fieldset class="sigbox"><legend>'+L.sig+' '+(i+1)+'</legend>'+
@@ -98,8 +108,10 @@ function sim(s,cs){
 function read(f){var g=function(c){return parseFloat(String(f.querySelector('.'+c).value).replace(',','.'));};
  var s={coin:f.querySelector('.coin').value.trim().toUpperCase(), side:f.querySelector('.side').value, entry:g('entry'), stop:g('stop'), tps:[g('tp1'),g('tp2'),g('tp3')].filter(function(x){return x>0;}), when:f.querySelector('.when').value};
  if(!s.coin && !(s.entry>0)) return null; return s;}
+var ROWS=[], SUM={};
 $('run').onclick=async function(){
  var rows=[], body=$('out').querySelector('tbody'); body.innerHTML=''; $('status').textContent=L.checking; $('out').hidden=false; $('sum').hidden=true;
+ ROWS=[]; $('sharebox').hidden=true; $('shareout').hidden=true;
  var fs=[].slice.call(document.querySelectorAll('.sigbox')), res=[];
  for(var i=0;i<fs.length;i++){var s=read(fs[i]); if(!s) continue;
   var name=(s.coin||'?')+' '+(s.side==='L'?L.long:L.short_)+' @ '+(s.entry>0?fmtP(s.entry):'?'), txt, pnl=null, cls='';
@@ -111,22 +123,152 @@ $('run').onclick=async function(){
     try{ var cs=await candles(s.coin,st,end); if(!cs.length) throw new Error('nodata'); var r=sim(s,cs); txt=r.txt+(end<now&&!r.closed&&r.filled?' ('+L.toolong+')':''); pnl=r.pnl; if(r.filled) res.push(r);}
     catch(e){txt=L.nodata;} } }
   var tr=document.createElement('tr'); tr.innerHTML='<td>'+name+'</td><td>'+txt+'</td><td class="'+(pnl==null?'':pnl>=0?'pos':'neg')+'">'+(pnl==null?'–':pct(pnl))+'</td>'; body.appendChild(tr);
+  ROWS.push({name:name, when:s.when, txt:txt, pnl:pnl});
  }
  $('status').textContent='';
  var closed=res.filter(function(r){return r.closed;});
  $('sum').hidden=false; show('sn',String(body.children.length));
  if(closed.length){ show('sw',Math.round(100*closed.filter(function(r){return r.pnl>0;}).length/closed.length)+'%'); var a=closed.reduce(function(x,r){return x+r.pnl;},0)/closed.length; show('sa',pct(a),a>=0?'pos':'neg'); }
  else {show('sw','–');show('sa','–');}
+ SUM={n:$('sn').textContent, w:$('sw').textContent, a:$('sa').textContent};
+ $('sharebox').hidden=!ROWS.some(function(r){return r.pnl!=null;});
+ gc('check');
 };
+function gc(n){try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:'demo-'+n,title:'demo '+n,event:true});}catch(e){}}
+
+/* ---------- paste-a-call reader ---------- */
+var KW={tp:'TP TPS T TARGET TARGETS TAKEPROFIT TAKEPROFITS ЦЕЛИ ЦЕЛЬ ТЕЙК ТЕЙКИ ТП OBJETIVO OBJETIVOS',
+ stop:'SL STOP STOPLOSS S/L INVALIDATION СТОП СЛ СТОПЛОСС',
+ entry:'ENTRY ENTRIES ENTER BUYZONE ENTRYZONE ВХОД ВХОДА ЗОНАВХОДА ТОЧКАВХОДА ТВХ ENTRADA ENTRADAS',
+ long:'LONG ЛОНГ LARGO', short:'SHORT ШОРТ CORTO', buy:'BUY ПОКУПКА COMPRA', sell:'SELL ПРОДАЖА VENTA',
+ lev:'LEVERAGE LEV ПЛЕЧО APALANCAMIENTO', mkt:'CMP MARKET РЫНОК РЫНКУ РЫНКА MERCADO'};
+for(var k in KW) KW[k]=' '+KW[k]+' ';
+var SKIP=' USDT USD USDC BUSD PERP PERPS SIGNAL SIGNALS VIP NEW PAIR COIN EXCHANGE BINANCE BYBIT OKX KUCOIN BITGET MEXC GATE FUTURES FUTURE SPOT CROSS ISOLATED MARGIN TIME DATE AM PM UTC GMT AND OR TO THE FROM FOR AT IN ON OF IS ZONE AREA RANGE DCA RISK SIZE PROFIT PROFITS LOSS POSITION TRADE SETUP CALL ALERT TYPE SIDE DIRECTION PRICE NOW ORDER LIMIT NOTE MANAGEMENT MONEY CAPITAL USE ONLY MAX MIN HIGH LOW MID RR TF PUMP BREAKOUT SCALP SWING REWARD EXIT CLOSE OPEN TAKE HOLD STRATEGY ANALYSIS CHART WAIT UPDATE POSTED BETWEEN ABOVE BELOW UNTIL WITH ALL ';
+function kind(w){var k=' '+w.replace(/[\s-]/g,'').replace(/\d+$/,'')+' '; for(var t in KW) if(KW[t].indexOf(k)>=0) return t; return null;}
+function nums(tok){var p=tok.split(',');
+ if(p.length===1) return [parseFloat(tok)];
+ if(p[0].length<=3 && p[0].charAt(0)!=='0' && p.slice(1).every(function(x){return /^\d{3}(\.\d+)?$/.test(x);})) return [parseFloat(tok.replace(/,/g,''))];
+ if(p.length===2 && p[0].length<=3) return [parseFloat(p[0]+'.'+p[1])];
+ return p.filter(Boolean).map(parseFloat);}
+function findDate(t){
+ var m=t.match(/(\d{4})-(\d{1,2})-(\d{1,2})[ T,]+(\d{1,2}):(\d{2})/), d=null;
+ if(m) d=new Date(+m[1],m[2]-1,+m[3],+m[4],+m[5]);
+ else if((m=t.match(/(\d{1,2})([.\/])(\d{1,2})\2(\d{2,4})[ ,]*(\d{1,2}):(\d{2})(?::\d{2})?\s*([AP]M)?/))){
+  var a=+m[1], b=+m[3], y=+m[4]; if(y<100) y+=2000; var dd=a, mm=b;
+  if(m[2]==='/' && b<=12 && a<=12) {mm=a; dd=b;} else if(a<=12 && b>12) {mm=a; dd=b;}
+  var h=+m[5]; if(m[7]==='PM'&&h<12) h+=12; if(m[7]==='AM'&&h===12) h=0;
+  d=new Date(y,mm-1,dd,h,+m[6]); }
+ if(d && (isNaN(d) || d.getTime()>Date.now())) d=null;
+ return {d:d, rest:m? t.replace(m[0],' '):t};}
+function parseCall(raw){
+ var t=' '+raw.toUpperCase().replace(/[‐-―−]/g,'-')+' ', fd=findDate(t); t=fd.rest;
+ t=t.replace(/HTTPS?:\/\/\S+/g,' ').replace(/\d️?⃣/g,' ')
+  .replace(/[+\-]?\d+(?:[.,]\d+)?\s*%/g,' ').replace(/(^|[^A-Z])\d{1,3}\s*X(?![A-Z])/g,'$1 ').replace(/(^|[^A-Z])X\s*\d{1,3}(?![\d.])/g,'$1 ')
+  .replace(/\b\d{1,2}:\d{2}(?::\d{2})?(?:\s*[AP]M)?/g,' ')
+  .replace(/(TP|TARGET|T|ЦЕЛЬ|ТП|OBJETIVO)\s*(\d)(?![\d.,])/g,'$1$2')
+  .replace(/(\s|^)\(?\d\s*[).:](?=\s)/g,' ');
+ var toks=t.match(/TAKE[\s-]*PROFITS?|STOP[\s-]*LOSS|S\/L|BUY[\s-]*ZONE|ENTRY[\s-]*ZONE|ЗОНА\s+ВХОДА|ТОЧКА\s+ВХОДА|[A-ZА-ЯЁ][A-ZА-ЯЁ0-9]*(?:\/[A-Z]+)?|\d[\d,]*(?:\.\d+)?|\.\d+|[#$]/g)||[];
+ var mode=null, b={entry:[],stop:[],tp:[]}, side=null, mkt=false, coins=[], prev='';
+ toks.forEach(function(w){
+  if(/^[\d.]/.test(w)){ if(b[mode]) nums(w).forEach(function(v){if(isFinite(v)&&v>0) b[mode].push(v);}); }
+  else if(w==='#'||w==='$'){}
+  else { var k=kind(w), pk=kind(prev);
+   if(k==='tp' && (pk==='entry'||pk==='stop')) {} /* "Entry Targets:", "Stop Targets:" */
+   else if(k==='tp'||k==='stop'||k==='entry') mode=k;
+   else if(k==='long'||k==='short'){ if(!side) side=k==='long'?'L':'S'; if(!b.entry.length) mode='entry'; }
+   else if(k==='buy'||k==='sell'){ if(!side) side=k==='buy'?'L':'S'; mode='entry'; }
+   else if(k==='lev') mode=null;
+   else if(k==='mkt'){ if(mode==='entry') mkt=true; }
+   else if(/^[A-Z][A-Z0-9]{1,14}(\/[A-Z]+)?$/.test(w) && SKIP.indexOf(' '+w+' ')<0){
+    var c=w.split('/')[0]; if(c.length>4) c=c.replace(/(USDT|USDC|BUSD|PERP|USD)$/,'');
+    if(c.length>=2 && SKIP.indexOf(' '+c+' ')<0) coins.push({c:c, pri:prev==='#'||prev==='$'||w.indexOf('/')>0||c!==w}); }
+  }
+  prev=w; });
+ var coin=(coins.filter(function(x){return x.pri;})[0]||coins[0]||{}).c||'';
+ var e=b.entry.length? b.entry.reduce(function(x,y){return x+y;},0)/b.entry.length : NaN;
+ var ok=function(v){return !(e>0) || (v>e*0.2 && v<e*5);};
+ var stop=b.stop.filter(ok)[0], tps=b.tp.filter(ok);
+ if(!side && e>0 && stop>0) side=stop<e?'L':'S';
+ return {coin:coin, side:side||'L', entry:e, stop:stop, tps:tps.slice(0,3), more:tps.length>3, range:b.entry.length>1, market:mkt&&!(e>0), when:fd.d};
+}
+function fillFrom(p){
+ var fs=[].slice.call(document.querySelectorAll('.sigbox')), f=fs.filter(function(x){return !x.querySelector('.coin').value && !x.querySelector('.entry').value;})[0]||fs[0];
+ var set=function(c,v){f.querySelector('.'+c).value=(v>0||typeof v==='string')?v:'';};
+ set('coin',p.coin); f.querySelector('.side').value=p.side; set('entry',p.entry>0?+p.entry.toPrecision(8):''); set('stop',p.stop||'');
+ set('tp1',p.tps[0]||''); set('tp2',p.tps[1]||''); set('tp3',p.tps[2]||'');
+ if(p.when) f.querySelector('.when').value=localISO(p.when);
+ return f;}
+function readPaste(){
+ var raw=$('paste').value, m=$('pmsg'); if(!raw.trim()) return false;
+ var p=parseCall(raw); m.hidden=false; gc('paste');
+ if(!(p.entry>0) && !(p.stop>0) && !p.tps.length){ m.className='msg err'; m.textContent=L.p_fail; return false; }
+ var f=fillFrom(p);
+ if(!p.coin || !(p.stop>0) || !p.tps.length || !(p.entry>0)){
+  m.className='msg '+(p.coin&&p.entry>0?'warn':'err'); m.textContent=p.market? L.p_market : L.p_fail; f.scrollIntoView({block:'nearest'}); return false;}
+ var notes=[]; if(p.range) notes.push(L.p_range); if(p.more) notes.push(L.p_more);
+ m.className='msg '+(p.when?'ok':'warn');
+ m.textContent=L.p_read+': '+p.coin+' · '+(p.side==='L'?L.long:L.short_)+' · '+L.entry+' '+fmtP(p.entry)+' · '+L.stop+' '+fmtP(p.stop)+' · '+L.tp+' '+p.tps.map(fmtP).join(' / ')+
+  (notes.length?' ('+notes.join('; ')+')':'')+'. '+(p.when? L.p_ok : L.p_notime);
+ if(!p.when) f.querySelector('.when').focus();
+ return !!p.when;}
+$('readbtn').onclick=readPaste;
+
 $('ex').onclick=async function(){
  var t=Math.floor((Date.now()-10*24*3600e3)/3600e3)*3600e3;
- try{ var cs=await candles('BTC',t,t+3*3600e3); var p=Math.round(cs[0][4]);
-  var f=document.querySelectorAll('.sigbox')[0]; f.querySelector('.coin').value='BTC'; f.querySelector('.side').value='L';
-  f.querySelector('.entry').value=Math.round(p*0.99); f.querySelector('.stop').value=Math.round(p*0.96);
-  f.querySelector('.tp1').value=Math.round(p*1.01); f.querySelector('.tp2').value=Math.round(p*1.03); f.querySelector('.tp3').value=Math.round(p*1.05);
-  f.querySelector('.when').value=localISO(new Date(t)); $('exnote').hidden=false; $('run').click(); }
+ try{ var cs=await candles('BTC',t,t+3*3600e3); var p=Math.round(cs[0][4]), d=new Date(t);
+  document.querySelectorAll('.sigbox input').forEach(function(i){i.value='';});
+  $('paste').value='#BTC/USDT LONG 🚀\nEntry: '+Math.round(p*0.985)+' - '+Math.round(p*0.995)+'\nTargets: '+Math.round(p*1.01)+' / '+Math.round(p*1.03)+' / '+Math.round(p*1.05)+
+   '\nStop loss: '+Math.round(p*0.96)+'\nLeverage 5x\nPosted: '+d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+' '+pad(d.getHours())+':'+pad(d.getMinutes());
+  readPaste(); $('exnote').hidden=false; $('run').click(); }
  catch(e){ $('status').textContent=L.nodata; }
 };
+
+/* ---------- shareable result image ---------- */
+function rr(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath();}
+function wrap(x,text,maxW,maxL){var ws=String(text).split(' '),lines=[],cur='';
+ ws.forEach(function(w){var t=cur?cur+' '+w:w; if(x.measureText(t).width>maxW && cur){lines.push(cur);cur=w;} else cur=t;}); if(cur) lines.push(cur);
+ if(lines.length>maxL){lines=lines.slice(0,maxL); var l=lines[maxL-1]; while(x.measureText(l+'…').width>maxW && l.length) l=l.slice(0,-1); lines[maxL-1]=l+'…';}
+ return lines;}
+async function drawCard(){
+ try{ await document.fonts.ready; }catch(e){}
+ var W=1200,H=675,c=document.createElement('canvas'); c.width=W; c.height=H; var x=c.getContext('2d');
+ var SG='"Space Grotesk",Inter,system-ui,sans-serif', IN='Inter,system-ui,sans-serif';
+ var g=x.createLinearGradient(0,0,W,H); g.addColorStop(0,'#0b1220'); g.addColorStop(1,'#0e1b30'); x.fillStyle=g; x.fillRect(0,0,W,H);
+ var r1=x.createRadialGradient(1080,-40,0,1080,-40,520); r1.addColorStop(0,'rgba(56,189,248,.20)'); r1.addColorStop(1,'rgba(56,189,248,0)'); x.fillStyle=r1; x.fillRect(0,0,W,H);
+ var r2=x.createRadialGradient(80,0,0,80,0,420); r2.addColorStop(0,'rgba(74,222,128,.14)'); r2.addColorStop(1,'rgba(74,222,128,0)'); x.fillStyle=r2; x.fillRect(0,0,W,H);
+ var gb=x.createLinearGradient(0,0,W,0); gb.addColorStop(0,'#4ade80'); gb.addColorStop(1,'#38bdf8'); x.fillStyle=gb; x.fillRect(0,0,W,8);
+ x.textBaseline='middle'; rr(x,60,42,46,46,11); x.fillStyle=gb; x.fill();
+ x.strokeStyle='#0b1220'; x.lineWidth=6; x.lineCap='round'; x.lineJoin='round'; x.beginPath(); x.moveTo(72,66); x.lineTo(80,74); x.lineTo(95,57); x.stroke();
+ x.fillStyle='#f1f5f9'; x.font='700 30px '+SG; x.fillText('SignalCheckerHQ',120,66);
+ x.textAlign='right'; x.fillStyle='#94a3b8'; x.font='500 19px '+IN; x.fillText(L.card_src,W-60,66); x.textAlign='left';
+ x.fillStyle='#f8fafc'; x.font='700 42px '+SG; x.fillText(L.card_t,60,138);
+ var rows=ROWS.slice(0,3), avail=392, rh=Math.min(132,avail/Math.max(rows.length,1)), top=178+(avail-rows.length*rh)/2;
+ rows.forEach(function(r,i){ var y=top+i*rh;
+  rr(x,60,y,W-120,rh-14,16); x.fillStyle='rgba(17,26,46,.88)'; x.fill(); x.strokeStyle='#22304d'; x.lineWidth=1.5; x.stroke();
+  x.textBaseline='top'; x.fillStyle='#f1f5f9'; x.font='700 27px '+SG; x.fillText(r.name,86,y+16);
+  if(r.when){ var nw=x.measureText(r.name).width; x.fillStyle='#64748b'; x.font='500 18px '+IN;
+   try{ x.fillText(new Date(r.when).toLocaleDateString(L.lang,{day:'numeric',month:'short',year:'numeric'}),86+nw+16,y+23);}catch(e){} }
+  x.textAlign='right'; x.font='800 38px '+SG; x.fillStyle=r.pnl==null?'#94a3b8':r.pnl>=0?'#4ade80':'#f87171'; x.fillText(r.pnl==null?'–':pct(r.pnl),W-86,y+(rh-14)/2-19); x.textAlign='left';
+  x.fillStyle='#cbd5e1'; x.font='500 21px '+IN; wrap(x,r.txt,W-120-52-230,rh>110?2:1).forEach(function(ln,j){x.fillText(ln,86,y+54+j*27);});
+ });
+ x.textBaseline='alphabetic'; x.fillStyle='#cbd5e1'; x.font='600 20px '+IN;
+ x.fillText(L.sum_n+': '+SUM.n+(SUM.w&&SUM.w!=='–'?'  ·  '+L.sum_win+': '+SUM.w:''),60,604);
+ if(SUM.a&&SUM.a!=='–'){ x.fillStyle='#94a3b8'; x.font='500 19px '+IN; x.fillText(L.sum_avg+': '+SUM.a,60,632); }
+ x.fillStyle='#64748b'; x.font='500 15px '+IN; x.fillText(L.card_nfa,60,656);
+ x.textAlign='right'; x.fillStyle='#e2e8f0'; x.font='600 20px '+IN; x.fillText(L.card_cta,W-60,604);
+ x.fillStyle='#4ade80'; x.font='700 30px '+SG; x.fillText('signalcheckerhq.org',W-60,642); x.textAlign='left';
+ return c;}
+var BLOB=null;
+$('mk').onclick=async function(){
+ var c=await drawCard(); gc('share-image');
+ c.toBlob(function(b){ BLOB=b; var u=URL.createObjectURL(b); $('cardimg').src=u; $('dl').href=u; $('shareout').hidden=false;
+  $('cp').hidden=!(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write); $('cp').textContent=L.cp;
+  var file=new File([b],'signal-check.png',{type:'image/png'}); $('sh').hidden=!(navigator.canShare&&navigator.canShare({files:[file]}));
+  $('sh').onclick=function(){navigator.share({files:[file],text:L.card_cta+' '+location.href.split('#')[0]}).catch(function(){});};
+ },'image/png');
+};
+$('cp').onclick=function(){ if(!BLOB) return; navigator.clipboard.write([new ClipboardItem({'image/png':BLOB})]).then(function(){$('cp').textContent=L.copied;}).catch(function(){$('cp').hidden=true;}); };
+$('dl').addEventListener('click',function(){gc('share-download');});
 })();</script>
 
 </main>
