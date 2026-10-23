@@ -65,7 +65,7 @@ var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
 var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
 document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
 
-var L={"sig": "Señal", "coin": "Moneda", "side": "Dirección", "long": "Largo", "short_": "Corto", "entry": "Entrada", "stop": "Stop", "tp": "TP", "posted": "Publicada (tu hora)", "checking": "Comprobando precios…", "notfilled": "La entrada nunca se ejecutó", "open": "Sigue abierta", "stopped": "Saltó el stop", "alltp": "Todos los objetivos alcanzados", "tphit": "alcanzado", "after": "después de", "hrs": " h", "nodata": "No hay precio horario de esta moneda en Coinbase, Binance ni Gate.io", "bad": "Rellena moneda, entrada, stop y al menos TP1", "wrong": "El stop o los objetivos están del lado equivocado de la entrada", "future": "La hora de publicación está en el futuro", "toolong": "se revisaron los primeros 30 días tras la llamada", "p_read": "Leído", "p_ok": "Revisa los números y la hora de publicación, luego pulsa «Comprobar estas señales».", "p_fx": "Parece un par de forex u oro. El comprobador solo cubre cripto.", "p_notime": "No hay fecha en el texto: pon la hora de publicación abajo.", "p_fail": "No encontramos moneda, entrada, stop y objetivo en este texto. Rellena las casillas a mano.", "p_market": "La entrada dice «a mercado»: escribe el precio que tenía al publicarse.", "p_more": "solo se usan los 3 primeros objetivos", "p_range": "rango de entrada: se usa el punto medio", "cp": "Copiar imagen", "copied": "Copiada ✓", "card_t": "Señales comprobadas con precios reales", "card_src": "Precios horarios reales de exchanges · 0,1% de comisión por lado", "card_cta": "Comprueba cualquier grupo gratis:", "card_nfa": "No es asesoramiento financiero", "sum_n": "Señales comprobadas", "sum_win": "Tasa de acierto (cerradas)", "sum_avg": "P&L medio por señal cerrada", "watch": "☆ Seguir", "watching": "★ Siguiendo", "wl_upd": "Actualizando…", "wl_new": "cambió", "wl_rm": "Quitar", "lang": "es"};
+var L={"sig": "Señal", "coin": "Moneda", "side": "Dirección", "long": "Largo", "short_": "Corto", "entry": "Entrada", "stop": "Stop", "tp": "TP", "posted": "Publicada (tu hora)", "checking": "Comprobando precios…", "notfilled": "La entrada nunca se ejecutó", "open": "Sigue abierta", "stopped": "Saltó el stop", "alltp": "Todos los objetivos alcanzados", "tphit": "alcanzado", "after": "después de", "hrs": " h", "nodata": "No hay precio horario de esta moneda en Coinbase, Binance ni Gate.io", "bad": "Rellena moneda, entrada, stop y al menos TP1", "wrong": "El stop o los objetivos están del lado equivocado de la entrada", "future": "La hora de publicación está en el futuro", "toolong": "se revisaron los primeros 30 días tras la llamada", "p_read": "Leído", "p_ok": "Revisa los números y la hora de publicación, luego pulsa «Comprobar estas señales».", "p_fx": "Parece un par de forex u oro. El comprobador solo cubre cripto.", "p_notime": "No hay fecha en el texto: pon la hora de publicación abajo.", "p_fail": "No encontramos moneda, entrada, stop y objetivo en este texto. Rellena las casillas a mano.", "p_market": "La entrada dice «a mercado»: escribe el precio que tenía al publicarse.", "p_more": "solo se usan los 3 primeros objetivos", "p_range": "rango de entrada: se usa el punto medio", "cp": "Copiar imagen", "copied": "Copiada ✓", "card_t": "Señales comprobadas con precios reales", "card_src": "Precios horarios reales de exchanges · 0,1% de comisión por lado", "card_cta": "Comprueba cualquier grupo gratis:", "card_nfa": "No es asesoramiento financiero", "sum_n": "Señales comprobadas", "sum_win": "Tasa de acierto (cerradas)", "sum_avg": "P&L medio por señal cerrada", "watch": "☆ Seguir", "watching": "★ Siguiendo", "wl_upd": "Actualizando…", "wl_new": "cambió", "wl_rm": "Quitar", "lev_l": "Apalancamiento (x)", "onmargin": "sobre el margen", "liq": "Liquidada antes del stop", "lang": "es"};
 
 function pad(n){return (n<10?'0':'')+n;}
 function localISO(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes());}
@@ -103,25 +103,31 @@ async function candles(coin,start,end){
  throw new Error('nodata');
 }
 function sim(s,cs){
- var isL=s.side==='L', fee=0.001, fi=-1;
+ var isL=s.side==='L', fee=0.001, fi=-1, lev=s.lev>1? +s.lev : 1;
+ /* approximate liquidation price (0.5% maintenance margin); if it comes before the stop, the trade is liquidated there */
+ var liq=lev>1? (isL? s.entry*(1-1/lev+0.005) : s.entry*(1+1/lev-0.005)) : null, ex=s.stop, liqd=false;
+ if(liq!=null && (isL? liq>s.stop : liq<s.stop)){ ex=liq; liqd=true; }
  for(var i=0;i<cs.length;i++){ if(isL? cs[i][1]<=s.entry : cs[i][2]>=s.entry){fi=i;break;} }
- if(fi<0) return {txt:L.notfilled, pnl:null, closed:true, filled:false};
+ if(fi<0) return {txt:L.notfilled, pnl:null, closed:true, filled:false, lev:lev};
  var tps=s.tps, part=1/tps.length, hit=0, pnl=0, hours=0, done=false, stopped=false;
  for(var j=fi;j<cs.length && !done;j++){
   var lo=cs[j][1], hi=cs[j][2]; hours=j-fi;
-  var stopHit=isL? lo<=s.stop : hi>=s.stop;
+  var stopHit=isL? lo<=ex : hi>=ex;
   if(stopHit){stopped=true; done=true; break;}
   while(hit<tps.length && (isL? hi>=tps[hit] : lo<=tps[hit])){ pnl+=part*((isL?tps[hit]-s.entry:s.entry-tps[hit])/s.entry); hit++; }
   if(hit===tps.length) done=true;
  }
- var rest=1-hit*part, last=cs[cs.length-1][4];
- if(stopped) pnl+=rest*((isL?s.stop-s.entry:s.entry-s.stop)/s.entry);
+ var rest=1-hit*part, last=cs[cs.length-1][4], tpPnl=pnl;
+ if(stopped) pnl+=rest*((isL?ex-s.entry:s.entry-ex)/s.entry);
  else if(!done) pnl+=rest*((isL?last-s.entry:s.entry-last)/s.entry);
  pnl-=2*fee;
+ var liquidated=stopped&&liqd, pm=liquidated? (tpPnl-2*fee)*lev-rest : pnl*lev;
+ if(pm<-1) pm=-1;
  var parts=[]; for(var k=0;k<hit;k++) parts.push(L.tp+(k+1)+' '+L.tphit);
  var lc=function(x){return x.charAt(0).toLowerCase()+x.slice(1);}, pre=parts.length? parts.join(', ')+', ' : '', hh=' ('+L.after+' '+hours+L.hrs+')';
- var txt = stopped ? (pre? pre+lc(L.stopped) : L.stopped)+hh : hit===tps.length ? L.alltp+hh : (pre? pre+lc(L.open) : L.open);
- return {txt:txt, pnl:pnl, closed:stopped||hit===tps.length, filled:true, hit:hit, stopped:stopped, hours:hours};
+ var stx=liquidated? (L.liq||L.stopped) : L.stopped;
+ var txt = stopped ? (pre? pre+lc(stx) : stx)+hh : hit===tps.length ? L.alltp+hh : (pre? pre+lc(L.open) : L.open);
+ return {txt:txt, pnl:pnl, pm:pm, lev:lev, liquidated:liquidated, closed:stopped||hit===tps.length, filled:true, hit:hit, stopped:stopped, hours:hours};
 }
 function gc(n){try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:'demo-'+n,title:'demo '+n,event:true});}catch(e){}}
 var KW={tp:'TP TPS T TARGET TARGETS TAKEPROFIT TAKEPROFITS ЦЕЛИ ЦЕЛЬ ТЕЙК ТЕЙКИ ТП OBJETIVO OBJETIVOS',
@@ -149,6 +155,7 @@ function findDate(t){
  return {d:d, rest:m? t.replace(m[0],' '):t};}
 function parseCall(raw){
  var t=' '+raw.toUpperCase().replace(/[‐-―−]/g,'-')+' ', fd=findDate(t); t=fd.rest;
+ var lm=t.match(/(?:LEVERAGE|LEV|ПЛЕЧО|APALANCAMIENTO)[^\d\n]{0,20}(\d{1,3})(?:\s*X)?/)||t.match(/(?:^|[^A-Z0-9.])(\d{1,3})\s*X(?![A-Z])/)||t.match(/(?:^|[^A-Z])X\s?(\d{1,3})(?![\d.])/), lev=lm? +lm[1] : null; if(!(lev>=1&&lev<=125)) lev=null;
  t=t.replace(/HTTPS?:\/\/\S+/g,' ').replace(/\d️?⃣/g,' ')
   .replace(/[+\-]?\d+(?:[.,]\d+)?\s*%/g,' ').replace(/(^|[^A-Z])\d{1,3}\s*X(?![A-Z])/g,'$1 ').replace(/(^|[^A-Z])X\s*\d{1,3}(?![\d.])/g,'$1 ')
   .replace(/\b\d{1,2}:\d{2}(?::\d{2})?(?:\s*[AP]M)?/g,' ')
@@ -179,7 +186,7 @@ function parseCall(raw){
  var ok=function(v){return !(e>0) || (v>e*0.2 && v<e*5);};
  var stop=b.stop.filter(ok)[0], tps=b.tp.filter(ok);
  if(!side && e>0 && stop>0) side=stop<e?'L':'S';
- return {fx:fx, coin:coin, side:side||'L', entry:e, stop:stop, tps:tps.slice(0,3), more:tps.length>3, range:b.entry.length>1, market:mkt&&!(e>0), when:fd.d};
+ return {lev:lev, fx:fx, coin:coin, side:side||'L', entry:e, stop:stop, tps:tps.slice(0,3), more:tps.length>3, range:b.entry.length>1, market:mkt&&!(e>0), when:fd.d};
 }
 function rr(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath();}
 function wrap(x,text,maxW,maxL){var ws=String(text).split(' '),lines=[],cur='';
@@ -194,10 +201,10 @@ function card(i){return el('<fieldset class="sigbox"><legend>'+L.sig+' '+(i+1)+'
  '<div><label>'+L.side+'</label><select class="side"><option value="L">'+L.long+'</option><option value="S">'+L.short_+'</option></select></div></div>'+
  '<div class="two"><div><label>'+L.entry+'</label><input class="entry" type="number" step="any" inputmode="decimal"></div><div><label>'+L.stop+'</label><input class="stop" type="number" step="any" inputmode="decimal"></div></div>'+
  '<div class="three"><div><label>'+L.tp+'1</label><input class="tp1" type="number" step="any" inputmode="decimal"></div><div><label>'+L.tp+'2</label><input class="tp2" type="number" step="any" inputmode="decimal"></div><div><label>'+L.tp+'3</label><input class="tp3" type="number" step="any" inputmode="decimal"></div></div>'+
- '<label>'+L.posted+'</label><input class="when" type="datetime-local"></fieldset>');}
+ '<div class="two"><div><label>'+L.posted+'</label><input class="when" type="datetime-local"></div><div><label>'+L.lev_l+'</label><input class="lev" type="number" step="any" min="1" max="125" value="1" inputmode="decimal"></div></div></fieldset>');}
 for(var i=0;i<3;i++) $('sigs').appendChild(card(i));
 function read(f){var g=function(c){return parseFloat(String(f.querySelector('.'+c).value).replace(',','.'));};
- var s={coin:f.querySelector('.coin').value.trim().toUpperCase(), side:f.querySelector('.side').value, entry:g('entry'), stop:g('stop'), tps:[g('tp1'),g('tp2'),g('tp3')].filter(function(x){return x>0;}), when:f.querySelector('.when').value};
+ var s={coin:f.querySelector('.coin').value.trim().toUpperCase(), side:f.querySelector('.side').value, entry:g('entry'), stop:g('stop'), tps:[g('tp1'),g('tp2'),g('tp3')].filter(function(x){return x>0;}), when:f.querySelector('.when').value, lev:Math.min(125,Math.max(1,g('lev')||1))};
  if(!s.coin && !(s.entry>0)) return null; return s;}
 var ROWS=[], SUM={};
 $('run').onclick=async function(){
@@ -205,18 +212,18 @@ $('run').onclick=async function(){
  ROWS=[]; $('sharebox').hidden=true; $('shareout').hidden=true;
  var fs=[].slice.call(document.querySelectorAll('.sigbox')), res=[];
  for(var i=0;i<fs.length;i++){var s=read(fs[i]); if(!s) continue;
-  var wcall=null;
+  var wcall=null, mtxt='';
   var name=(s.coin||'?')+' '+(s.side==='L'?L.long:L.short_)+' @ '+(s.entry>0?fmtP(s.entry):'?'), txt, pnl=null, cls='';
   if(!s.coin||!(s.entry>0)||!(s.stop>0)||!s.tps.length||!s.when){txt=L.bad;}
   else if(s.side==='L'? (s.stop>=s.entry||s.tps.some(function(t){return t<=s.entry;})) : (s.stop<=s.entry||s.tps.some(function(t){return t>=s.entry;}))){txt=L.wrong;}
   else { var st=new Date(s.when).getTime(); st=Math.floor(st/3600e3)*3600e3; var now=Date.now();
    if(st>now) txt=L.future; else {
     var end=Math.min(now, st+30*24*3600e3);
-    try{ var cs=await candles(s.coin,st,end); if(!cs.length) throw new Error('nodata'); var r=sim(s,cs); txt=r.txt+(end<now&&!r.closed&&r.filled?' ('+L.toolong+')':''); pnl=r.pnl; if(r.filled) res.push(r); if(st+30*24*3600e3>now && (!r.filled||!r.closed)) wcall={coin:s.coin,side:s.side,entry:s.entry,stop:s.stop,tps:s.tps,t:st};}
+    try{ var cs=await candles(s.coin,st,end); if(!cs.length) throw new Error('nodata'); var r=sim(s,cs); txt=r.txt+(end<now&&!r.closed&&r.filled?' ('+L.toolong+')':''); pnl=r.pnl; if(r.filled) res.push(r); if(st+30*24*3600e3>now && (!r.filled||!r.closed)) wcall={coin:s.coin,side:s.side,entry:s.entry,stop:s.stop,tps:s.tps,t:st,lev:s.lev}; if(r.filled && s.lev>1) mtxt=pct(r.pm)+' '+L.onmargin+' ('+s.lev+'x)';}
     catch(e){txt=L.nodata;} } }
-  var tr=document.createElement('tr'); tr.innerHTML='<td>'+name+'</td><td>'+txt+(wcall?'<br><button type="button" class="wbtn">'+(inWL(wcall)?L.watching:L.watch)+'</button>':'')+'</td><td class="'+(pnl==null?'':pnl>=0?'pos':'neg')+'">'+(pnl==null?'–':pct(pnl))+'</td>'; body.appendChild(tr);
+  var tr=document.createElement('tr'); tr.innerHTML='<td>'+name+'</td><td>'+txt+(wcall?'<br><button type="button" class="wbtn">'+(inWL(wcall)?L.watching:L.watch)+'</button>':'')+'</td><td class="'+(pnl==null?'':pnl>=0?'pos':'neg')+'">'+(pnl==null?'–':pct(pnl))+(mtxt?'<br><span class="small">'+mtxt+'</span>':'')+'</td>'; body.appendChild(tr);
   if(wcall){ (function(c,b){ b.onclick=function(){ addWL(c); b.textContent=L.watching; }; })(wcall, tr.querySelector('.wbtn')); }
-  ROWS.push({name:name, when:s.when, txt:txt, pnl:pnl});
+  ROWS.push({name:name, when:s.when, txt:txt, pnl:pnl, mtxt:mtxt});
  }
  $('status').textContent='';
  var closed=res.filter(function(r){return r.closed;});
@@ -234,7 +241,7 @@ function fillFrom(p){
  var fs=[].slice.call(document.querySelectorAll('.sigbox')), f=fs.filter(function(x){return !x.querySelector('.coin').value && !x.querySelector('.entry').value;})[0]||fs[0];
  var set=function(c,v){f.querySelector('.'+c).value=(v>0||typeof v==='string')?v:'';};
  set('coin',p.coin); f.querySelector('.side').value=p.side; set('entry',p.entry>0?+p.entry.toPrecision(8):''); set('stop',p.stop||'');
- set('tp1',p.tps[0]||''); set('tp2',p.tps[1]||''); set('tp3',p.tps[2]||'');
+ set('tp1',p.tps[0]||''); set('tp2',p.tps[1]||''); set('tp3',p.tps[2]||''); f.querySelector('.lev').value=p.lev||1;
  if(p.when) f.querySelector('.when').value=localISO(p.when);
  return f;}
 function readPaste(){
@@ -283,7 +290,7 @@ async function drawCard(){
   x.textBaseline='top'; x.fillStyle='#f1f5f9'; x.font='700 27px '+SG; x.fillText(r.name,86,y+16);
   if(r.when){ var nw=x.measureText(r.name).width; x.fillStyle='#64748b'; x.font='500 18px '+IN;
    try{ x.fillText(new Date(r.when).toLocaleDateString(L.lang,{day:'numeric',month:'short',year:'numeric'}),86+nw+16,y+23);}catch(e){} }
-  x.textAlign='right'; x.font='800 38px '+SG; x.fillStyle=r.pnl==null?'#94a3b8':r.pnl>=0?'#4ade80':'#f87171'; x.fillText(r.pnl==null?'–':pct(r.pnl),W-86,y+(rh-14)/2-19); x.textAlign='left';
+  x.textAlign='right'; x.font='800 38px '+SG; x.fillStyle=r.pnl==null?'#94a3b8':r.pnl>=0?'#4ade80':'#f87171'; x.fillText(r.pnl==null?'–':pct(r.pnl),W-86,y+(rh-14)/2-19); if(r.mtxt){ x.font='600 17px '+IN; x.fillStyle='#94a3b8'; x.fillText(r.mtxt,W-86,y+(rh-14)/2+26); } x.textAlign='left';
   x.fillStyle='#cbd5e1'; x.font='500 21px '+IN; wrap(x,r.txt,W-120-52-230,rh>110?2:1).forEach(function(ln,j){x.fillText(ln,86,y+54+j*27);});
  });
  x.textBaseline='alphabetic'; x.fillStyle='#cbd5e1'; x.font='600 20px '+IN;
@@ -317,11 +324,11 @@ async function refreshWL(){
  box.hidden=false; $('wlst').textContent=' · '+L.wl_upd; body.innerHTML='';
  var now=Date.now(), out=[];
  for(var i=0;i<a.length;i++){ var c=a[i], txt, pnl=null, end=Math.min(now, c.t+30*24*3600e3);
-  try{ var cs=await candles(c.coin,c.t,end); var r=sim(c,cs); txt=r.txt; pnl=r.filled? r.pnl : null; }catch(e){ txt=L.nodata; }
+  var pmx=null; try{ var cs=await candles(c.coin,c.t,end); var r=sim(c,cs); txt=r.txt; pnl=r.filled? r.pnl : null; pmx=r.filled&&c.lev>1? r.pm : null; }catch(e){ txt=L.nodata; }
   var changed = c.last!=null && c.last!==txt; c.last=txt; out.push(c);
   var tr=document.createElement('tr'), d=''; try{ d=new Date(c.t).toLocaleDateString(L.lang,{day:'numeric',month:'short'}); }catch(e){}
   tr.innerHTML='<td>'+c.coin+' '+(c.side==='L'?L.long:L.short_)+' @ '+fmtP(c.entry)+'<br><span class="small">'+d+'</span></td><td>'+txt+(changed?' <span class="newb">'+L.wl_new+'</span>':'')+'</td>'+
-   '<td class="'+(pnl==null?'':pnl>=0?'pos':'neg')+'">'+(pnl==null?'–':pct(pnl))+'</td><td><button type="button" class="wrm" title="'+L.wl_rm+'" aria-label="'+L.wl_rm+'">×</button></td>';
+   '<td class="'+(pnl==null?'':pnl>=0?'pos':'neg')+'">'+(pnl==null?'–':pct(pnl))+(pmx!=null?'<br><span class="small">'+pct(pmx)+' ('+c.lev+'x)</span>':'')+'</td><td><button type="button" class="wrm" title="'+L.wl_rm+'" aria-label="'+L.wl_rm+'">×</button></td>';
   (function(k){ tr.querySelector('.wrm').onclick=function(){ rmWL(k); }; })(wkey(c));
   body.appendChild(tr); }
  setWL(out); $('wlst').textContent='';
