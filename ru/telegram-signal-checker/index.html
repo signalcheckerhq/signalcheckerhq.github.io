@@ -32,6 +32,7 @@
 <div id="keybox" hidden><p class="small" id="freenote"></p>
 <label for="key">Лицензионный ключ (Signal Checker, Toolkit или Complete Kit)</label><div class="keyrow"><input id="key" autocomplete="off" spellcheck="false" placeholder="XXXXXXXX-XXXXXXXX-…"><button type="button" class="btn small alt" id="keybtn">Открыть все сигналы</button></div>
 <div id="keymsg" class="small"></div></div>
+<div id="levbox" hidden><label for="deflev">Плечо для сигналов без указанного плеча (x)</label><input id="deflev" type="number" step="any" min="1" max="125" value="1" inputmode="decimal"></div>
 <button type="button" class="btn" id="run" hidden style="margin-top:14px">Проверить сигналы</button>
 <p class="small">Файл читается в вашем браузере и никуда не загружается. Запросы уходят только за ценами к Coinbase, Binance и Gate.io.</p></section>
   <section class="card" aria-live="polite" aria-label="Результат"><h2 class="ch">Результат</h2><div id="status" class="small"></div>
@@ -39,6 +40,7 @@
 <div class="row"><span>Проверено сигналов</span><b id="t_n">–</b></div><div class="row"><span>Исполнившиеся входы</span><b id="t_f">–</b></div>
 <div class="row"><span>Винрейт (закрытые)</span><b id="t_w">–</b></div><div class="row"><span>Средний P&L на закрытый сигнал</span><b id="t_a">–</b></div>
 <div class="row"><span>Общий P&L (одинаковый размер на сигнал)</span><b id="t_t">–</b></div><div class="row"><span>Взяли TP1, затем стоп</span><b id="t_1">–</b></div>
+<div class="row"><span>Средний результат на закрытый сигнал, от маржи</span><b id="t_am">–</b></div><div class="row"><span>Итого от маржи (одинаковая маржа на сигнал)</span><b id="t_tm">–</b></div><div class="row"><span>Ликвидации раньше стопа</span><b id="t_lq">–</b></div>
 <div class="row"><span>Ещё открыты</span><b id="t_o">–</b></div><div class="row"><span>Нет данных о цене</span><b id="t_x">–</b></div></div>
 <div id="sharebox" hidden><button type="button" class="btn small" id="mk">Создать картинку для публикации</button>
 <div id="shareout" hidden><img id="cardimg" alt="" style="width:100%;border-radius:12px;margin-top:12px;display:block">
@@ -65,7 +67,7 @@ var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
 var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
 document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
 
-var L={"reading": "Читаем файл…", "badfile": "Это не похоже на JSON-экспорт Telegram (result.json). В окне экспорта выберите формат «Машиночитаемый JSON».", "nocalls": "В этом файле не найдено сигналов с монетой, входом, стопом и целью.", "onlyres": "Канал опубликовал не меньше {r} сообщений с результатами (вроде «цель достигнута, +45%»), но ни одного сигнала со входом и стопом, поэтому проверять нечего. Результаты без исходных сигналов проверить нельзя: это тревожный знак.", "fewcalls": " Обратите внимание: канал также опубликовал не меньше {r} сообщений с результатами (вроде «цель достигнута, +45%») по сигналам, которых нет в этом файле, — вероятно, они ушли платным подписчикам. Эти результаты проверить нельзя.", "fxskip": " Пропущено сигналов по форексу или золоту: {x} — проверка работает только для крипты.", "found": "Найдено сигналов: {n} в {m} сообщениях", "period": "Опубликованы {a} – {b}", "free_note": "Бесплатная проверка охватывает последние {k} сигналов. Лицензионный ключ Signal Checker проверяет все (до {max}).", "key_chk": "Проверяем ключ…", "key_ok": "Ключ принят: будут проверены все сигналы.", "key_bad": "Этот ключ не подошёл", "key_net": "Не удалось связаться с сервером ключей. Попробуйте ещё раз.", "prog": "Проверяем {i} из {n}…", "done": "Готово.", "s_win": "Винрейт (закрытые)", "s_avg": "Средний P&L на закрытый сигнал", "s_fill": "Исполнившиеся входы", "s_tp1": "Взяли TP1, затем стоп", "card_t": "Проверка сигнального канала", "card_calls": "Сигналов: {n} · {a} – {b}", "card_src": "Реальные часовые цены бирж · комиссия 0,1% за сторону", "card_cta": "Проверьте любую группу бесплатно:", "card_nfa": "Не является финансовой рекомендацией", "cp": "Копировать картинку", "copied": "Скопировано ✓", "nodata": "Нет часовой цены этой монеты на Coinbase, Binance или Gate.io", "notfilled": "Вход так и не исполнился", "open": "Ещё открыта", "stopped": "Сработал стоп", "alltp": "Все цели достигнуты", "tphit": "достигнут", "after": "после", "hrs": " ч", "tp": "TP", "long": "Лонг", "short_": "Шорт", "lang": "ru", "free": 20, "max": 400, "keyurl": "https://script.google.com/macros/s/AKfycbzcIC7ai3ZztmJsNeE-rlliZo4pxSHdfbihKz4XGMDdKgfeym4EU37YFt8cm9O-QKCN/exec"};
+var L={"reading": "Читаем файл…", "badfile": "Это не похоже на JSON-экспорт Telegram (result.json). В окне экспорта выберите формат «Машиночитаемый JSON».", "nocalls": "В этом файле не найдено сигналов с монетой, входом, стопом и целью.", "onlyres": "Канал опубликовал не меньше {r} сообщений с результатами (вроде «цель достигнута, +45%»), но ни одного сигнала со входом и стопом, поэтому проверять нечего. Результаты без исходных сигналов проверить нельзя: это тревожный знак.", "fewcalls": " Обратите внимание: канал также опубликовал не меньше {r} сообщений с результатами (вроде «цель достигнута, +45%») по сигналам, которых нет в этом файле, — вероятно, они ушли платным подписчикам. Эти результаты проверить нельзя.", "fxskip": " Пропущено сигналов по форексу или золоту: {x} — проверка работает только для крипты.", "levinfo": " Плечо указано в {k} из них (медиана {x}x).", "onmargin": "от маржи", "liq": "Ликвидация раньше стопа", "found": "Найдено сигналов: {n} в {m} сообщениях", "period": "Опубликованы {a} – {b}", "free_note": "Бесплатная проверка охватывает последние {k} сигналов. Лицензионный ключ Signal Checker проверяет все (до {max}).", "key_chk": "Проверяем ключ…", "key_ok": "Ключ принят: будут проверены все сигналы.", "key_bad": "Этот ключ не подошёл", "key_net": "Не удалось связаться с сервером ключей. Попробуйте ещё раз.", "prog": "Проверяем {i} из {n}…", "done": "Готово.", "s_win": "Винрейт (закрытые)", "s_avg": "Средний P&L на закрытый сигнал", "s_fill": "Исполнившиеся входы", "s_tp1": "Взяли TP1, затем стоп", "card_t": "Проверка сигнального канала", "card_calls": "Сигналов: {n} · {a} – {b}", "card_src": "Реальные часовые цены бирж · комиссия 0,1% за сторону", "card_cta": "Проверьте любую группу бесплатно:", "card_nfa": "Не является финансовой рекомендацией", "cp": "Копировать картинку", "copied": "Скопировано ✓", "nodata": "Нет часовой цены этой монеты на Coinbase, Binance или Gate.io", "notfilled": "Вход так и не исполнился", "open": "Ещё открыта", "stopped": "Сработал стоп", "alltp": "Все цели достигнуты", "tphit": "достигнут", "after": "после", "hrs": " ч", "tp": "TP", "long": "Лонг", "short_": "Шорт", "lang": "ru", "free": 20, "max": 400, "keyurl": "https://script.google.com/macros/s/AKfycbzcIC7ai3ZztmJsNeE-rlliZo4pxSHdfbihKz4XGMDdKgfeym4EU37YFt8cm9O-QKCN/exec"};
 function calc(){}
 
 function pad(n){return (n<10?'0':'')+n;}
@@ -104,25 +106,31 @@ async function candles(coin,start,end){
  throw new Error('nodata');
 }
 function sim(s,cs){
- var isL=s.side==='L', fee=0.001, fi=-1;
+ var isL=s.side==='L', fee=0.001, fi=-1, lev=s.lev>1? +s.lev : 1;
+ /* approximate liquidation price (0.5% maintenance margin); if it comes before the stop, the trade is liquidated there */
+ var liq=lev>1? (isL? s.entry*(1-1/lev+0.005) : s.entry*(1+1/lev-0.005)) : null, ex=s.stop, liqd=false;
+ if(liq!=null && (isL? liq>s.stop : liq<s.stop)){ ex=liq; liqd=true; }
  for(var i=0;i<cs.length;i++){ if(isL? cs[i][1]<=s.entry : cs[i][2]>=s.entry){fi=i;break;} }
- if(fi<0) return {txt:L.notfilled, pnl:null, closed:true, filled:false};
+ if(fi<0) return {txt:L.notfilled, pnl:null, closed:true, filled:false, lev:lev};
  var tps=s.tps, part=1/tps.length, hit=0, pnl=0, hours=0, done=false, stopped=false;
  for(var j=fi;j<cs.length && !done;j++){
   var lo=cs[j][1], hi=cs[j][2]; hours=j-fi;
-  var stopHit=isL? lo<=s.stop : hi>=s.stop;
+  var stopHit=isL? lo<=ex : hi>=ex;
   if(stopHit){stopped=true; done=true; break;}
   while(hit<tps.length && (isL? hi>=tps[hit] : lo<=tps[hit])){ pnl+=part*((isL?tps[hit]-s.entry:s.entry-tps[hit])/s.entry); hit++; }
   if(hit===tps.length) done=true;
  }
- var rest=1-hit*part, last=cs[cs.length-1][4];
- if(stopped) pnl+=rest*((isL?s.stop-s.entry:s.entry-s.stop)/s.entry);
+ var rest=1-hit*part, last=cs[cs.length-1][4], tpPnl=pnl;
+ if(stopped) pnl+=rest*((isL?ex-s.entry:s.entry-ex)/s.entry);
  else if(!done) pnl+=rest*((isL?last-s.entry:s.entry-last)/s.entry);
  pnl-=2*fee;
+ var liquidated=stopped&&liqd, pm=liquidated? (tpPnl-2*fee)*lev-rest : pnl*lev;
+ if(pm<-1) pm=-1;
  var parts=[]; for(var k=0;k<hit;k++) parts.push(L.tp+(k+1)+' '+L.tphit);
  var lc=function(x){return x.charAt(0).toLowerCase()+x.slice(1);}, pre=parts.length? parts.join(', ')+', ' : '', hh=' ('+L.after+' '+hours+L.hrs+')';
- var txt = stopped ? (pre? pre+lc(L.stopped) : L.stopped)+hh : hit===tps.length ? L.alltp+hh : (pre? pre+lc(L.open) : L.open);
- return {txt:txt, pnl:pnl, closed:stopped||hit===tps.length, filled:true, hit:hit, stopped:stopped, hours:hours};
+ var stx=liquidated? (L.liq||L.stopped) : L.stopped;
+ var txt = stopped ? (pre? pre+lc(stx) : stx)+hh : hit===tps.length ? L.alltp+hh : (pre? pre+lc(L.open) : L.open);
+ return {txt:txt, pnl:pnl, pm:pm, lev:lev, liquidated:liquidated, closed:stopped||hit===tps.length, filled:true, hit:hit, stopped:stopped, hours:hours};
 }
 function gc(n){try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:'demo-'+n,title:'demo '+n,event:true});}catch(e){}}
 var KW={tp:'TP TPS T TARGET TARGETS TAKEPROFIT TAKEPROFITS ЦЕЛИ ЦЕЛЬ ТЕЙК ТЕЙКИ ТП OBJETIVO OBJETIVOS',
@@ -150,6 +158,7 @@ function findDate(t){
  return {d:d, rest:m? t.replace(m[0],' '):t};}
 function parseCall(raw){
  var t=' '+raw.toUpperCase().replace(/[‐-―−]/g,'-')+' ', fd=findDate(t); t=fd.rest;
+ var lm=t.match(/(?:LEVERAGE|LEV|ПЛЕЧО|APALANCAMIENTO)[^\d\n]{0,20}(\d{1,3})(?:\s*X)?/)||t.match(/(?:^|[^A-Z0-9.])(\d{1,3})\s*X(?![A-Z])/)||t.match(/(?:^|[^A-Z])X\s?(\d{1,3})(?![\d.])/), lev=lm? +lm[1] : null; if(!(lev>=1&&lev<=125)) lev=null;
  t=t.replace(/HTTPS?:\/\/\S+/g,' ').replace(/\d️?⃣/g,' ')
   .replace(/[+\-]?\d+(?:[.,]\d+)?\s*%/g,' ').replace(/(^|[^A-Z])\d{1,3}\s*X(?![A-Z])/g,'$1 ').replace(/(^|[^A-Z])X\s*\d{1,3}(?![\d.])/g,'$1 ')
   .replace(/\b\d{1,2}:\d{2}(?::\d{2})?(?:\s*[AP]M)?/g,' ')
@@ -180,7 +189,7 @@ function parseCall(raw){
  var ok=function(v){return !(e>0) || (v>e*0.2 && v<e*5);};
  var stop=b.stop.filter(ok)[0], tps=b.tp.filter(ok);
  if(!side && e>0 && stop>0) side=stop<e?'L':'S';
- return {fx:fx, coin:coin, side:side||'L', entry:e, stop:stop, tps:tps.slice(0,3), more:tps.length>3, range:b.entry.length>1, market:mkt&&!(e>0), when:fd.d};
+ return {lev:lev, fx:fx, coin:coin, side:side||'L', entry:e, stop:stop, tps:tps.slice(0,3), more:tps.length>3, range:b.entry.length>1, market:mkt&&!(e>0), when:fd.d};
 }
 function rr(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath();}
 function wrap(x,text,maxW,maxL){var ws=String(text).split(' '),lines=[],cur='';
@@ -207,7 +216,7 @@ function extract(d){
   var t=m.date_unixtime? (+m.date_unixtime)*1000 : new Date(m.date).getTime(); if(!(t>0)) return;
   var k=p.coin+'|'+p.side+'|'+(+p.entry.toPrecision(5))+'|'+(+p.stop.toPrecision(5));
   if(seen[k] && t-seen[k]<14*24*3600e3) return; seen[k]=t;
-  out.push({coin:p.coin, side:p.side, entry:p.entry, stop:p.stop, tps:p.tps, t:t, id:m.id});
+  out.push({coin:p.coin, side:p.side, entry:p.entry, stop:p.stop, tps:p.tps, t:t, id:m.id, lev0:p.lev});
  });
  return out.sort(function(a,b){return b.t-a.t;});
 }
@@ -229,9 +238,10 @@ function load(file){
   if(!CALLS.length && FXN){ info(fmt(L.fxskip,{x:FXN}).trim(),'warn'); $('keybox').hidden=true; $('run').hidden=true; return; }
   if(!CALLS.length){ var rc=d.messages.filter(function(m){return /(target|tp\s?\d|цел|objetivo)[^\n]{0,40}(achieved|hit|reached|done|достигнут|взят|alcanzad)|profit[^\n]{0,20}\d+(\.\d+)?\s?%|\bresults?\b|результат|resultado/i.test(msgText(m));}).length; info(rc>=5? fmt(L.onlyres,{r:rc}) : L.nocalls,'warn'); $('keybox').hidden=true; $('run').hidden=true; return; }
   var a=ds(CALLS[CALLS.length-1].t), b=ds(CALLS[0].t);
-  var per=fmt(L.period,{a:a,b:b}); var rc2=resCount(d), few=rc2>=20 && rc2>=3*CALLS.length; info((NAME? NAME+': ':'')+fmt(L.found,{n:CALLS.length,m:MSGS})+'. '+per+(/\.$/.test(per)?'':'.')+(FXN? fmt(L.fxskip,{x:FXN}) : '')+(few? fmt(L.fewcalls,{r:rc2}) : ''), few?'warn':'ok');
+  var per=fmt(L.period,{a:a,b:b}); var lv=CALLS.map(function(c){return c.lev0;}).filter(Boolean).sort(function(a,b){return a-b;}), levtxt=lv.length? fmt(L.levinfo,{k:lv.length,x:lv[Math.floor(lv.length/2)]}) : '';
+  var rc2=resCount(d), few=rc2>=20 && rc2>=3*CALLS.length; info((NAME? NAME+': ':'')+fmt(L.found,{n:CALLS.length,m:MSGS})+'. '+per+(/\.$/.test(per)?'':'.')+levtxt+(FXN? fmt(L.fxskip,{x:FXN}) : '')+(few? fmt(L.fewcalls,{r:rc2}) : ''), few?'warn':'ok');
   $('keybox').hidden=CALLS.length<=L.free; $('freenote').textContent=fmt(L.free_note,{k:L.free,max:L.max});
-  $('run').hidden=false; $('dropt').textContent=file.name;
+  $('run').hidden=false; $('levbox').hidden=false; $('dropt').textContent=file.name;
  };
  fr.readAsText(file);
 }
@@ -250,6 +260,7 @@ $('keybtn').onclick=async function(){
 async function checkOne(c){
  var st=Math.floor(c.t/3600e3)*3600e3, now=Date.now(), end=Math.min(now, st+30*24*3600e3);
  if(end-st<3600e3) return {c:c, nodata:true};
+ c.lev=c.lev0|| Math.min(125,Math.max(1,num('deflev')||1));
  try{ var cs=await candles(c.coin,st,end); if(!cs.length) throw 0; var r=sim(c,cs); r.c=c; r.partial=end<now; return r; }
  catch(e){ return {c:c, nodata:true}; }
 }
@@ -269,11 +280,14 @@ function render(){
   a:ds(RES[RES.length-1].c.t), b:ds(RES[0].c.t)};
  show('t_n',String(STATS.n)); show('t_f',STATS.fill==null?'–':Math.round(STATS.fill*100)+'% ('+filled.length+')');
  show('t_w',STATS.win==null?'–':Math.round(STATS.win*100)+'% ('+wins+'/'+closed.length+')'); show('t_a',avg==null?'–':pct(avg),avg==null?'':avg>=0?'pos':'neg');
- show('t_t',filled.length?pct(tot,1):'–',tot>=0?'pos':'neg'); show('t_1',String(STATS.tp1)); show('t_o',String(STATS.open)); show('t_x',String(STATS.nod));
+ show('t_t',filled.length?pct(tot,1):'–',tot>=0?'pos':'neg');
+ var anyLev=filled.some(function(r){return r.lev>1;}), avgm=closed.length? closed.reduce(function(x,r){return x+r.pm;},0)/closed.length : null, totm=filled.reduce(function(x,r){return x+r.pm;},0);
+ show('t_am',anyLev&&avgm!=null?pct(avgm,1):'–',anyLev&&avgm!=null?(avgm>=0?'pos':'neg'):''); show('t_tm',anyLev&&filled.length?pct(totm,0):'–',anyLev?(totm>=0?'pos':'neg'):''); show('t_lq',String(filled.filter(function(r){return r.liquidated;}).length)); show('t_1',String(STATS.tp1)); show('t_o',String(STATS.open)); show('t_x',String(STATS.nod));
  RES.forEach(function(r){ var c=r.c, tr=document.createElement('tr');
   var name=c.coin+' '+(c.side==='L'?L.long:L.short_)+' @ '+fmtP(c.entry);
   var txt=r.nodata? L.nodata : r.txt, p=r.nodata||r.pnl==null? null : r.pnl;
-  tr.innerHTML='<td>'+dshort(c.t)+'</td><td>'+name+'</td><td>'+txt+'</td><td class="'+(p==null?'':p>=0?'pos':'neg')+'">'+(p==null?'–':pct(p))+'</td>'; body.appendChild(tr); });
+  var mt=(!r.nodata && r.filled && r.lev>1)? '<br><span class="small">'+pct(r.pm,0)+' ('+r.lev+'x)</span>' : '';
+  tr.innerHTML='<td>'+dshort(c.t)+'</td><td>'+name+'</td><td>'+txt+'</td><td class="'+(p==null?'':p>=0?'pos':'neg')+'">'+(p==null?'–':pct(p))+mt+'</td>'; body.appendChild(tr); });
  $('sum').hidden=false; $('out').hidden=false; $('sharebox').hidden=!filled.length;
 }
 async function drawCard(){
