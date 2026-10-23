@@ -210,6 +210,10 @@ h1 span,.gtext{background:var(--grad);-webkit-background-clip:text;background-cl
 .wbtn:hover{border-color:var(--blue)}
 .wrm{border:0;background:transparent;color:var(--muted);font-size:20px;line-height:1;cursor:pointer;padding:0 4px}.wrm:hover{color:#f87171}
 .newb{display:inline-block;background:var(--blue);color:var(--ink);border-radius:999px;padding:0 8px;font-size:12px;font-weight:700}
+/* risk of ruin */
+.ruinch{width:100%;display:block;margin-top:16px;background:#0b1220;border:1px solid var(--line);border-radius:12px}
+#rt tr.hl td{background:rgba(74,222,128,.09);font-weight:700}
+#rt td:nth-child(2),#rt td:nth-child(3){font-variant-numeric:tabular-nums}
 /* telegram channel checker */
 .tgsteps{margin:0 0 14px;padding-left:20px;color:var(--soft);font-size:15px}.tgsteps li{margin:4px 0}
 [hidden]{display:none!important}
