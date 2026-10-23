@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comprobador de canales de señales de Telegram: prueba cada llamada con precios reales (gratis) | SignalCheckerHQ</title>
+<meta name="description" content="Suelta una exportación de Telegram y mira cada llamada de un canal de señales cripto comprobada con precios horarios reales: ejecución, objetivos, stops, tasa de acierto y P&amp;L tras comisiones. Gratis, en tu navegador.">
+<link rel="canonical" href="https://signalcheckerhq.org/es/telegram-signal-checker/">
+<meta property="og:title" content="Comprobador de canales de señales de Telegram: prueba cada llamada con precios reales (gratis) | SignalCheckerHQ"><meta property="og:description" content="Suelta una exportación de Telegram y mira cada llamada de un canal de señales cripto comprobada con precios horarios reales: ejecución, objetivos, stops, tasa de acierto y P&amp;L tras comisiones. Gratis, en tu navegador.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://signalcheckerhq.org/es/telegram-signal-checker/">
+<meta property="og:image" content="https://signalcheckerhq.org/assets/img/rc-1.webp">
+<meta name="theme-color" content="#0b1120">
+<meta name="google-site-verification" content="uh0u66NYvt6K8r_yqwLmn0GAHeASmu_aV-5lmH9_T-0">
+<meta name="google-site-verification" content="UvHvX4_1aVpsXs5uoaKarwA5mYzig2ahWrXbkXhL_fY">
+<link rel="icon" href="../../assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../assets/site.css?v=3">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Comprobador de canales de Telegram","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://signalcheckerhq.org/es/telegram-signal-checker/"}</script><link rel="alternate" hreflang="en" href="https://signalcheckerhq.org/telegram-signal-checker/"><link rel="alternate" hreflang="es" href="https://signalcheckerhq.org/es/telegram-signal-checker/"><link rel="alternate" hreflang="ru" href="https://signalcheckerhq.org/ru/telegram-signal-checker/"><link rel="alternate" hreflang="x-default" href="https://signalcheckerhq.org/telegram-signal-checker/"></head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../es/"><img src="../../assets/img/icon.png" alt="" width="32" height="32"><span>Signal<b>Checker</b>HQ</span></a>
+  <div class="langs"><a href="../../telegram-signal-checker/" hreflang="en" lang="en">EN</a><a href="../../es/telegram-signal-checker/" class=on aria-current=page hreflang="es" lang="es">ES</a><a href="../../ru/telegram-signal-checker/" hreflang="ru" lang="ru">RU</a></div>
+  <button type="button" class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('.top');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button>
+  <nav><a href="../../es/#tools">Herramientas</a><a href="../../es/bundle/">Complete Kit</a><a href="../../es/guides/">Guías</a><a href="../../es/how-its-built/">Humano + IA</a><a href="../../es/tools/" class="free">Herramientas gratis</a></nav>
+</div></header>
+<main>
+
+<section class="hero in" style="padding-bottom:0"><div class="tag">Herramienta gratis</div><h1>Comprueba un <span>canal de Telegram</span> entero</h1><p class="lead">Exporta un canal de señales desde Telegram Desktop y suelta el archivo aquí. Encontramos cada llamada y la comprobamos con precios horarios reales: entradas que nunca se ejecutaron, objetivos, stops, tasa de acierto y P&amp;L tras comisiones. El archivo nunca sale de tu ordenador.</p></section>
+<div class="in grid2 calc">
+  <section class="card" aria-label="Tus números"><h2 class="ch">Tus números</h2><h3 style="margin:0 0 6px;font-size:17px">Consigue el archivo (2 minutos)</h3><ol class="tgsteps"><li>Abre <b>Telegram Desktop</b> (la app del móvil no exporta).</li><li>Abre el canal → menú <b>⋮</b> → <b>Exportar historial del chat</b>.</li><li>Desmarca fotos, vídeos y archivos. Formato: <b>JSON legible por máquina</b>. Pulsa <b>Exportar</b>.</li><li>Pulsa <b>Mostrar mis datos</b> y suelta <b>result.json</b> abajo.</li></ol>
+<label class="drop" id="drop"><input type="file" id="file" accept=".json,application/json" hidden><span id="dropt">Suelta result.json aquí o haz clic para elegirlo</span></label>
+<div id="info" class="msg" hidden></div>
+<div id="keybox" hidden><p class="small" id="freenote"></p>
+<label for="key">Clave de licencia (Signal Checker, Toolkit o Complete Kit)</label><div class="keyrow"><input id="key" autocomplete="off" spellcheck="false" placeholder="XXXXXXXX-XXXXXXXX-…"><button type="button" class="btn small alt" id="keybtn">Desbloquear todas</button></div>
+<div id="keymsg" class="small"></div></div>
+<button type="button" class="btn" id="run" hidden style="margin-top:14px">Comprobar las llamadas</button>
+<p class="small">Tu archivo se lee en tu navegador y nunca se sube. Solo se piden precios a Coinbase, Binance y Gate.io.</p></section>
+  <section class="card" aria-live="polite" aria-label="Resultado"><h2 class="ch">Resultado</h2><div id="status" class="small"></div>
+<div id="sum" hidden>
+<div class="row"><span>Llamadas comprobadas</span><b id="t_n">–</b></div><div class="row"><span>Entradas ejecutadas</span><b id="t_f">–</b></div>
+<div class="row"><span>Tasa de acierto (cerradas)</span><b id="t_w">–</b></div><div class="row"><span>P&L medio por llamada cerrada</span><b id="t_a">–</b></div>
+<div class="row"><span>P&L total (mismo tamaño en cada llamada)</span><b id="t_t">–</b></div><div class="row"><span>Tocaron TP1 y luego el stop</span><b id="t_1">–</b></div>
+<div class="row"><span>Siguen abiertas</span><b id="t_o">–</b></div><div class="row"><span>Sin datos de precio</span><b id="t_x">–</b></div></div>
+<div id="sharebox" hidden><button type="button" class="btn small" id="mk">Crear imagen para compartir</button>
+<div id="shareout" hidden><img id="cardimg" alt="" style="width:100%;border-radius:12px;margin-top:12px;display:block">
+<div class="buy" style="margin-top:4px"><a class="btn small alt" id="dl" download="channel-check.png" href="#">Descargar PNG</a><button type="button" class="btn small alt" id="cp" hidden>Copiar imagen</button><button type="button" class="btn small alt" id="sh" hidden>Compartir</button></div></div></div>
+<div class="tblwrap"><table class="tbl" id="out" hidden><thead><tr><th>Publicada</th><th>Llamada</th><th>Qué pasó</th><th>P&L</th></tr></thead><tbody></tbody></table></div>
+<p class="small">Mismas reglas que la demo: la entrada debe ejecutarse primero; si el stop y un objetivo se tocan en la misma hora, cuenta el stop; reparto igual entre los 3 primeros objetivos; 0,1% de comisión por lado; hasta 30 días por llamada; las abiertas al último precio. Las llamadas se leen automáticamente del texto, así que revisa a mano lo que parezca raro. No es asesoramiento financiero.</p></section>
+</div>
+<section class="in box cta"><div><h2>Guarda el historial completo de un canal en Google Sheets</h2><p>La hoja Signal Checker guarda cada llamada que añades, con niveles DCA, stop en break-even, resultados por moneda, tasa de acierto y profit factor. Su clave de licencia también desbloquea todas las llamadas en esta página. La hoja está en inglés.</p><p class="small"><a href="https://5778611980656.gumroad.com/l/signal-checker-lite">O prueba gratis Signal Checker Lite (10 señales)</a></p></div><div class="buy" style="margin:0"><a class="btn" href="https://5778611980656.gumroad.com/l/signal-checker" data-gumroad-overlay-checkout="true">Comprar Signal Checker · $19</a><a class="btn alt" href="../../es/signal-checker/">Ver Signal Checker</a></div></section>
+<section class="in box leadbox"><img src="/assets/img/cheatsheet.webp" alt="La chuleta de riesgo cripto" width="210" height="297" loading="lazy"><div><div class="tag">PDF gratis</div><h2>La chuleta de riesgo cripto</h2><p>Fórmula de tamaño de posición, tablas de rachas perdedoras y de recuperación, la tasa de acierto que necesitas y una lista antes de operar, en una página imprimible. Deja tu correo y es tuya, además de un aviso ocasional cuando haya una herramienta nueva. Puedes darte de baja cuando quieras.</p><a class="btn big" href="https://5778611980656.gumroad.com/l/risk-cheat-sheet" data-gumroad-overlay-checkout="true">Obtener el PDF gratis →</a><p class="small">Gratis. Introduces tu correo en el siguiente paso y el PDF se descarga al momento.</p></div></section>
+<article class="in prose"><h2>¿Por qué comprobar un canal entero?</h2>
+<p>Los mensajes de resultados de un canal muestran las ganancias. Su historial lo muestra todo: llamadas cuya entrada nunca se ejecutó, objetivos que se tocaron solo después del stop y llamadas que desaparecieron sin más. Comprobar cada llamada con precios reales te da la cifra que el canal no publica.</p>
+<h2>Qué cuenta como llamada</h2>
+<p>Cualquier mensaje con moneda, entrada, stop y al menos un objetivo, en inglés, español o ruso. Las repeticiones de la misma llamada cuentan una vez. Los avisos tipo «TP1 alcanzado ✅» se ignoran, porque la comprobación calcula por sí misma lo que pasó. Pega un solo mensaje en la <a href="../signal-checker-demo/">demo de Signal Checker</a> para ver cómo se lee una llamada.</p>
+
+<p>Más herramientas gratis: <a href="../../es/signal-checker-demo/">Demo de Signal Checker</a> · <a href="../../es/dca-calculator/">Calculadora de precio medio DCA</a> · <a href="../../es/crypto-profit-calculator/">Calculadora de beneficio cripto</a> · <a href="../../es/liquidation-calculator/">Calculadora de precio de liquidación</a> · <a href="../../es/position-size-calculator/">Calculadora de tamaño de posición</a></p></article>
+<script>(function(){
+var $=function(id){return document.getElementById(id);};
+var num=function(id){var v=parseFloat(String($(id).value).replace(',','.'));return isFinite(v)?v:NaN;};
+var money=function(v){return (v<0?'−$':'$')+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});};
+var signed=function(v){return (v>0?'+':'')+money(v);};
+var price=function(v){return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:v>=1?2:8});};
+var pct=function(v,d){return (v>0?'+':v<0?'−':'')+Math.abs(v*100).toFixed(d==null?2:d)+'%';};
+var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
+var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
+document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
+
+var L={"reading": "Leyendo el archivo…", "badfile": "Esto no parece una exportación JSON de Telegram (result.json). En la ventana de exportación elige el formato JSON legible por máquina.", "nocalls": "No se encontraron llamadas con moneda, entrada, stop y objetivo en este archivo.", "onlyres": "Este canal publicó al menos {r} mensajes de resultados (tipo «objetivo alcanzado, +45%») pero ninguna llamada con entrada y stop, así que no hay nada que comprobar. Los resultados sin las llamadas originales no se pueden verificar: tómalo como una señal de alerta.", "found": "{n} llamadas en {m} mensajes", "period": "Publicadas {a} – {b}", "free_note": "La comprobación gratis cubre las últimas {k} llamadas. Una clave de licencia de Signal Checker las comprueba todas (hasta {max}).", "key_chk": "Comprobando la clave…", "key_ok": "Clave aceptada: se comprobarán todas las llamadas.", "key_bad": "Esta clave no funcionó", "key_net": "No se pudo contactar con el servidor de claves. Inténtalo de nuevo.", "prog": "Comprobando {i} de {n}…", "done": "Listo.", "s_win": "Tasa de acierto (cerradas)", "s_avg": "P&L medio por llamada cerrada", "s_fill": "Entradas ejecutadas", "s_tp1": "Tocaron TP1 y luego el stop", "card_t": "Canal de señales comprobado", "card_calls": "{n} llamadas · {a} – {b}", "card_src": "Precios horarios reales de exchanges · 0,1% de comisión por lado", "card_cta": "Comprueba cualquier grupo gratis:", "card_nfa": "No es asesoramiento financiero", "cp": "Copiar imagen", "copied": "Copiada ✓", "nodata": "No hay precio horario de esta moneda en Coinbase, Binance ni Gate.io", "notfilled": "La entrada nunca se ejecutó", "open": "Sigue abierta", "stopped": "Saltó el stop", "alltp": "Todos los objetivos alcanzados", "tphit": "alcanzado", "after": "después de", "hrs": " h", "tp": "TP", "long": "Largo", "short_": "Corto", "lang": "es", "free": 20, "max": 400, "keyurl": "https://script.google.com/macros/s/AKfycbzcIC7ai3ZztmJsNeE-rlliZo4pxSHdfbihKz4XGMDdKgfeym4EU37YFt8cm9O-QKCN/exec"};
+function calc(){}
+
+function pad(n){return (n<10?'0':'')+n;}
+function localISO(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes());}
+function fmtP(v){return v.toLocaleString('en-US',{maximumFractionDigits:v>=100?0:v>=1?2:6});}
+/* Hourly candles as [time(s), low, high, open, close], oldest first. Tries Coinbase, then Binance's public data mirror, then Gate.io.
+   Remembers which source has each coin. Throws 'nodata' if none has it. */
+var SRC={};
+async function cbCandles(coin,start,end){
+ var out=[],t=start;
+ while(t<end){var t2=Math.min(end,t+300*3600e3);
+  var r=await fetch('https://api.exchange.coinbase.com/products/'+coin+'-USD/candles?granularity=3600&start='+new Date(t).toISOString()+'&end='+new Date(t2).toISOString());
+  if(!r.ok) throw new Error('nodata'); var a=await r.json(); if(!Array.isArray(a)) throw new Error('nodata'); out=out.concat(a); t=t2;}
+ return out.map(function(c){return [c[0],c[1],c[2],c[3],c[4]];});}
+async function bnCandles(coin,start,end){
+ var out=[],t=start;
+ while(t<end){var r=await fetch('https://data-api.binance.vision/api/v3/klines?symbol='+coin+'USDT&interval=1h&limit=1000&startTime='+t+'&endTime='+end);
+  if(!r.ok) throw new Error('nodata'); var a=await r.json(); if(!Array.isArray(a)||!a.length) break;
+  out=out.concat(a.map(function(c){return [c[0]/1000,+c[3],+c[2],+c[1],+c[4]];})); t=a[a.length-1][0]+3600e3; if(a.length<1000) break;}
+ if(!out.length) throw new Error('nodata'); return out;}
+async function gtCandles(coin,start,end){
+ var out=[],t=start;
+ while(t<end){var t2=Math.min(end,t+900*3600e3);
+  var r=await fetch('https://api.gateio.ws/api/v4/spot/candlesticks?currency_pair='+coin+'_USDT&interval=1h&from='+Math.floor(t/1000)+'&to='+Math.floor(t2/1000));
+  if(!r.ok) throw new Error('nodata'); var a=await r.json(); if(!Array.isArray(a)) throw new Error('nodata');
+  out=out.concat(a.map(function(c){return [+c[0],+c[4],+c[3],+c[5],+c[2]];})); t=t2;}
+ if(!out.length) throw new Error('nodata'); return out;}
+async function candles(coin,start,end){
+ var order=SRC[coin]?[SRC[coin]]:['cb','bn','gt'], fn={cb:cbCandles,bn:bnCandles,gt:gtCandles};
+ for(var i=0;i<order.length;i++){
+  try{ var out=await fn[order[i]](coin,start,end); if(!out.length) continue; SRC[coin]=order[i];
+   var seen={}; out=out.filter(function(c){if(seen[c[0]])return false;seen[c[0]]=1;return true;});
+   out.sort(function(a,b){return a[0]-b[0];}); return out; }catch(e){}
+ }
+ if(SRC[coin]) { delete SRC[coin]; return candles(coin,start,end); }
+ throw new Error('nodata');
+}
+function sim(s,cs){
+ var isL=s.side==='L', fee=0.001, fi=-1;
+ for(var i=0;i<cs.length;i++){ if(isL? cs[i][1]<=s.entry : cs[i][2]>=s.entry){fi=i;break;} }
+ if(fi<0) return {txt:L.notfilled, pnl:null, closed:true, filled:false};
+ var tps=s.tps, part=1/tps.length, hit=0, pnl=0, hours=0, done=false, stopped=false;
+ for(var j=fi;j<cs.length && !done;j++){
+  var lo=cs[j][1], hi=cs[j][2]; hours=j-fi;
+  var stopHit=isL? lo<=s.stop : hi>=s.stop;
+  if(stopHit){stopped=true; done=true; break;}
+  while(hit<tps.length && (isL? hi>=tps[hit] : lo<=tps[hit])){ pnl+=part*((isL?tps[hit]-s.entry:s.entry-tps[hit])/s.entry); hit++; }
+  if(hit===tps.length) done=true;
+ }
+ var rest=1-hit*part, last=cs[cs.length-1][4];
+ if(stopped) pnl+=rest*((isL?s.stop-s.entry:s.entry-s.stop)/s.entry);
+ else if(!done) pnl+=rest*((isL?last-s.entry:s.entry-last)/s.entry);
+ pnl-=2*fee;
+ var parts=[]; for(var k=0;k<hit;k++) parts.push(L.tp+(k+1)+' '+L.tphit);
+ var lc=function(x){return x.charAt(0).toLowerCase()+x.slice(1);}, pre=parts.length? parts.join(', ')+', ' : '', hh=' ('+L.after+' '+hours+L.hrs+')';
+ var txt = stopped ? (pre? pre+lc(L.stopped) : L.stopped)+hh : hit===tps.length ? L.alltp+hh : (pre? pre+lc(L.open) : L.open);
+ return {txt:txt, pnl:pnl, closed:stopped||hit===tps.length, filled:true, hit:hit, stopped:stopped, hours:hours};
+}
+function gc(n){try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:'demo-'+n,title:'demo '+n,event:true});}catch(e){}}
+var KW={tp:'TP TPS T TARGET TARGETS TAKEPROFIT TAKEPROFITS ЦЕЛИ ЦЕЛЬ ТЕЙК ТЕЙКИ ТП OBJETIVO OBJETIVOS',
+ stop:'SL STOP STOPLOSS S/L INVALIDATION СТОП СЛ СТОПЛОСС',
+ entry:'ENTRY ENTRIES ENTER BUYZONE ENTRYZONE ВХОД ВХОДА ЗОНАВХОДА ТОЧКАВХОДА ТВХ ENTRADA ENTRADAS',
+ long:'LONG LONGING ЛОНГ LARGO', short:'SHORT SHORTING ШОРТ CORTO', buy:'BUY ПОКУПКА COMPRA', sell:'SELL ПРОДАЖА VENTA',
+ lev:'LEVERAGE LEV ПЛЕЧО APALANCAMIENTO', mkt:'CMP MARKET РЫНОК РЫНКУ РЫНКА MERCADO'};
+for(var k in KW) KW[k]=' '+KW[k]+' ';
+var SKIP=' USDT USD USDC BUSD PERP PERPS SIGNAL SIGNALS VIP NEW PAIR COIN EXCHANGE BINANCE BYBIT OKX KUCOIN BITGET MEXC GATE FUTURES FUTURE SPOT CROSS ISOLATED MARGIN TIME DATE AM PM UTC GMT AND OR TO THE FROM FOR AT IN ON OF IS ZONE AREA RANGE DCA RISK SIZE PROFIT PROFITS LOSS POSITION TRADE SETUP CALL ALERT TYPE SIDE DIRECTION PRICE NOW ORDER LIMIT NOTE MANAGEMENT MONEY CAPITAL USE ONLY MAX MIN HIGH LOW MID RR TF BREAKOUT SCALP SWING REWARD EXIT CLOSE OPEN TAKE HOLD STRATEGY ANALYSIS CHART WAIT UPDATE POSTED BETWEEN ABOVE BELOW UNTIL WITH ALL HERE REASON LOOKS LOOKING CHART BEARISH BULLISH SIGNALS QUICK ';
+function kind(w){var k=' '+w.replace(/[\s-]/g,'').replace(/\d+$/,'')+' '; for(var t in KW) if(KW[t].indexOf(k)>=0) return t; return null;}
+function nums(tok){var p=tok.split(',');
+ if(p.length===1) return [parseFloat(tok)];
+ if(p[0].length<=3 && p[0].charAt(0)!=='0' && p.slice(1).every(function(x){return /^\d{3}(\.\d+)?$/.test(x);})) return [parseFloat(tok.replace(/,/g,''))];
+ if(p.length===2 && p[0].length<=3) return [parseFloat(p[0]+'.'+p[1])];
+ return p.filter(Boolean).map(parseFloat);}
+function findDate(t){
+ var m=t.match(/(\d{4})-(\d{1,2})-(\d{1,2})[ T,]+(\d{1,2}):(\d{2})/), d=null;
+ if(m) d=new Date(+m[1],m[2]-1,+m[3],+m[4],+m[5]);
+ else if((m=t.match(/(\d{1,2})([.\/])(\d{1,2})\2(\d{2,4})[ ,]*(\d{1,2}):(\d{2})(?::\d{2})?\s*([AP]M)?/))){
+  var a=+m[1], b=+m[3], y=+m[4]; if(y<100) y+=2000; var dd=a, mm=b;
+  if(m[2]==='/' && b<=12 && a<=12) {mm=a; dd=b;} else if(a<=12 && b>12) {mm=a; dd=b;}
+  var h=+m[5]; if(m[7]==='PM'&&h<12) h+=12; if(m[7]==='AM'&&h===12) h=0;
+  d=new Date(y,mm-1,dd,h,+m[6]); }
+ if(d && (isNaN(d) || d.getTime()>Date.now())) d=null;
+ return {d:d, rest:m? t.replace(m[0],' '):t};}
+function parseCall(raw){
+ var t=' '+raw.toUpperCase().replace(/[‐-―−]/g,'-')+' ', fd=findDate(t); t=fd.rest;
+ t=t.replace(/HTTPS?:\/\/\S+/g,' ').replace(/\d️?⃣/g,' ')
+  .replace(/[+\-]?\d+(?:[.,]\d+)?\s*%/g,' ').replace(/(^|[^A-Z])\d{1,3}\s*X(?![A-Z])/g,'$1 ').replace(/(^|[^A-Z])X\s*\d{1,3}(?![\d.])/g,'$1 ')
+  .replace(/\b\d{1,2}:\d{2}(?::\d{2})?(?:\s*[AP]M)?/g,' ')
+  .replace(/(TP|TARGET|T|ЦЕЛЬ|ТП|OBJETIVO)\s*(\d)(?![\d.,])/g,'$1$2')
+  .replace(/(\s|^)\(?\d\s*[).:](?=\s)/g,' ');
+ var toks=t.match(/TAKE[\s-]*PROFITS?|STOP[\s-]*LOSS|S\/L|BUY[\s-]*ZONE|ENTRY[\s-]*ZONE|ЗОНА\s+ВХОДА|ТОЧКА\s+ВХОДА|[A-ZА-ЯЁ][A-ZА-ЯЁ0-9]*(?:\s?\/\s?(?:USDT|USDC|USD|BUSD|PERP)(?![A-Z]))?|\d[\d,]*(?:\.\d+)?|\.\d+|[#$]/g)||[];
+ var mode=null, b={entry:[],stop:[],tp:[]}, side=null, mkt=false, coins=[], prev='';
+ toks.forEach(function(w){
+  if(!/^[\d.]/.test(w)) w=w.replace(/\s*\/\s*/,'/');
+  if(/^[\d.]/.test(w)){ if(b[mode]) nums(w).forEach(function(v){if(isFinite(v)&&v>0) b[mode].push(v);}); }
+  else if(w==='#'||w==='$'){}
+  else { var k=kind(w), pk=kind(prev);
+   if(k==='tp' && (pk==='entry'||pk==='stop')) {} /* "Entry Targets:", "Stop Targets:" */
+   else if(k==='tp'||k==='stop'||k==='entry') mode=k;
+   else if(k==='long'||k==='short'){ if(!side) side=k==='long'?'L':'S'; if(!b.entry.length) mode='entry'; }
+   else if(k==='buy'||k==='sell'){ if(!side) side=k==='buy'?'L':'S'; mode='entry'; }
+   else if(k==='lev') mode=null;
+   else if(k==='mkt'){ if(mode==='entry') mkt=true; }
+   else if(/^[A-Z][A-Z0-9]{1,14}(\/[A-Z]+)?$/.test(w) && SKIP.indexOf(' '+w+' ')<0){
+    var c=w.split('/')[0]; if(c.length>4) c=c.replace(/(USDT|USDC|BUSD|PERP|USD)$/,'');
+    if(c.length>=2 && SKIP.indexOf(' '+c+' ')<0) coins.push({c:c, pri:prev==='#'||prev==='$'||w.indexOf('/')>0||c!==w}); }
+  }
+  prev=w; });
+ var coin=(coins.filter(function(x){return x.pri;})[0]||coins[0]||{}).c||'';
+ var e=b.entry.length? b.entry.reduce(function(x,y){return x+y;},0)/b.entry.length : NaN;
+ var ok=function(v){return !(e>0) || (v>e*0.2 && v<e*5);};
+ var stop=b.stop.filter(ok)[0], tps=b.tp.filter(ok);
+ if(!side && e>0 && stop>0) side=stop<e?'L':'S';
+ return {coin:coin, side:side||'L', entry:e, stop:stop, tps:tps.slice(0,3), more:tps.length>3, range:b.entry.length>1, market:mkt&&!(e>0), when:fd.d};
+}
+function rr(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath();}
+function wrap(x,text,maxW,maxL){var ws=String(text).split(' '),lines=[],cur='';
+ ws.forEach(function(w){var t=cur?cur+' '+w:w; if(x.measureText(t).width>maxW && cur){lines.push(cur);cur=w;} else cur=t;}); if(cur) lines.push(cur);
+ if(lines.length>maxL){lines=lines.slice(0,maxL); var l=lines[maxL-1]; while(x.measureText(l+'…').width>maxW && l.length) l=l.slice(0,-1); lines[maxL-1]=l+'…';}
+ return lines;}
+
+var CALLS=[], NAME='', MSGS=0, UNLOCK=false, RES=[], STATS={};
+function fmt(s,o){return s.replace(/\{(\w+)\}/g,function(m,k){return o[k]!=null?o[k]:m;});}
+function ds(t){try{return new Date(t).toLocaleDateString(L.lang,{day:'numeric',month:'short',year:'numeric'});}catch(e){return new Date(t).toDateString();}}
+function dshort(t){try{return new Date(t).toLocaleDateString(L.lang,{day:'2-digit',month:'2-digit',year:'2-digit'});}catch(e){return ds(t);}}
+function msgText(m){var t=m.text; if(typeof t==='string') return t; if(Array.isArray(t)) return t.map(function(x){return typeof x==='string'?x:(x&&x.text)||'';}).join(''); return '';}
+function info(t,c){var e=$('info'); e.hidden=false; e.className='msg '+c; e.textContent=t;}
+try{ var k0=localStorage.getItem('sc_key'); if(k0){$('key').value=k0;} }catch(e){}
+function extract(d){
+ var ms=(d&&d.messages)||[], out=[], seen={};
+ ms.forEach(function(m){
+  if(m.type!=='message') return; var tx=msgText(m); if(!tx || tx.length<12) return;
+  var p=parseCall(tx);
+  if(!p.coin || !(p.entry>0) || !(p.stop>0) || !p.tps.length) return;
+  var isL=p.side==='L';
+  if(isL ? (p.stop>=p.entry || p.tps.some(function(x){return x<=p.entry;})) : (p.stop<=p.entry || p.tps.some(function(x){return x>=p.entry;}))) return;
+  var t=m.date_unixtime? (+m.date_unixtime)*1000 : new Date(m.date).getTime(); if(!(t>0)) return;
+  var k=p.coin+'|'+p.side+'|'+(+p.entry.toPrecision(5))+'|'+(+p.stop.toPrecision(5));
+  if(seen[k] && t-seen[k]<14*24*3600e3) return; seen[k]=t;
+  out.push({coin:p.coin, side:p.side, entry:p.entry, stop:p.stop, tps:p.tps, t:t, id:m.id});
+ });
+ return out.sort(function(a,b){return b.t-a.t;});
+}
+/* An export that was cancelled or is still being written stops mid-way: keep every complete message. */
+function repair(s){
+ if(s.indexOf('"messages"')<0) return null;
+ for(var k=0;k<200;k++){ var i=s.lastIndexOf('\n  }'); if(i<0) return null; s=s.slice(0,i+4);
+  try{ return JSON.parse(s+'\n ]\n}'); }catch(e){ s=s.slice(0,i); } }
+ return null;}
+function load(file){
+ info(L.reading,'ok'); gc('tg-file');
+ var fr=new FileReader();
+ fr.onload=function(){
+  var d; try{ d=JSON.parse(fr.result); }catch(e){ d=repair(fr.result); if(!d){ info(L.badfile,'err'); return; } }
+  if(!d || !Array.isArray(d.messages)){ info(L.badfile,'err'); return; }
+  NAME=d.name||''; MSGS=d.messages.length; CALLS=extract(d);
+  $('out').hidden=true; $('sum').hidden=true; $('sharebox').hidden=true; $('status').textContent='';
+  if(!CALLS.length){ var rc=d.messages.filter(function(m){return /(target|tp\s?\d|цел|objetivo)[^\n]{0,40}(achieved|hit|reached|done|достигнут|взят|alcanzad)|profit[^\n]{0,20}\d+(\.\d+)?\s?%|\bresults?\b|результат|resultado/i.test(msgText(m));}).length; info(rc>=5? fmt(L.onlyres,{r:rc}) : L.nocalls,'warn'); $('keybox').hidden=true; $('run').hidden=true; return; }
+  var a=ds(CALLS[CALLS.length-1].t), b=ds(CALLS[0].t);
+  var per=fmt(L.period,{a:a,b:b}); info((NAME? NAME+': ':'')+fmt(L.found,{n:CALLS.length,m:MSGS})+'. '+per+(/\.$/.test(per)?'':'.'),'ok');
+  $('keybox').hidden=CALLS.length<=L.free; $('freenote').textContent=fmt(L.free_note,{k:L.free,max:L.max});
+  $('run').hidden=false; $('dropt').textContent=file.name;
+ };
+ fr.readAsText(file);
+}
+$('file').onchange=function(){ if(this.files[0]) load(this.files[0]); };
+var dz=$('drop');
+['dragenter','dragover'].forEach(function(e){dz.addEventListener(e,function(ev){ev.preventDefault();dz.classList.add('on');});});
+['dragleave','drop'].forEach(function(e){dz.addEventListener(e,function(ev){ev.preventDefault();dz.classList.remove('on');});});
+dz.addEventListener('drop',function(ev){var f=ev.dataTransfer.files[0]; if(f) load(f);});
+$('keybtn').onclick=async function(){
+ var k=$('key').value.trim(); if(!k) return; $('keymsg').textContent=L.key_chk; $('keymsg').className='small';
+ try{ var r=await fetch(L.keyurl+'?action=verify&product=SC&copy=website&key='+encodeURIComponent(k)); var j=await r.json();
+  if(j.ok){ UNLOCK=true; $('keymsg').textContent=L.key_ok; $('keymsg').className='small pos'; try{localStorage.setItem('sc_key',k);}catch(e){} gc('tg-unlock'); }
+  else { UNLOCK=false; $('keymsg').textContent=L.key_bad+(j.reason?' ('+j.reason+')':'')+'.'; $('keymsg').className='small neg'; }
+ }catch(e){ $('keymsg').textContent=L.key_net; $('keymsg').className='small neg'; }
+};
+async function checkOne(c){
+ var st=Math.floor(c.t/3600e3)*3600e3, now=Date.now(), end=Math.min(now, st+30*24*3600e3);
+ if(end-st<3600e3) return {c:c, nodata:true};
+ try{ var cs=await candles(c.coin,st,end); if(!cs.length) throw 0; var r=sim(c,cs); r.c=c; r.partial=end<now; return r; }
+ catch(e){ return {c:c, nodata:true}; }
+}
+$('run').onclick=async function(){
+ var list=CALLS.slice(0, UNLOCK? L.max : L.free), n=list.length, i=0, done=0; RES=new Array(n);
+ $('run').disabled=true; $('out').hidden=true; $('sum').hidden=true; $('sharebox').hidden=true; $('shareout').hidden=true; gc('tg-check');
+ async function worker(){ while(i<n){ var k=i++; RES[k]=await checkOne(list[k]); done++; $('status').textContent=fmt(L.prog,{i:done,n:n}); } }
+ await Promise.all([worker(),worker(),worker()]);
+ $('run').disabled=false; $('status').textContent=L.done; render();
+};
+function render(){
+ var body=$('out').querySelector('tbody'); body.innerHTML='';
+ var ok=RES.filter(function(r){return !r.nodata;}), filled=ok.filter(function(r){return r.filled;}), closed=filled.filter(function(r){return r.closed;});
+ var wins=closed.filter(function(r){return r.pnl>0;}).length, tot=filled.reduce(function(x,r){return x+r.pnl;},0), avg=closed.length? closed.reduce(function(x,r){return x+r.pnl;},0)/closed.length : null;
+ STATS={n:ok.length, fill:ok.length? filled.length/ok.length : null, win:closed.length? wins/closed.length : null, avg:avg, tot:tot,
+  tp1:filled.filter(function(r){return r.hit>=1 && r.stopped;}).length, open:filled.filter(function(r){return !r.closed;}).length, nod:RES.length-ok.length,
+  a:ds(RES[RES.length-1].c.t), b:ds(RES[0].c.t)};
+ show('t_n',String(STATS.n)); show('t_f',STATS.fill==null?'–':Math.round(STATS.fill*100)+'% ('+filled.length+')');
+ show('t_w',STATS.win==null?'–':Math.round(STATS.win*100)+'% ('+wins+'/'+closed.length+')'); show('t_a',avg==null?'–':pct(avg),avg==null?'':avg>=0?'pos':'neg');
+ show('t_t',filled.length?pct(tot,1):'–',tot>=0?'pos':'neg'); show('t_1',String(STATS.tp1)); show('t_o',String(STATS.open)); show('t_x',String(STATS.nod));
+ RES.forEach(function(r){ var c=r.c, tr=document.createElement('tr');
+  var name=c.coin+' '+(c.side==='L'?L.long:L.short_)+' @ '+fmtP(c.entry);
+  var txt=r.nodata? L.nodata : r.txt, p=r.nodata||r.pnl==null? null : r.pnl;
+  tr.innerHTML='<td>'+dshort(c.t)+'</td><td>'+name+'</td><td>'+txt+'</td><td class="'+(p==null?'':p>=0?'pos':'neg')+'">'+(p==null?'–':pct(p))+'</td>'; body.appendChild(tr); });
+ $('sum').hidden=false; $('out').hidden=false; $('sharebox').hidden=!filled.length;
+}
+async function drawCard(){
+ try{ await document.fonts.ready; }catch(e){}
+ var W=1200,H=675,c=document.createElement('canvas'); c.width=W; c.height=H; var x=c.getContext('2d');
+ var SG='"Space Grotesk",Inter,system-ui,sans-serif', IN='Inter,system-ui,sans-serif';
+ var g=x.createLinearGradient(0,0,W,H); g.addColorStop(0,'#0b1220'); g.addColorStop(1,'#0e1b30'); x.fillStyle=g; x.fillRect(0,0,W,H);
+ var r1=x.createRadialGradient(1080,-40,0,1080,-40,520); r1.addColorStop(0,'rgba(56,189,248,.20)'); r1.addColorStop(1,'rgba(56,189,248,0)'); x.fillStyle=r1; x.fillRect(0,0,W,H);
+ var gb=x.createLinearGradient(0,0,W,0); gb.addColorStop(0,'#4ade80'); gb.addColorStop(1,'#38bdf8'); x.fillStyle=gb; x.fillRect(0,0,W,8);
+ x.textBaseline='middle'; rr(x,60,42,46,46,11); x.fillStyle=gb; x.fill();
+ x.strokeStyle='#0b1220'; x.lineWidth=6; x.lineCap='round'; x.lineJoin='round'; x.beginPath(); x.moveTo(72,66); x.lineTo(80,74); x.lineTo(95,57); x.stroke();
+ x.fillStyle='#f1f5f9'; x.font='700 30px '+SG; x.fillText('SignalCheckerHQ',120,66);
+ x.textAlign='right'; x.fillStyle='#94a3b8'; x.font='500 19px '+IN; x.fillText(L.card_src,W-60,66); x.textAlign='left';
+ x.fillStyle='#f8fafc'; x.font='700 42px '+SG; x.fillText(L.card_t,60,136);
+ x.fillStyle='#94a3b8'; x.font='500 21px '+IN; x.fillText(fmt(L.card_calls,{n:STATS.n,a:STATS.a,b:STATS.b}),60,178);
+ var tiles=[[L.s_win,STATS.win==null?'–':Math.round(STATS.win*100)+'%',null],[L.s_avg,STATS.avg==null?'–':pct(STATS.avg),STATS.avg],
+  [L.s_fill,STATS.fill==null?'–':Math.round(STATS.fill*100)+'%',null],[L.s_tp1,String(STATS.tp1),null]];
+ tiles.forEach(function(t,i){ var cx=60+(i%2)*550, cy=214+Math.floor(i/2)*170, w=530, h=150;
+  rr(x,cx,cy,w,h,18); x.fillStyle='rgba(17,26,46,.88)'; x.fill(); x.strokeStyle='#22304d'; x.lineWidth=1.5; x.stroke();
+  x.textBaseline='top'; x.fillStyle='#94a3b8'; x.font='600 20px '+IN; wrap(x,t[0],w-48,1).forEach(function(l){x.fillText(l,cx+24,cy+22);});
+  x.fillStyle=t[2]==null?'#f1f5f9':t[2]>=0?'#4ade80':'#f87171'; x.font='800 58px '+SG; x.fillText(t[1],cx+24,cy+62); });
+ x.textBaseline='alphabetic'; x.fillStyle='#64748b'; x.font='500 15px '+IN; x.fillText(L.card_nfa,60,640);
+ x.textAlign='right'; x.fillStyle='#e2e8f0'; x.font='600 20px '+IN; x.fillText(L.card_cta,W-60,604);
+ x.fillStyle='#4ade80'; x.font='700 30px '+SG; x.fillText('signalcheckerhq.org',W-60,642); x.textAlign='left';
+ return c;}
+var BLOB=null;
+$('mk').onclick=async function(){
+ var c=await drawCard(); gc('tg-share-image');
+ c.toBlob(function(b){ BLOB=b; var u=URL.createObjectURL(b); $('cardimg').src=u; $('dl').href=u; $('shareout').hidden=false;
+  $('cp').hidden=!(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write); $('cp').textContent=L.cp;
+  var file=new File([b],'channel-check.png',{type:'image/png'}); $('sh').hidden=!(navigator.canShare&&navigator.canShare({files:[file]}));
+  $('sh').onclick=function(){navigator.share({files:[file],text:L.card_cta+' '+location.href.split('#')[0]}).catch(function(){});};
+ },'image/png');
+};
+$('cp').onclick=function(){ if(!BLOB) return; navigator.clipboard.write([new ClipboardItem({'image/png':BLOB})]).then(function(){$('cp').textContent=L.copied;}).catch(function(){$('cp').hidden=true;}); };
+})();</script>
+
+</main>
+<footer class="foot"><div class="in">
+  <div><a class="logo" href="../../es/"><span>Signal<b>Checker</b>HQ</span></a>
+  <p>Herramientas de Google Sheets que muestran los números reales del trading cripto. Creadas por un trader junto con IA. Sin señales, sin humo.</p><p><a href="../../es/how-its-built/">Cómo se crean: humano + IA →</a></p></div>
+  <div><h4>Herramientas</h4><a href="../../es/signal-checker/">Crypto Signal Checker</a><a href="../../es/trade-journal/">Crypto Trade Journal + DCA Planner</a><a href="../../es/portfolio-tracker/">Crypto Portfolio Tracker</a><a href="../../es/risk-calculator/">Position Size & Risk Calculator</a><a href="../../es/bundle/">Paquetes: Complete Kit y Toolkit</a><a href="../../es/tools/">Calculadoras gratis</a><a href="https://5778611980656.gumroad.com/l/risk-cheat-sheet">Chuleta de riesgo gratis (PDF)</a><a href="../../es/guides/">Guías</a></div>
+  <div><h4>Tienda y redes</h4><a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy</a><a href="https://5778611980656.gumroad.com/">Gumroad</a><a href="https://x.com/SignalCheckerHQ">X</a><a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a><a href="https://www.pinterest.com/ilonavoitenco/crypto-trading-tools-templates/">Pinterest</a></div>
+  <div><h4>Info</h4><a href="../../legal/">Términos, privacidad y reembolsos (en inglés)</a><a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></div>
+</div><p class="fine in">Todas las herramientas son para análisis y registro. Nada en este sitio es asesoramiento financiero. Los ejemplos usan datos de ejemplo o históricos; los resultados varían. © 2026 SignalCheckerHQ. SignalCheckerHQ™, Signal Checker™ y el logotipo de SignalCheckerHQ son marcas de SignalCheckerHQ. Todos los productos, imágenes, videos y textos están protegidos por derechos de autor; no se permite copiarlos ni revenderlos.</p></footer>
+<script src="https://gumroad.com/js/gumroad.js" defer></script>
+<script src="../../assets/helpbot.js?v=1" defer></script>
+<script data-goatcounter="https://signalcheckerhq.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
