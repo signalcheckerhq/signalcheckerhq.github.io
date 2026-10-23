@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora de riesgo de ruina cripto: probabilidad de perder la mitad de tu cuenta (gratis) | SignalCheckerHQ</title>
+<meta name="description" content="Simulador gratis de riesgo de ruina para traders cripto. Introduce tu tasa de acierto, ratio beneficio:riesgo y riesgo por operación para ver la probabilidad de un drawdown del 50%, las rachas perdedoras probables y dónde podría terminar tu cuenta. 10.000 simulaciones en tu navegador.">
+<link rel="canonical" href="https://signalcheckerhq.org/es/risk-of-ruin-calculator/">
+<meta property="og:title" content="Calculadora de riesgo de ruina cripto: probabilidad de perder la mitad de tu cuenta (gratis) | SignalCheckerHQ"><meta property="og:description" content="Simulador gratis de riesgo de ruina para traders cripto. Introduce tu tasa de acierto, ratio beneficio:riesgo y riesgo por operación para ver la probabilidad de un drawdown del 50%, las rachas perdedoras probables y dónde podría terminar tu cuenta. 10.000 simulaciones en tu navegador.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://signalcheckerhq.org/es/risk-of-ruin-calculator/">
+<meta property="og:image" content="https://signalcheckerhq.org/assets/img/rc-1.webp">
+<meta name="theme-color" content="#0b1120">
+<meta name="google-site-verification" content="uh0u66NYvt6K8r_yqwLmn0GAHeASmu_aV-5lmH9_T-0">
+<meta name="google-site-verification" content="UvHvX4_1aVpsXs5uoaKarwA5mYzig2ahWrXbkXhL_fY">
+<link rel="icon" href="../../assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../assets/site.css?v=3">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Simulador de riesgo de ruina","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://signalcheckerhq.org/es/risk-of-ruin-calculator/"}</script><link rel="alternate" hreflang="en" href="https://signalcheckerhq.org/risk-of-ruin-calculator/"><link rel="alternate" hreflang="es" href="https://signalcheckerhq.org/es/risk-of-ruin-calculator/"><link rel="alternate" hreflang="ru" href="https://signalcheckerhq.org/ru/risk-of-ruin-calculator/"><link rel="alternate" hreflang="x-default" href="https://signalcheckerhq.org/risk-of-ruin-calculator/"></head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="../../es/"><img src="../../assets/img/icon.png" alt="" width="32" height="32"><span>Signal<b>Checker</b>HQ</span></a>
+  <div class="langs"><a href="../../risk-of-ruin-calculator/" hreflang="en" lang="en">EN</a><a href="../../es/risk-of-ruin-calculator/" class=on aria-current=page hreflang="es" lang="es">ES</a><a href="../../ru/risk-of-ruin-calculator/" hreflang="ru" lang="ru">RU</a></div>
+  <button type="button" class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('.top');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button>
+  <nav><a href="../../es/#tools">Herramientas</a><a href="../../es/bundle/">Complete Kit</a><a href="../../es/guides/">Guías</a><a href="../../es/how-its-built/">Humano + IA</a><a href="../../es/tools/" class="free">Herramientas gratis</a></nav>
+</div></header>
+<main>
+
+<section class="hero in" style="padding-bottom:0"><div class="tag">Herramienta gratis</div><h1>Simulador de <span>riesgo de ruina</span></h1><p class="lead">¿Qué probabilidad hay de que pierdas la mitad de tu cuenta? Introduce tu tasa de acierto, tu ganancia media frente a tu pérdida media y cuánto arriesgas por operación. Simulamos 10.000 futuros posibles de tus próximas operaciones.</p></section>
+<div class="in grid2 calc">
+  <section class="card" aria-label="Tus números"><h2 class="ch">Tus números</h2>
+<div class="two">
+  <div><label for="w">Tasa de acierto (%)</label><input id="w" type="number" inputmode="decimal" value="45" step="any" min="1" max="99"></div>
+  <div><label for="rr">Ganancia media ÷ pérdida media (beneficio:riesgo)</label><input id="rr" type="number" inputmode="decimal" value="1.5" step="any" min="0.1"></div>
+</div>
+<div class="two">
+  <div><label for="rk">Riesgo por operación (% de la cuenta)</label><input id="rk" type="number" inputmode="decimal" value="2" step="any" min="0.1" max="50"></div>
+  <div><label for="n">Número de operaciones</label><input id="n" type="number" inputmode="numeric" value="200" step="1" min="10" max="1000"></div>
+</div>
+<label for="ru">Considerar ruina con un drawdown de (%)</label><input id="ru" type="number" inputmode="decimal" value="50" step="any" min="5" max="95">
+<label>El riesgo es un % del</label><div class="seg" role="group"><button type="button" class="on" id="mc">saldo actual</button><button type="button" id="mf">saldo inicial</button></div>
+<canvas id="ch" class="ruinch" aria-label="Saldo durante las próximas N operaciones"></canvas>
+<p class="small" id="chcap"></p>
+</section>
+  <section class="card" aria-live="polite" aria-label="Resultado"><h2 class="ch">Resultado</h2>
+<div class="big"><span id="bigl">–</span><b id="pr">–</b></div>
+<div class="row"><span>Probabilidad de terminar por debajo del inicio</span><b id="pb">–</b></div>
+<div class="row"><span id="medl">–</span><b id="md">–</b></div>
+<div class="row"><span>Peor drawdown típico</span><b id="d50">–</b></div>
+<div class="row"><span>Peor drawdown en 1 de cada 10 simulaciones</span><b id="d90">–</b></div>
+<div class="row"><span>Racha perdedora más larga típica</span><b id="s50">–</b></div>
+<div class="row"><span>Racha perdedora más larga en 1 de cada 10</span><b id="s90">–</b></div>
+<div class="row"><span>Resultado esperado por operación</span><b id="ev">–</b></div>
+<div class="row"><span>Tasa de acierto de equilibrio con este ratio</span><b id="bw">–</b></div>
+<div id="msg" class="msg ok">–</div>
+<h3 style="font-size:16px;margin:18px 0 0">Misma tasa de acierto y ratio, distinto riesgo por operación</h3>
+<table class="tbl" id="rt"><thead><tr><th>Riesgo por operación</th><th id="rth">–</th><th>Termina bajo el inicio</th><th>Resultado típico</th></tr></thead><tbody></tbody></table>
+<p class="small">Modelo simplificado: cada ganancia paga exactamente beneficio:riesgo × el riesgo, cada pérdida cuesta exactamente el riesgo y las operaciones son independientes. El trading real añade comisiones, deslizamiento y rachas de mercado, así que toma estas cifras como el caso optimista. No es asesoramiento financiero.</p>
+</section>
+</div>
+<section class="in box cta"><div><h2>¿Lo quieres en tu propia hoja de Google?</h2><p>Convierte el % de riesgo en un tamaño de posición exacto para cada operación, con tu stop, comisiones y apalancamiento: la hoja <b>Position Size &amp; Risk Calculator</b> (en inglés).</p></div><a class="btn" href="../../es/risk-calculator/">Ver Risk Calculator · $7</a></section>
+<section class="in box leadbox"><img src="/assets/img/cheatsheet.webp" alt="La chuleta de riesgo cripto" width="210" height="297" loading="lazy"><div><div class="tag">PDF gratis</div><h2>La chuleta de riesgo cripto</h2><p>Fórmula de tamaño de posición, tablas de rachas perdedoras y de recuperación, la tasa de acierto que necesitas y una lista antes de operar, en una página imprimible. Deja tu correo y es tuya, además de un aviso ocasional cuando haya una herramienta nueva. Puedes darte de baja cuando quieras.</p><a class="btn big" href="https://5778611980656.gumroad.com/l/risk-cheat-sheet" data-gumroad-overlay-checkout="true">Obtener el PDF gratis →</a><p class="small">Gratis. Introduces tu correo en el siguiente paso y el PDF se descarga al momento.</p></div></section>
+<article class="in prose"><h2>Qué significa aquí «riesgo de ruina»</h2>
+<p>Es la probabilidad de que, en algún momento de las próximas operaciones, tu cuenta caiga al nivel de ruina que elijas (por defecto, la mitad de lo que tenías al empezar). La mayoría de traders no quiebran porque su estrategia no tenga ventaja, sino porque arriesgan demasiado por operación y llega una racha perdedora normal.</p>
+<h2>Por qué la tabla de riesgo es lo más importante</h2>
+<p>Fíjate en lo rápido que sube la probabilidad de −50% al aumentar el riesgo por operación con la misma tasa de acierto. Con un 45% de aciertos, tarde o temprano llegarán 6 o 7 pérdidas seguidas. Con un 2% de riesgo eso es un −12% doloroso; con un 10%, alrededor de −50%.</p>
+<h2>¿De dónde saco mis números?</h2>
+<p>De tu propio historial: tasa de acierto y ganancia media ÷ pérdida media de tu diario, o prueba las llamadas de un grupo con la <a href="../signal-checker-demo/">demo de Signal Checker</a> o el <a href="../telegram-signal-checker/">comprobador de canales de Telegram</a>. Después calcula cada operación con la <a href="../position-size-calculator/">calculadora de tamaño de posición</a>.</p>
+<p class="small">Todo se calcula en tu navegador; no se envía nada. Esta calculadora hace cuentas con los números que introduces. No es asesoramiento financiero.</p>
+<p>Más herramientas gratis: <a href="../../es/signal-checker-demo/">Demo de Signal Checker</a> · <a href="../../es/telegram-signal-checker/">Comprobador de canales de Telegram</a> · <a href="../../es/dca-calculator/">Calculadora de precio medio DCA</a> · <a href="../../es/crypto-profit-calculator/">Calculadora de beneficio cripto</a> · <a href="../../es/liquidation-calculator/">Calculadora de precio de liquidación</a> · <a href="../../es/position-size-calculator/">Calculadora de tamaño de posición</a></p></article>
+<script>(function(){
+var $=function(id){return document.getElementById(id);};
+var num=function(id){var v=parseFloat(String($(id).value).replace(',','.'));return isFinite(v)?v:NaN;};
+var money=function(v){return (v<0?'−$':'$')+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});};
+var signed=function(v){return (v>0?'+':'')+money(v);};
+var price=function(v){return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:v>=1?2:8});};
+var pct=function(v,d){return (v>0?'+':v<0?'−':'')+Math.abs(v*100).toFixed(d==null?2:d)+'%';};
+var show=function(id,t,c){var e=$(id);e.textContent=t;e.className=c||'';};
+var msg=function(t,c){var m=$('msg');m.textContent=t;m.className='msg '+c;};
+document.querySelectorAll('.calc input,.calc select').forEach(function(e){e.addEventListener('input',calc);e.addEventListener('change',calc);});
+
+var L={"big": "Probabilidad de perder el {x}% de tu cuenta", "med": "Resultado típico tras {n} operaciones (mediana)", "c_ruin": "Prob. de −{x}%", "trades": "operaciones", "losses": "pérdidas seguidas", "chart": "Saldo durante las próximas {n} operaciones. Línea central: simulación típica. Zona sombreada: 8 de cada 10. Líneas tenues: ejemplos. Rayas rojas: nivel de ruina.", "m_neg": "⚠ Esta ventaja pierde dinero de media. Con un {w}% de aciertos necesitas un beneficio:riesgo superior a {rr} para no perder, y ningún tamaño de posición lo arregla.", "m_high": "⚠ Arriesgar más del 5% por operación hace probables los drawdowns profundos incluso con ventaja real.", "m_ok": "✓ Ventaja positiva. El riesgo por operación decide lo duro que será el camino.", "m_bad": "Introduce una tasa de acierto entre 1 y 99, un beneficio:riesgo mayor que 0 y un riesgo por operación entre 0,1 y 50."}, MODE='c', TMR=null;
+$('mc').onclick=function(){MODE='c';$('mc').className='on';$('mf').className='';calc();};
+$('mf').onclick=function(){MODE='f';$('mf').className='on';$('mc').className='';calc();};
+function fmt(s,o){return s.replace(/\{(\w+)\}/g,function(m,k){return o[k]!=null?o[k]:m;});}
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function q(arr,p){var a=Float64Array.from(arr).sort();return a[Math.min(a.length-1,Math.floor(p*(a.length-1)))];}
+/* One Monte Carlo run set. Balance starts at 1. Ruin = balance at or below 1-ruin at any point. */
+function simulate(w,rr,risk,n,ruin,paths,mode,cps,keep){
+ var r=rng(20261023), ruined=0, below=0, ends=new Float64Array(paths), dds=new Float64Array(paths), sts=new Float64Array(paths), lvl=1-ruin;
+ var grid=cps? cps.map(function(){return new Float64Array(paths);}) : null, samples=[];
+ for(var p=0;p<paths;p++){
+  var b=1, peak=1, mdd=0, s=0, ms=0, hit=false, ci=0, path=keep&&p<keep? [1] : null;
+  for(var t=1;t<=n;t++){
+   var stake=mode==='c'? b*risk : risk;
+   if(r()<w){ b+=stake*rr; s=0; } else { b-=stake; s++; if(s>ms) ms=s; }
+   if(b<=0){ b=0; }
+   if(b>peak) peak=b; var dd=peak>0? 1-b/peak : 1; if(dd>mdd) mdd=dd;
+   if(b<=lvl+1e-12) hit=true;
+   if(grid && ci<cps.length && t===cps[ci]){ grid[ci][p]=b; ci++; }
+   if(path) path.push(b);
+  }
+  if(hit) ruined++; if(b<1) below++; ends[p]=b; dds[p]=mdd; sts[p]=ms; if(path) samples.push(path);
+ }
+ var bands=grid? grid.map(function(g){return [q(g,0.1),q(g,0.5),q(g,0.9)];}) : null;
+ return {ruin:ruined/paths, below:below/paths, med:q(ends,0.5), dd50:q(dds,0.5), dd90:q(dds,0.9), st50:q(sts,0.5), st90:q(sts,0.9), bands:bands, samples:samples};
+}
+function draw(res,n,ruin,cps){
+ var c=$('ch'), dpr=window.devicePixelRatio||1, W=c.clientWidth||600, H=Math.max(220,Math.round(W*0.5)); c.width=W*dpr; c.height=H*dpr; c.style.height=H+'px';
+ var x=c.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,W,H);
+ var top=Math.max(1.3, Math.min(6, res.bands[res.bands.length-1][2]*1.1)), pl=40, pr=8, pt=8, pb=22;
+ var X=function(t){return pl+(W-pl-pr)*t/n;}, Y=function(v){return pt+(H-pt-pb)*(1-Math.min(v,top)/top);};
+ x.font='11px Inter,system-ui,sans-serif'; x.fillStyle='#64748b'; x.strokeStyle='#1f2a44'; x.lineWidth=1;
+ [0,0.5,1,top>2?2:1.5].forEach(function(v){ if(v>top) return; x.beginPath(); x.moveTo(pl,Y(v)); x.lineTo(W-pr,Y(v)); x.stroke(); x.fillText(Math.round((v-1)*100)+'%',4,Y(v)+4); });
+ x.fillText('0',pl,H-6); x.textAlign='right'; x.fillText(n+' '+L.trades,W-pr,H-6); x.textAlign='left';
+ x.beginPath(); x.moveTo(X(0),Y(1)); cps.forEach(function(t,i){x.lineTo(X(t),Y(res.bands[i][2]));});
+ for(var i=cps.length-1;i>=0;i--) x.lineTo(X(cps[i]),Y(res.bands[i][0])); x.lineTo(X(0),Y(1)); x.closePath(); x.fillStyle='rgba(74,222,128,.13)'; x.fill();
+ x.lineWidth=1; res.samples.forEach(function(s){ x.strokeStyle='rgba(148,163,184,.28)'; x.beginPath(); s.forEach(function(v,t){ t? x.lineTo(X(t),Y(v)) : x.moveTo(X(t),Y(v)); }); x.stroke(); });
+ x.setLineDash([6,5]); x.strokeStyle='#f87171'; x.lineWidth=1.5; x.beginPath(); x.moveTo(pl,Y(1-ruin)); x.lineTo(W-pr,Y(1-ruin)); x.stroke(); x.setLineDash([]);
+ x.strokeStyle='#4ade80'; x.lineWidth=2.5; x.beginPath(); x.moveTo(X(0),Y(1)); cps.forEach(function(t,i){x.lineTo(X(t),Y(res.bands[i][1]));}); x.stroke();
+}
+function calc(){ clearTimeout(TMR); TMR=setTimeout(run,120); }
+function run(){
+ var w=num('w')/100, rr=num('rr'), risk=num('rk')/100, n=Math.round(num('n')), ruin=num('ru')/100;
+ if(!(w>0.009&&w<0.991&&rr>0&&risk>=0.001&&risk<=0.5&&n>=10&&n<=1000&&ruin>=0.05&&ruin<=0.95)){ msg(L.m_bad,'err'); return; }
+ var paths=n>500?5000:10000, step=Math.max(1,Math.round(n/60)), cps=[]; for(var t=step;t<n;t+=step) cps.push(t); cps.push(n);
+ var res=simulate(w,rr,risk,n,ruin,paths,MODE,cps,14), xr=Math.round(ruin*100);
+ $('bigl').textContent=fmt(L.big,{x:xr}); $('medl').textContent=fmt(L.med,{n:n}); $('rth').textContent=fmt(L.c_ruin,{x:xr});
+ show('pr',pp(res.ruin)); show('pb',pp(res.below)); show('md',pct(res.med-1,1),res.med>=1?'pos':'neg');
+ show('d50','−'+Math.round(res.dd50*100)+'%'); show('d90','−'+Math.round(res.dd90*100)+'%');
+ show('s50',res.st50+' '+L.losses); show('s90',res.st90+' '+L.losses);
+ var ev=w*rr-(1-w); show('ev',(ev>=0?'+':'−')+Math.abs(ev).toFixed(2)+'R ('+pct(ev*risk,2)+')',ev>=0?'pos':'neg');
+ show('bw',(100/(1+rr)).toFixed(1)+'%');
+ if(ev<=0) msg(fmt(L.m_neg,{w:+(w*100).toFixed(1),rr:((1-w)/w).toFixed(2)}),'err'); else if(risk>0.05) msg(L.m_high,'warn'); else msg(L.m_ok,'ok');
+ $('chcap').textContent=fmt(L.chart,{n:n}); draw(res,n,ruin,cps);
+ var body=$('rt').querySelector('tbody'); body.innerHTML='';
+ [0.005,0.01,0.02,0.03,0.05,0.1].concat([0.005,0.01,0.02,0.03,0.05,0.1].some(function(x){return Math.abs(x-risk)<1e-9;})?[]:[risk]).sort(function(a,b){return a-b;}).forEach(function(rk){ var r2=Math.abs(rk-risk)<1e-9? res : simulate(w,rr,rk,n,ruin,3000,MODE,null,0), tr=document.createElement('tr');
+  if(Math.abs(rk-risk)<1e-9) tr.className='hl';
+  tr.innerHTML='<td>'+(+(rk*100).toFixed(2))+'%</td><td>'+pp(r2.ruin)+'</td><td>'+pp(r2.below)+'</td><td class="'+(r2.med>=1?'pos':'neg')+'">'+pct(r2.med-1,0)+'</td>'; body.appendChild(tr); });
+}
+function pp(v){ return v<0.001? '<0.1%' : v>0.999? '>99.9%' : (v*100).toFixed(v<0.1?1:0)+'%'; }
+window.addEventListener('resize',function(){calc();});
+calc();
+})();</script>
+
+</main>
+<footer class="foot"><div class="in">
+  <div><a class="logo" href="../../es/"><span>Signal<b>Checker</b>HQ</span></a>
+  <p>Herramientas de Google Sheets que muestran los números reales del trading cripto. Creadas por un trader junto con IA. Sin señales, sin humo.</p><p><a href="../../es/how-its-built/">Cómo se crean: humano + IA →</a></p></div>
+  <div><h4>Herramientas</h4><a href="../../es/signal-checker/">Crypto Signal Checker</a><a href="../../es/trade-journal/">Crypto Trade Journal + DCA Planner</a><a href="../../es/portfolio-tracker/">Crypto Portfolio Tracker</a><a href="../../es/risk-calculator/">Position Size & Risk Calculator</a><a href="../../es/bundle/">Paquetes: Complete Kit y Toolkit</a><a href="../../es/tools/">Calculadoras gratis</a><a href="https://5778611980656.gumroad.com/l/risk-cheat-sheet">Chuleta de riesgo gratis (PDF)</a><a href="../../es/guides/">Guías</a></div>
+  <div><h4>Tienda y redes</h4><a href="https://www.etsy.com/shop/SignalCheckerHQ">Etsy</a><a href="https://5778611980656.gumroad.com/">Gumroad</a><a href="https://x.com/SignalCheckerHQ">X</a><a href="https://bsky.app/profile/signalcheckerhq.bsky.social">Bluesky</a><a href="https://www.pinterest.com/ilonavoitenco/crypto-trading-tools-templates/">Pinterest</a></div>
+  <div><h4>Info</h4><a href="../../legal/">Términos, privacidad y reembolsos (en inglés)</a><a href="mailto:support@signalcheckerhq.org">support@signalcheckerhq.org</a></div>
+</div><p class="fine in">Todas las herramientas son para análisis y registro. Nada en este sitio es asesoramiento financiero. Los ejemplos usan datos de ejemplo o históricos; los resultados varían. © 2026 SignalCheckerHQ. SignalCheckerHQ™, Signal Checker™ y el logotipo de SignalCheckerHQ son marcas de SignalCheckerHQ. Todos los productos, imágenes, videos y textos están protegidos por derechos de autor; no se permite copiarlos ni revenderlos.</p></footer>
+<script src="https://gumroad.com/js/gumroad.js" defer></script>
+<script src="../../assets/helpbot.js?v=1" defer></script>
+<script data-goatcounter="https://signalcheckerhq.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
